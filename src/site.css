@@ -1778,3 +1778,17 @@ body > .site-header, body > .site-footer { flex: none; }
 .made-notes dd.nodata { color: var(--muted); font-style: italic; }
 .made-foot { font-size: var(--fs-sm); color: var(--muted); }
 @media (max-width: 480px) { .made-notes > div { grid-template-columns: 1fr; gap: 0; } }
+
+/* "New" in place of "0 visits" for a just-listed game with no data yet (build.mjs isNew) */
+.card-score.card-new,
+.new-pill {
+  display: inline-block;
+  padding: 0 var(--s2);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.new-pill { margin-right: var(--s1); }

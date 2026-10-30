@@ -141,6 +141,16 @@ function heat(stats, slug) {
   return { n: visits, unit: "visits", title: "external visits, last 14 days" };
 }
 
+/* "New" instead of "0 visits": no visit or play data yet AND listed under NEW_DAYS days before the build date.
+   Data-driven: as soon as stats.json has visits for the game, or it is older, the real count shows. */
+const NEW_DAYS = 14;
+function isNew(stats, g) {
+  const s = stats[g.slug] || {};
+  if ((Number(s.visits) || 0) > 0 || (Number(s.plays) || 0) > 0) return false;
+  const days = (Date.parse(BUILD_DATE) - Date.parse(g.added || "")) / 864e5;
+  return days >= 0 && days < NEW_DAYS;
+}
+
 function esc(s) {
   return String(s)
     .replaceAll("&", "&amp;")
@@ -338,7 +348,7 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
     ${tagsHtml(g)}
     <div class="card-actions">
       <a class="btn btn-play" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">${PLAY_ICON}Play<span class="visually-hidden"> ${esc(g.title)}</span></a>
-      <span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>
+      ${isNew(stats, g) ? `<span class="card-score card-new" title="Added ${esc(g.added)}; no visit data yet">New</span>` : `<span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>`}
     </div>
   </div>
 </article>`;
@@ -633,7 +643,7 @@ function detailPage(g, stats, allGames) {
       <h1>${esc(g.title)}</h1>
       <p class="pitch">${esc(g.subline || g.pitch)}</p>
       ${tagsHtml(g)}
-      <p class="score-hint">${heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
+      <p class="score-hint">${isNew(stats, g) ? `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${esc(g.added)}</time>; no visit data yet` : heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
       </div>
       <div class="detail-cta">
       <div class="card-actions detail-actions">
@@ -739,8 +749,9 @@ function popularPage(games, stats) {
     <p>${esc(g.pitch)}</p>
   </div>
   <div class="board-score">
-    <div class="board-n"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits" : "plays"}</div>
-    <div>${Number(st.plays) > 0 ? `${Number(st.visits) || 0} visits · ${Number(st.plays)} plays` : "last 14 days"}</div>
+    ${isNew(stats, g) ? `<div class="board-n">New</div>
+    <div>added ${esc(g.added)}</div>` : `<div class="board-n"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits" : "plays"}</div>
+    <div>${Number(st.plays) > 0 ? `${Number(st.visits) || 0} visits · ${Number(st.plays)} plays` : "last 14 days"}</div>`}
   </div>
 </a>`;
     })

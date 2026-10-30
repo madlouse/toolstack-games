@@ -136,6 +136,25 @@ for (const g of real.filter((x) => x.license !== "self-made")) {
   check(`H-08 ${g.slug}: policy entry shows the lineage`, !!g.lineage && pol.includes(g.lineage.replaceAll("'", "&#39;")));
 }
 
+// New badge: a game with no stats entry (or 0 visits and 0 plays) listed under 14 days ago shows "New" on its
+// home card, popular row and detail page instead of "0 visits"; games with data keep their real counts
+{
+  const st = JSON.parse(readFileSync(join(ROOT, "data/stats.json"), "utf8"));
+  const pPop = read(pr, "popular/index.html");
+  for (const g of real) {
+    const s = st[g.slug] || {};
+    const days = (Date.parse("2026-10-30") - Date.parse(g.added)) / 864e5;
+    const isNew = !(Number(s.visits) > 0 || Number(s.plays) > 0) && days >= 0 && days < 14;
+    const card = (pHome.split(`<a class="card-thumb" href="/games/${g.slug}/"`)[1] || "").split("</article>")[0];
+    const row = (pPop.split(`<a class="board-row" href="/games/${g.slug}/">`)[1] || "").split("</a>")[0];
+    const hint = (read(pr, `games/${g.slug}/index.html`).split('class="score-hint">')[1] || "").split("</p>")[0];
+    for (const [where, html] of [["home card", card], ["popular row", row], ["detail", hint]]) {
+      if (isNew) check(`New ${g.slug} ${where}: shows New, no "0 visits"`, />New</.test(html) && !/>0<\/span> visits/.test(html));
+      else check(`New ${g.slug} ${where}: real count ${s.visits} visits, no New`, html.includes(`>${s.visits}</span> visits`) && !/>New</.test(html));
+    }
+  }
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);
