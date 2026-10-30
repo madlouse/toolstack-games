@@ -209,6 +209,34 @@ for (const g of real) {
   }
 }
 
+// R12b: share-of-own-games copy and phone claims follow the data (2 own + 2 third-party => not "most")
+{
+  const own = real.filter((g) => g.license === "self-made").length;
+  const n = real.length;
+  const pPolicy = read(pr, "content-policy/index.html");
+  const pPop2 = read(pr, "popular/index.html");
+  const desc = (h) => (h.match(/<meta name="description" content="([^"]*)"/) || [])[1] || "";
+  const unesc = (t) => t.replace(/&#39;/g, "'").replace(/&amp;/g, "&").replace(/&quot;/g, '"');
+  if (own * 2 <= n) {
+    check(`R12b prod: no "Most ... our own/made by Toolstack Lab" claim (${own} of ${n} are ours)`,
+      !/Most games here are made by Toolstack Lab|Most are our own|Most are made by Toolstack Lab/.test(pHome + pAbout + pPolicy));
+  }
+  check(`R12b prod: home/About/policy state the real share (${own} of ${n})`,
+    [pHome, pAbout, pPolicy].every((h) => h.includes(own * 2 > n ? "Most" : " of the ")));
+  const anyDesk = real.some((g) => g.platform === "desktop-first");
+  for (const [name, h] of [["home", pHome], ["popular", pPop2], ["about", pAbout]]) {
+    const d = unesc(desc(h));
+    check(`R12b prod ${name}: meta description ${d.length} chars <= 160`, d.length > 0 && d.length <= 160);
+    if (anyDesk) check(`R12b prod ${name}: meta description makes no phone claim while a desktop-first game is listed`, !/phone|mobile/i.test(d));
+  }
+  const mostData = join(tmp, "games-most.json");
+  writeFileSync(mostData, JSON.stringify(real.filter((g) => g.license === "self-made" || g.slug === "merge-tiles"), null, 2));
+  const om = join(tmp, "out-most");
+  const bm = build(["--data", mostData], om);
+  check('R12b 2 own + 1 classic: About says "Most are our own"', bm.ok && read(om, "about/index.html").includes("Most are our own"));
+  check('R12b fixture (2 own + 3 others): About says "Two of the five are our own"', about.includes("Two of the five are our own"));
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

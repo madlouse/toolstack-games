@@ -52,6 +52,16 @@ const MIX_PHRASE = "mostly 3D, plus a few selected classics";
 /* Home <title>/og/twitter/CollectionPage name when a classic is listed (seo.home-mix). */
 const HOME_NAME_MIX = "Free 3D Browser Games + Classics";
 const allOwn = (games) => games.every(isSelfMade);
+/* R12: how many games are ours, said from the data ("Most" only while it is true). */
+const NUM_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
+const numWord = (k) => NUM_WORDS[k] || String(k);
+const ownShare = (games) => {
+  const own = games.filter(isSelfMade).length;
+  return own * 2 > games.length ? "Most" : `${numWord(own)} of the ${numWord(games.length).toLowerCase()}`;
+};
+/* R12: no "desktop or phone" promise in site-wide copy while a desktop-first game is listed. */
+const anyDesktopFirst = (games) => games.some((g) => g.platform === "desktop-first");
+const playWhere = (games) => (anyDesktopFirst(games) ? "Play in your browser" : "Play instantly on desktop or phone");
 /* H-09: home shelves. A third-party game sits on the Classics shelf unless its data says otherwise;
    with no classic listed the home page renders exactly one "All games" shelf, as before. */
 const isClassic = (g) => (g.shelf || (isSelfMade(g) ? "3d" : "classics")) === "classics";
@@ -65,7 +75,13 @@ const tagline = (games) =>
 const homeDesc = (games) =>
   allOwn(games)
     ? "Free 3D browser games by Toolstack Lab: a one-button potato slingshot and a cozy island platformer. Play instantly on desktop or phone. No download, no account."
-    : `Free browser games from Toolstack Lab, ${MIX_PHRASE}. Play instantly on desktop or phone, with no download, no account and no cookies.`;
+    : `Free browser games from Toolstack Lab, ${MIX_PHRASE}. ${playWhere(games)}, with no download, no account and no cookies.`;
+/* Popular meta description: names every game while that fits in 160 characters, else gives the count. */
+const popularDesc = (games) => {
+  const tail = anyDesktopFirst(games) ? "No download, no account." : "Play instantly on desktop or phone, no account.";
+  const named = `All free browser games on Toolstack Lab, most visited first: ${listNames(games.map((g) => g.title))}. ${tail}`;
+  return named.length <= 160 ? named : `All ${games.length} free browser games on Toolstack Lab, most visited first. ${tail}`;
+};
 /* JSON-LD author: the Organization for our own games; the credited upstream author for a classic. */
 const listNames = (a) => (a.length < 2 ? a.join("") : `${a.slice(0, -1).join(", ")} and ${a[a.length - 1]}`);
 const authorLd = (g) =>
@@ -443,7 +459,7 @@ ${classics.map(cardOf).join("\n")}
   </section>` : ""}
   <section class="section wrap safe-note" aria-labelledby="safe-h">
     <h2 id="safe-h">Why these games are safe to play</h2>
-    <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : "Most games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors."} There is no sign-up. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. Progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
+    <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : `${ownShare(games)} games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors.`} There is no sign-up. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. Progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
   </section>
 </main>`;
 
@@ -795,7 +811,7 @@ ${rows}
     title: "All Games | Toolstack Lab",
     description: allOwn(games)
       ? "All free 3D browser games on Toolstack Lab, most visited first: Spud Fling and Pip's Bloom Isle. Play instantly on desktop or phone, no download or account."
-      : `All free browser games on Toolstack Lab, most visited first: ${listNames(games.map((g) => g.title))}. Play instantly on desktop or phone, no account.`,
+      : popularDesc(games),
     canonicalPath: "/popular/",
     ogImage: "/og.jpg",
     body,
@@ -822,7 +838,7 @@ function aboutPage(games) {
     <h1>About Toolstack Lab Games</h1>
     <p>${allOwn(games)
       ? "Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page."
-      : `Toolstack Lab Games is where Toolstack Lab publishes small browser games: ${MIX_PHRASE}. Most are our own; each classic is a clearly-licensed open-source game, credited to its author on its page. Press Play and it loads right in the page.`} No accounts, and no third-party scripts or fonts on these pages. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting, inside our own games.</p>
+      : `Toolstack Lab Games is where Toolstack Lab publishes small browser games: ${MIX_PHRASE}. ${ownShare(games)} are our own; each classic is a clearly-licensed open-source game, credited to its author on its page. Press Play and it loads right in the page.`} No accounts, and no third-party scripts or fonts on these pages. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting, inside our own games.</p>
   </section>
   <div class="page-cols">
   <article class="prose page-main">
@@ -927,7 +943,7 @@ function policyPage(games) {
     <h2>What we list</h2>
     <p>${allOwn(games)
       ? "Today every game on this site is made by Toolstack Lab: our own code, art and sound. If we list a game by someone else, such as an open-source classic, it must meet all of these rules:"
-      : `The games here are ${MIX_PHRASE}. Most are made by Toolstack Lab: our own code, art and sound. A game by someone else must meet all of these rules:`}</p>
+      : `The games here are ${MIX_PHRASE}. ${ownShare(games)} are made by Toolstack Lab: our own code, art and sound. A game by someone else must meet all of these rules:`}</p>
     <ul>
       <li>Its licence is a permissive open-source licence (such as MIT, BSD, Apache-2.0 or zlib) or a public-domain dedication that allows commercial use and changes. Copyleft licences (GPL, CC BY-SA) and non-commercial licences are not listed for now.</li>
       <li>Its maker, licence, original source and any changes we made are named on its game page, with the copyright notice the licence asks us to keep.</li>
