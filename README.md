@@ -59,7 +59,7 @@ Real counters are **docs only** in this MVP — not built.
 ## Add a game
 
 1. Confirm the game passes [CONTENT-POLICY.md](./CONTENT-POLICY.md) (self-made / CC0-PD / OSS with commercial+embed rights; record proof).
-2. Append an object to `data/games.json` with every required field (`slug`, `title`, `pitch`, `description`, `controls`, `tags`, `url`, `embed`, `thumbnail`, `screenshots` ≥3, `license`, `licenseUrl`, `source`, `author`, `added`, `status`).
+2. Append an object to `data/games.json` with every required field (`slug`, `title`, `pitch`, `description`, `controls`, `tags`, `url`, `embed`, `thumbnail`, `screenshots` ≥3, `license`, `licenseUrl`, `source`, `author`, `added`, `status`). A third-party (non self-made) game also needs `licenseEvidence`, `copyrightNotice`, `modifications` and an `https://` `source`; its credits block is rendered from these fields. Run `npm test` (validate fixtures) and `node test/build-fixture.mjs` after changing `validate.mjs` or `build.mjs`.
 3. Capture ≥3 screenshots from the live URL (`npm run capture` or equivalent) into `assets/games/<slug>/`.
 4. Add `{ "visits": 0, "plays": 0 }` under that slug in `data/stats.json` (or real numbers only).
 5. If the game origin is new and `embed: true`, add it to `frame-src` in `vercel.json`.

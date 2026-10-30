@@ -19,17 +19,71 @@ import { createHash } from "node:crypto";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
-const DIST = resolve(ROOT, "dist");
+/* CLI (defaults = production build): node build.mjs [--data games.json] [--stats stats.json] [--vercel vercel.json] [--out dir]
+   The overrides exist for fixture builds (test/build-fixture.mjs); never point --out at dist/ with fixture data. */
+const ARGS = (() => {
+  const a = {};
+  const v = process.argv.slice(2);
+  for (let i = 0; i < v.length; i += 2) {
+    const k = v[i].replace(/^--/, "");
+    if (!["data", "stats", "vercel", "out"].includes(k) || v[i + 1] === undefined) {
+      console.error(`usage: node build.mjs [--data f] [--stats f] [--vercel f] [--out dir] (bad arg ${v[i]})`);
+      process.exit(2);
+    }
+    a[k] = resolve(v[i + 1]);
+  }
+  return a;
+})();
+const DATA = ARGS.data || resolve(ROOT, "data/games.json");
+const STATS = ARGS.stats || resolve(ROOT, "data/stats.json");
+const VERCEL = ARGS.vercel || resolve(ROOT, "vercel.json");
+const DIST = ARGS.out || resolve(ROOT, "dist");
 const CANONICAL = "https://games.gettoolstacklab.com";
 const SITE_NAME = "Toolstack Lab Games";
 const BUILD_DATE = "2026-10-30";
 const ORG = { "@type": "Organization", name: "Toolstack Lab", url: "https://gettoolstacklab.com" };
 const MAX_TAGS = 3;
 const SEARCH_MIN_GAMES = 6;
-const TAGLINE =
-  "Small games made by Toolstack Lab. Click Play and you are in — no download, no account, no cookies.";
-const HOME_DESC =
-  "Free 3D browser games by Toolstack Lab: a one-button potato slingshot and a cozy island platformer. Play instantly on desktop or phone. No download, no account.";
+/* H-02: authorship copy is driven by data. While every game is self-made the site says so; once a
+   clearly-licensed open-source classic is listed, the copy switches to the Lead-decided wording
+   ("mostly 3D, plus a few selected classics") and each classic is credited on its own page. */
+const isSelfMade = (g) => g.license === "self-made";
+const MIX_PHRASE = "mostly 3D, plus a few selected classics";
+const allOwn = (games) => games.every(isSelfMade);
+const tagline = (games) =>
+  allOwn(games)
+    ? "Small games made by Toolstack Lab. Click Play and you are in — no download, no account, no cookies."
+    : `Small browser games, ${MIX_PHRASE}. Click Play and you are in — no download, no account, no cookies.`;
+const homeDesc = (games) =>
+  allOwn(games)
+    ? "Free 3D browser games by Toolstack Lab: a one-button potato slingshot and a cozy island platformer. Play instantly on desktop or phone. No download, no account."
+    : `Free browser games from Toolstack Lab, ${MIX_PHRASE} with open-source licences. Play instantly on desktop or phone. No download, no account.`;
+/* JSON-LD author: the Organization for our own games; the credited upstream author for a classic. */
+const authorLd = (g) =>
+  isSelfMade(g) ? ORG : { "@type": "Person", name: g.author, ...(g.authorUrl ? { url: g.authorUrl } : {}) };
+
+function creditsBlock(g, updated) {
+  if (isSelfMade(g)) {
+    return `<p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved.</p>
+    <dl>
+      <div><dt>Licence</dt><dd><a class="hit" href="/content-policy/#${esc(g.slug)}">Self-made · content policy</a></dd></div>
+      <div><dt>Source</dt><dd>${esc(g.source)}</dd></div>
+      <div><dt>Checked</dt><dd><time datetime="${esc(updated)}">${esc(updated)}</time></dd></div>
+    </dl>`;
+  }
+  const ev = g.licenseEvidence || {};
+  const author = g.authorUrl ? `<a href="${esc(g.authorUrl)}" rel="noopener">${esc(g.author)}</a>` : esc(g.author);
+  const src = `<a href="${esc(g.source)}" rel="noopener">${esc(g.source.replace(/^https:\/\//, ""))}</a>${g.sourceCommit ? ` at <code>${esc(g.sourceCommit)}</code>` : ""}`;
+  return `<p>Original game by ${author}, used under the ${esc(g.license)} licence. Toolstack Lab hosts a copy on its own web address; it is not an official release and is not endorsed by the author.</p>
+    <dl>
+      <div><dt>Licence</dt><dd><a class="hit" href="${esc(g.licenseUrl)}" rel="noopener">${esc(g.license)}</a></dd></div>
+      ${g.copyrightNotice ? `<div><dt>Copyright</dt><dd>${esc(g.copyrightNotice)}</dd></div>` : ""}
+      <div><dt>Source</dt><dd>${src}</dd></div>
+      <div><dt>Our changes</dt><dd>${esc(g.modifications)}</dd></div>
+      <div><dt>Licence proof</dt><dd><a href="${esc(ev.url)}" rel="noopener">licence text</a>: “${esc(ev.quote)}”</dd></div>
+      <div><dt>Checked</dt><dd><time datetime="${esc(ev.checked)}">${esc(ev.checked)}</time></dd></div>
+    </dl>`;
+}
 
 function tagsHtml(g) {
   return `<div class="tags">${(g.tags || []).slice(0, MAX_TAGS).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
@@ -275,7 +329,7 @@ function homePage(games, stats) {
     <div class="hero-text">
       <div class="hero-kicker">Toolstack Lab Games</div>
       <h1>Free 3D browser games – play instantly, no account</h1>
-      <p>${esc(TAGLINE)}</p>
+      <p>${esc(tagline(games))}</p>
       <div class="hero-actions">
         <a class="btn btn-play btn-lg" href="/games/${esc(hot.slug)}/#play" data-recent-slug="${esc(hot.slug)}" data-recent-title="${esc(hot.title)}">${PLAY_ICON}Play ${esc(hot.title)}</a>
         <a class="btn-link" href="#games">See all ${games.length} games</a>
@@ -310,7 +364,7 @@ ${cards}
   </section>
   <section class="section wrap safe-note" aria-labelledby="safe-h">
     <h2 id="safe-h">Why these games are safe to play</h2>
-    <p>Every game here is made by Toolstack Lab. There is no sign-up, no cookies and no ad or tracking scripts; progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
+    <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : "Most games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors."} There is no sign-up, no cookies and no ad or tracking scripts; progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
   </section>
 </main>`;
 
@@ -337,7 +391,7 @@ ${cards}
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: SITE_NAME,
-    description: HOME_DESC,
+    description: homeDesc(games),
     url: CANONICAL + "/",
     inLanguage: "en",
     isPartOf: { "@id": CANONICAL + "/#website" },
@@ -357,7 +411,7 @@ ${cards}
 
   return layout({
     title: "Free 3D Browser Games: No Download, No Login | Toolstack Lab",
-    description: HOME_DESC,
+    description: homeDesc(games),
     canonicalPath: "/",
     ogImage: "/og.jpg",
     body,
@@ -462,9 +516,9 @@ function detailPage(g, stats, allGames) {
     inLanguage: g.inLanguage || "en",
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    author: ORG,
+    author: authorLd(g),
     publisher: ORG,
-    license: policyUrl,
+    license: g.licenseUrl || policyUrl,
     datePublished: g.added,
     dateModified: updated,
   };
@@ -509,7 +563,7 @@ function detailPage(g, stats, allGames) {
     ["Price", "Free"],
     ["Account needed", "No"],
     ["Save data", "Stays in your browser (localStorage)"],
-    ["Made by", "Toolstack Lab"],
+    ["Made by", isSelfMade(g) ? "Toolstack Lab" : `${g.author} (original) · hosted by Toolstack Lab`],
     ["Released", g.added],
     ["Updated", updated],
   ]
@@ -599,12 +653,7 @@ ${shots}
 
   <section class="license-box prose" id="license" aria-labelledby="license-h">
     <h2 id="license-h">Who made ${esc(g.title)} and its licence</h2>
-    <p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved.</p>
-    <dl>
-      <div><dt>Licence</dt><dd><a class="hit" href="/content-policy/#${esc(g.slug)}">Self-made · content policy</a></dd></div>
-      <div><dt>Source</dt><dd>${esc(g.source)}</dd></div>
-      <div><dt>Checked</dt><dd><time datetime="${esc(updated)}">${esc(updated)}</time></dd></div>
-    </dl>
+    ${creditsBlock(g, updated)}
   </section>
   </aside>
   </div>
@@ -682,13 +731,15 @@ function aboutPage(games) {
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>About Toolstack Lab Games</h1>
-    <p>Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page. No accounts, no cookies, no third-party scripts or fonts.</p>
+    <p>${allOwn(games)
+      ? "Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page."
+      : `Toolstack Lab Games is where Toolstack Lab publishes small browser games: ${MIX_PHRASE}. Most are our own; each classic is a clearly-licensed open-source game, credited to its author on its page. Press Play and it loads right in the page.`} No accounts, no cookies, no third-party scripts or fonts.</p>
   </section>
   <div class="page-cols">
   <article class="prose page-main">
     <h2>What you get</h2>
     <ul>
-      <li>Games we made ourselves. Each game page shows its licence and source.</li>
+      <li>${allOwn(games) ? "Games we made ourselves." : "Games we made ourselves, plus a few selected open-source classics."} Each game page shows its licence and source.</li>
       <li>Nothing heavy loads until you press Play. You can also open any game in its own tab.</li>
       <li>The ranking uses visits from the last 14 days. “Recently played” stays on your device only.</li>
     </ul>
@@ -706,7 +757,9 @@ function aboutPage(games) {
   return layout({
     title: "About Toolstack Lab Games – Who Makes Them & Licences",
     description:
-      "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Every game is our own.",
+      allOwn(games)
+        ? "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Every game is our own."
+        : "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Mostly 3D, plus classics.",
     canonicalPath: "/about/",
     ogImage: "/og.jpg",
     body,
@@ -756,9 +809,9 @@ function policyPage(games) {
   <h3 id="${esc(g.slug)}-h"><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a></h3>
   <dl>
     <div><dt>Made by</dt><dd>${esc(g.author)}</dd></div>
-    <div><dt>Licence</dt><dd>${g.license === "self-made" ? "Our own work, all rights reserved" : esc(g.license)}</dd></div>
-    <div><dt>Source</dt><dd>${g.source === "self-made by Toolstack Lab" ? "Made by Toolstack Lab" : esc(g.source)}</dd></div>
-    <div><dt>Checked</dt><dd><time datetime="${esc(g.updated || BUILD_DATE)}">${esc(g.updated || BUILD_DATE)}</time></dd></div>
+    <div><dt>Licence</dt><dd>${isSelfMade(g) ? "Our own work, all rights reserved" : `<a href="${esc(g.licenseUrl)}" rel="noopener">${esc(g.license)}</a>${g.copyrightNotice ? ` · ${esc(g.copyrightNotice)}` : ""}`}</dd></div>
+    <div><dt>Source</dt><dd>${g.source === "self-made by Toolstack Lab" ? "Made by Toolstack Lab" : `<a href="${esc(g.source)}" rel="noopener">${esc(g.source)}</a>`}</dd></div>
+    <div><dt>Checked</dt><dd><time datetime="${esc(isSelfMade(g) ? g.updated || BUILD_DATE : g.licenseEvidence?.checked || g.updated || BUILD_DATE)}">${esc(isSelfMade(g) ? g.updated || BUILD_DATE : g.licenseEvidence?.checked || g.updated || BUILD_DATE)}</time></dd></div>
   </dl>
 </section>`
     )
@@ -773,14 +826,17 @@ function policyPage(games) {
   <div class="page-cols">
   <article class="prose page-main policy-body">
     <h2>What we list</h2>
-    <p>Today every game on this site is made by Toolstack Lab: our own code, art and sound. If we ever list a game by someone else, it must meet both of these rules:</p>
+    <p>${allOwn(games)
+      ? "Today every game on this site is made by Toolstack Lab: our own code, art and sound. If we list a game by someone else, such as an open-source classic, it must meet all of these rules:"
+      : `The games here are ${MIX_PHRASE}. Most are made by Toolstack Lab: our own code, art and sound. A game by someone else must meet all of these rules:`}</p>
     <ul>
-      <li>Its licence clearly allows other sites to embed it and to use it commercially, or it is in the public domain.</li>
-      <li>Its maker and the original source are named on its game page.</li>
+      <li>Its licence is a permissive open-source licence (such as MIT, BSD, Apache-2.0 or zlib) or a public-domain dedication that allows commercial use and changes. Copyleft licences (GPL, CC BY-SA) and non-commercial licences are not listed for now.</li>
+      <li>Its maker, licence, original source and any changes we made are named on its game page, with the copyright notice the licence asks us to keep.</li>
+      <li>It runs on its own web address, separate from this site, inside a sandboxed frame.</li>
     </ul>
     <h2>What we never list</h2>
     <ul>
-      <li>Copies or ports of well-known games, characters or brands we do not have rights to. Borrowing a mechanic is fine; copying levels, art or names is not.</li>
+      <li>Games that infringe a trademark or copy art, characters, levels or other assets we have no rights to. A clearly-licensed open-source classic is fine, but it keeps its author's credit and is never named or presented as an official version.</li>
       <li>Games that need an account or collect personal data just to play.</li>
       <li>Store art or screenshots taken from other sites. Every picture here is a frame from the game itself or art we made.</li>
     </ul>
@@ -829,7 +885,7 @@ function copyAssets() {
 }
 
 function main() {
-  const v = spawnSync(process.execPath, [resolve(ROOT, "validate.mjs")], {
+  const v = spawnSync(process.execPath, [resolve(ROOT, "validate.mjs"), DATA, "--vercel", VERCEL], {
     cwd: ROOT,
     encoding: "utf8",
   });
@@ -840,8 +896,8 @@ function main() {
     process.exit(v.status || 1);
   }
 
-  const games = JSON.parse(readFileSync(resolve(ROOT, "data/games.json"), "utf8"));
-  const stats = JSON.parse(readFileSync(resolve(ROOT, "data/stats.json"), "utf8"));
+  const games = JSON.parse(readFileSync(DATA, "utf8"));
+  const stats = JSON.parse(readFileSync(STATS, "utf8"));
   const sorted = [...games].sort((a, b) => score(stats, b.slug) - score(stats, a.slug));
 
   if (existsSync(DIST)) rmSync(DIST, { recursive: true, force: true });

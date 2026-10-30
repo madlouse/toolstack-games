@@ -8,14 +8,19 @@ A game may appear here only if **all** of the following are true:
 
 1. **Ownership / licence fits one of:**
    - **Self-made** by Toolstack Lab (or an author who granted us rights), or
-   - **Public domain** (CC0 or equivalent PD dedication), or
-   - **Open-source** with an explicit licence that permits **commercial use and embedding** (for example MIT, Apache-2.0, BSD-2/3, zlib — check the exact text).
+   - **Public domain** (`CC0-1.0` or equivalent PD dedication), or
+   - **Permissive open-source** with an explicit licence that permits **commercial use, modification and embedding**: `MIT`, `BSD-2-Clause`, `BSD-3-Clause`, `Apache-2.0`, `Zlib`, `CC-BY-4.0` (check the exact text; the allowlist lives in `validate.mjs`).
+   - **Not allowed for now:** copyleft (GPL, AGPL, LGPL, MPL/EPL, CC-BY-SA / ShareAlike), NonCommercial (`NC`), NoDerivatives (`ND`), and anything with an unknown or unread licence.
 2. **Provenance is recorded** in `data/games.json`:
-   - `license` — short label (e.g. `self-made`, `MIT`, `CC0`)
-   - `licenseUrl` — proof URL, or the literal string `n/a (self-made)`
-   - `source` — repo / origin URL, or `self-made by Toolstack Lab`
-3. **No unattributed classics.** Ports or remakes of well-known arcade/console games are not allowed unless we hold clear rights or a permissive licence covering that content. "Inspired by a mechanic" is fine; copying characters, levels, or branding is not.
-4. **Embedding.** If `embed: true`, the upstream must allow framing / embedding on a third-party origin (or we host a copy we control). Otherwise set `embed: false` and link out only.
+   - `license` — SPDX id from the allowlist, or `self-made`
+   - `licenseUrl` — `https://` proof URL (for self-made: this hub's `/content-policy/#<slug>`; for third-party: the upstream LICENSE file, pinned to a commit where possible)
+   - `source` — `self-made by Toolstack Lab`, or the upstream repo `https://` URL (`sourceCommit` optional)
+   - `author` (+ optional `authorUrl`) — the real original author; never Toolstack Lab for a third-party game
+   - third-party only: `licenseEvidence {url, quote, checked}` (the licence text we actually read, and when), `copyrightNotice` (the notice MIT/BSD/Apache/Zlib/CC-BY require us to keep; not needed for CC0), `modifications` (what we changed, e.g. "removed Google Analytics"; `None` if nothing), optional `shelf: "classics"`
+   - The game page and the content-policy page render these credits from the data (`build.mjs`), so the published text always matches the record.
+3. **No trademark or asset infringement.** We do not copy characters, levels, art, sounds, logos or brand names we have no rights to. **Clearly-licensed open-source classics are allowed** (for example an MIT-licensed 2048 on a "Classics" shelf), but only the code/assets the licence covers, and the **name must not pose as official**: credit the original author, say it is an independent copy, and do not use another company's product name or branding as if it were ours. "Inspired by a mechanic" is fine.
+4. **Embedding.** If `embed: true`, the upstream must allow framing / embedding on a third-party origin (or we host a copy we control). A third-party game is always served from **its own origin** (a separate subdomain or `*.pages.dev`), never same-origin with the hub, inside a sandboxed iframe; `vercel.json` CSP `frame-src` adds only that origin. Otherwise set `embed: false` and link out only.
+5. **Site copy stays true.** The hub brand stays "Free 3D Browser Games". While every game is self-made the site says so; once a classic is listed, About/home switch to "mostly 3D, plus a few selected classics" automatically (`build.mjs`).
 
 ## Build gate
 
