@@ -90,6 +90,14 @@ check('prod merge-tiles credits "Gabriele Cirulli et al." + MIT', pMerge.include
 check("prod spud + pips iframes have no sandbox", ["spud-fling", "pips-bloom-isle"].every((sl) => !iframeTag(read(pr, `games/${sl}/index.html`)).includes("sandbox")));
 check("prod build has no fixture slug", !existsSync(join(pr, "games", classic.slug)) && !read(pr, "sitemap.xml").includes(classic.slug));
 
+// H-05: every game page's facts <dl> has a one-line Controls row and a Licence row linking games.json licenseUrl
+const factsOf = (html) => (html.match(/<dl class="facts">([\s\S]*?)<\/dl>/) || ["", ""])[1];
+for (const g of real) {
+  const f = factsOf(read(pr, `games/${g.slug}/index.html`));
+  check(`H-05 ${g.slug}: facts Controls row`, /<dt>Controls<\/dt><dd>[^<]+<\/dd>/.test(f));
+  check(`H-05 ${g.slug}: facts Licence row links licenseUrl`, f.includes(`<dt>Licence</dt><dd><a href="${g.licenseUrl}"`));
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

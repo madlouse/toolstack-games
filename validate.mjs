@@ -53,7 +53,7 @@ const REQUIRED = [
 ];
 const THIRD_PARTY_REQUIRED = ["licenseEvidence", "copyrightNotice", "modifications"];
 const OPTIONAL = [
-  "howToPlay", "controlsKeyboard", "controlsTouch", "tips", "faq", "similarGenres", "playMode", "inLanguage",
+  "howToPlay", "controlsShort", "controlsKeyboard", "controlsTouch", "tips", "faq", "similarGenres", "playMode", "inLanguage",
   "applicationCategory", "operatingSystem", "gamePlatform", "seoTitle", "seoDescription", "subline",
   "definition", "genreLabel", "coverAlt", "screenshotAlts", "updated", "cover",
   // provenance / credits (H-02)

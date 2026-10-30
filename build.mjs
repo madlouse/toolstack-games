@@ -586,8 +586,11 @@ function detailPage(g, stats, allGames) {
     ["Made by", isSelfMade(g) ? "Toolstack Lab" : `${g.author} (original) · hosted by Toolstack Lab`],
     ["Released", g.added],
     ["Updated", updated],
+    // H-05: one-line controls and a licence link, so the key facts sit in one place
+    ["Controls", g.controlsShort || g.controls],
+    ["Licence", { html: `<a href="${esc(g.licenseUrl)}"${isSelfMade(g) ? "" : ' rel="noopener"'}>${isSelfMade(g) ? "Our own work · all rights reserved" : esc(g.license)}</a>` }],
   ]
-    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${k === "Updated" || k === "Released" ? `<time datetime="${esc(v)}">${esc(v)}</time>` : esc(v)}</dd></div>`)
+    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${typeof v === "object" ? v.html : k === "Updated" || k === "Released" ? `<time datetime="${esc(v)}">${esc(v)}</time>` : esc(v)}</dd></div>`)
     .join("");
 
   const body = `

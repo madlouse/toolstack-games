@@ -6,6 +6,7 @@
     "description": "Hold to charge a giant slingshot, release to fling Spud across a bright 3D field. Smash crate towers for potato coins, bounce off mushrooms, and climb an unlock ladder: Double Band, Bouncy Mushrooms, Air Toot, Pond of Gulpo, Mega Band, and Golden Spud. After the Gulpo unlock, a giant frog at the pond can swallow Spud and spit the potato out for a burst of distance. Single-player, one continuous progression mode. Progress saves locally in your browser.",
     "howToPlay": "Spud Fling is a one-button physics arcade game. Hold Space, Enter, mouse button, or touch to charge the slingshot (the power meter oscillates), then release to fling Spud. During flight, press again if you have unlocked Air Toot for a mid-air boost. After landing, press once more to reset and fling again. Smash crate towers for potato coins; unlocks happen automatically at coin thresholds. Single-player only — no accounts.",
     "controls": "Hold Space, Enter, mouse, or touch to charge; release to launch. During flight, press again for the unlocked Air Toot. After landing, press to reset.",
+    "controlsShort": "One button: hold Space, Enter, mouse or touch to charge, release to fling",
     "controlsKeyboard": "Hold Space or Enter to charge; release to launch. Press again in flight for Air Toot (once unlocked). Press after landing to reset.",
     "controlsTouch": "Touch and hold anywhere to charge; release to launch. Tap again in flight for Air Toot (once unlocked). Tap after landing to reset.",
     "tips": [
@@ -101,6 +102,7 @@
     "description": "A cozy 3D platformer-collector for casual players 13+. Tansy, an original egg-shaped gardener, tends World 1 across four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb. Pip the sprout follows and cheers when a level is cleared. Gentle, Breezy, and Bold change landing size and timing only. Art and audio are procedural. Progress, chosen tier, mute, and seen hints stay in localStorage on this device — no cookies, no account.",
     "howToPlay": "Play as Tansy, an original egg-shaped gardener, through World 1’s four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb. Move, jump, dive, and plant to tend each island. Pip the sprout follows and cheers when you clear a level. Choose Gentle, Breezy, or Bold before you start — they only change landing size and timing. Audience: casual players 13+. Progress stays on this device in localStorage.",
     "controls": "Move with W A S D or arrow keys. Jump with 1 (or numpad 1); Space is a backup jump once a level is running. Dive with Shift or C. Plant with E. Pause with Esc. Start with Enter. Touch: left stick, jump and dive buttons, drag the right side to look.",
+    "controlsShort": "W A S D or arrows to move, 1 to jump, Shift to dive, E to plant; touch stick and buttons",
     "controlsKeyboard": "Move: W A S D or arrows. Jump: 1 / numpad 1 (Space as backup once a level is running). Dive: Shift or C. Plant: E. Pause: Esc. Start: Enter.",
     "controlsTouch": "Left stick to move; on-screen jump and dive buttons; drag the right side of the screen to look.",
     "tips": [
@@ -196,6 +198,7 @@
     "description": "Merge Tiles is our hosted copy of the open-source sliding-tile puzzle 2048 by Gabriele Cirulli et al., used under the MIT licence. Slide every tile with the arrow keys or a swipe; two tiles with the same number merge into one. The game logic is unchanged from the original. Best score and the current game stay in localStorage on its own web address; no cookies, no account.",
     "howToPlay": "The board is a 4×4 grid. Each move slides every tile as far as it can go in that direction, and a new 2 or 4 appears in an empty cell. When two tiles with the same number collide they merge into one tile with their sum. Keep merging to build bigger numbers and try to make the 2048 tile; you can keep going after that. The game ends when the board is full and no move can merge anything. New Game starts over; your best score is kept.",
     "controls": "Arrow keys to slide the tiles (W A S D and H J K L also work). Touch: swipe up, down, left or right on the board. New Game button restarts.",
+    "controlsShort": "Arrow keys (or W A S D) or swipe to slide the tiles",
     "controlsKeyboard": "Arrow keys slide all tiles; W A S D or H J K L also work. Click New Game (or Try again) to restart.",
     "controlsTouch": "Swipe up, down, left or right on the board to slide the tiles. Tap New Game to restart.",
     "tips": [
