@@ -4,7 +4,56 @@
     "title": "Spud Fling",
     "pitch": "Fling a googly-eyed potato, smash crates, unlock boosts, chase a new best.",
     "description": "Hold to charge a giant slingshot, release to fling Spud across a bright 3D field. Smash crate towers for potato coins, bounce off mushrooms, and climb an unlock ladder: Double Band, Bouncy Mushrooms, Air Toot, Pond of Gulpo, Mega Band, and Golden Spud. After the Gulpo unlock, a giant frog at the pond can swallow Spud and spit the potato out for a burst of distance. Single-player, one continuous progression mode. Progress saves locally in your browser.",
+    "howToPlay": "Spud Fling is a one-button physics arcade game. Hold Space, Enter, mouse button, or touch to charge the slingshot (the power meter oscillates), then release to fling Spud. During flight, press again if you have unlocked Air Toot for a mid-air boost. After landing, press once more to reset and fling again. Smash crate towers for potato coins; unlocks happen automatically at coin thresholds. Single-player only — no accounts.",
     "controls": "Hold Space, Enter, mouse, or touch to charge; release to launch. During flight, press again for the unlocked Air Toot. After landing, press to reset.",
+    "controlsKeyboard": "Hold Space or Enter to charge; release to launch. Press again in flight for Air Toot (once unlocked). Press after landing to reset.",
+    "controlsTouch": "Touch and hold anywhere to charge; release to launch. Tap again in flight for Air Toot (once unlocked). Tap after landing to reset.",
+    "tips": [
+      "Release near the top of the charge oscillation for longer flights — the meter keeps moving while you hold.",
+      "Prioritize crate towers early; coins unlock Double Band and Bouncy Mushrooms that multiply later distance.",
+      "After Pond of Gulpo unlocks, aim flights over the pond near 95 m for the swallow-and-spit distance burst.",
+      "Golden Spud doubles coin gain — once you have it, farm crates to climb the remaining ladder faster."
+    ],
+    "faq": [
+      {
+        "q": "How do I play Spud Fling?",
+        "a": "Hold Space, Enter, mouse, or touch to charge the slingshot, then release to fling Spud. Smash crates for coins, unlock boosts automatically, and chase a new best distance."
+      },
+      {
+        "q": "Do I need an account?",
+        "a": "No. Spud Fling is free to play in the browser with no account and no cookies. Progress is stored only in this browser’s localStorage."
+      },
+      {
+        "q": "What are the unlocks?",
+        "a": "Coin thresholds unlock Double Band, Bouncy Mushrooms, Air Toot, Pond of Gulpo, Mega Band, and Golden Spud. The next unlock is shown on the in-game HUD."
+      },
+      {
+        "q": "Does it work on phones?",
+        "a": "Yes. Touch and hold to charge, release to launch. The same one-button loop works on touchscreens."
+      },
+      {
+        "q": "Is Spud Fling free?",
+        "a": "Yes. It is a self-made Toolstack Lab browser game with no purchase required for the core loop."
+      },
+      {
+        "q": "Who made Spud Fling and what is the licence?",
+        "a": "Toolstack Lab made it. Licence is self-made (n/a URL). Source: self-made by Toolstack Lab."
+      }
+    ],
+    "similarGenres": [
+      {
+        "genre": "One-button arcade physics",
+        "blurb": "Charge-and-release distance games where a single input times the shot and mid-air boosts."
+      },
+      {
+        "genre": "Short-run score chasers",
+        "blurb": "10–20 second runs with an unlock ladder and a visible best-distance target."
+      },
+      {
+        "genre": "Browser 3D arcade",
+        "blurb": "Lightweight WebGL toys that load in a tab — no install, no account."
+      }
+    ],
     "tags": ["arcade", "physics", "one-button", "3D", "distance"],
     "url": "https://tsl-game1.pages.dev",
     "embed": true,
@@ -19,14 +68,68 @@
     "source": "self-made by Toolstack Lab",
     "author": "Toolstack Lab",
     "added": "2026-10-16",
-    "status": "live"
+    "status": "live",
+    "playMode": "SinglePlayer",
+    "inLanguage": "en",
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "gamePlatform": "Web browser"
   },
   {
     "slug": "pips-bloom-isle",
     "title": "Pip's Bloom Isle",
     "pitch": "A cozy 3D platformer-collector: tend four island levels with Tansy while Pip cheers.",
     "description": "A cozy 3D platformer-collector for casual players 13+. Tansy, an original egg-shaped gardener, tends World 1 across four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb. Pip the sprout follows and cheers when a level is cleared. Gentle, Breezy, and Bold change landing size and timing only. Art and audio are procedural. Progress, chosen tier, mute, and seen hints stay in localStorage on this device — no cookies, no account.",
+    "howToPlay": "Play as Tansy, an original egg-shaped gardener, through World 1’s four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb. Move, jump, dive, and plant to tend each island. Pip the sprout follows and cheers when you clear a level. Choose Gentle, Breezy, or Bold before you start — they only change landing size and timing. Audience: casual players 13+. Progress stays on this device in localStorage.",
     "controls": "Move with W A S D or arrow keys. Jump with 1 (or numpad 1); Space is a backup jump once a level is running. Dive with Shift or C. Plant with E. Pause with Esc. Start with Enter. Touch: left stick, jump and dive buttons, drag the right side to look.",
+    "controlsKeyboard": "Move: W A S D or arrows. Jump: 1 / numpad 1 (Space as backup once a level is running). Dive: Shift or C. Plant: E. Pause: Esc. Start: Enter.",
+    "controlsTouch": "Left stick to move; on-screen jump and dive buttons; drag the right side of the screen to look.",
+    "tips": [
+      "Clear levels in order — World 1 unlocks Sunny Shelf → Stone Crossing → Islet Climb → Sulk Bulb.",
+      "Try Gentle first if jumps feel tight; Breezy and Bold only change landing size and timing.",
+      "Plant with E when the prompt appears; Pip cheers when a level is cleared.",
+      "Mute and tier choices save locally — reopen the same browser to keep them."
+    ],
+    "faq": [
+      {
+        "q": "What is Pip's Bloom Isle?",
+        "a": "A cozy 3D platformer-collector for casual players 13+. You play as Tansy tending four island levels while Pip the sprout follows and cheers."
+      },
+      {
+        "q": "How many levels are there?",
+        "a": "World 1 ships four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb."
+      },
+      {
+        "q": "What do Gentle, Breezy, and Bold change?",
+        "a": "Only landing size and timing. They do not add or remove levels or story content."
+      },
+      {
+        "q": "Do I need an account or cookies?",
+        "a": "No. Progress, chosen tier, mute, and seen hints stay in localStorage on this device only."
+      },
+      {
+        "q": "Does touch work?",
+        "a": "Yes. Use the left stick, jump and dive buttons, and drag the right side to look."
+      },
+      {
+        "q": "Who made it and what is the licence?",
+        "a": "Toolstack Lab. Licence is self-made (n/a URL). Source: self-made by Toolstack Lab. Art and audio are procedural."
+      }
+    ],
+    "similarGenres": [
+      {
+        "genre": "Cozy 3D platformers",
+        "blurb": "Low-stress jump-and-collect loops with short levels and friendly characters."
+      },
+      {
+        "genre": "Island collectors",
+        "blurb": "Tend a small world map level-by-level rather than an endless runner."
+      },
+      {
+        "genre": "Casual browser 3D",
+        "blurb": "WebGL experiences aimed at 13+ casual players, playable in a tab."
+      }
+    ],
     "tags": ["platformer", "collector", "cozy", "3D", "casual"],
     "url": "https://bloom-isle.gettoolstacklab.com",
     "embed": true,
@@ -41,6 +144,11 @@
     "source": "self-made by Toolstack Lab",
     "author": "Toolstack Lab",
     "added": "2026-10-16",
-    "status": "live"
+    "status": "live",
+    "playMode": "SinglePlayer",
+    "inLanguage": "en",
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "gamePlatform": "Web browser"
   }
 ]

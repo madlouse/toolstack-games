@@ -1,0 +1,12 @@
+{
+  "performance": 1,
+  "accessibility": 0.96,
+  "best-practices": 1,
+  "seo": 1,
+  "FCP_ms": 902,
+  "LCP_ms": 1202,
+  "CLS": 0,
+  "TBT_ms": 0,
+  "TTI_ms": 1217,
+  "speed_index_ms": 994
+}

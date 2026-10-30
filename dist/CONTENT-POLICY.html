@@ -6,7 +6,8 @@
 <title>Content policy · Toolstack Lab · AI 3D 游戏合集</title>
 <meta name="description" content="Which games may appear on the Toolstack Lab game hub.">
 <link rel="canonical" href="https://games.gettoolstacklab.com/CONTENT-POLICY.html">
-<meta name="theme-color" content="#0e1218">
+<meta name="theme-color" content="#0e1218" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Toolstack Lab · AI 3D 游戏合集">
 <meta property="og:title" content="Content policy · Toolstack Lab · AI 3D 游戏合集">
@@ -25,6 +26,7 @@
 
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap inner">
     <a class="brand" href="/">
@@ -33,12 +35,14 @@
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="/#games">Games</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
+      <a href="/popular/">Popular</a>
+      <a href="/about/">About</a>
+      <a href="/CONTENT-POLICY.html" aria-current="page">Policy</a>
     </nav>
   </div>
 </header>
 
-<main class="wrap prose policy-page">
+<main id="main" class="wrap prose policy-page">
   <p class="crumb"><a href="/">Games</a> / Content policy</p>
   <h1>Content policy — Toolstack Lab game hub</h1>
 <p>This hub only lists games that are safe to host, embed, and redistribute commercially.</p>
@@ -73,12 +77,17 @@
   <div class="wrap inner">
     <div>© Toolstack Lab · browser games, self-hosted · no trackers</div>
     <div>
+      <a href="/about/">About</a>
+      ·
+      <a href="/popular/">Popular</a>
+      ·
       <a href="/CONTENT-POLICY.html">Content policy</a>
       ·
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
 </footer>
+<div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>
 </body>
 </html>

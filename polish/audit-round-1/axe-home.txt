@@ -1,0 +1,17 @@
+Running axe-core 4.14.0 in chrome-headless
+Error: session not created: This version of ChromeDriver only supports Chrome version 152
+Current browser version is 156.0.8078.4 with binary path /home/box/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome
+
+Please use browser-driver-manager to install matching versions of Chrome and ChromeDriver:
+        
+        $ npx browser-driver-manager install chrome
+        
+        This will install the latest synced versions. You may install specific synced versions using 
+        
+        $ npx browser-driver-manager install chrome@<version>
+
+        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.
+
+        You may also pass the `--chromedriver-path` option to axe:
+
+        $ axe --chromedriver-path <path/to/chromedriver-executable>

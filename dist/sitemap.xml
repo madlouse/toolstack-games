@@ -5,6 +5,14 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://games.gettoolstacklab.com/popular/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://games.gettoolstacklab.com/about/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://games.gettoolstacklab.com/CONTENT-POLICY.html</loc>
     <changefreq>weekly</changefreq>
   </url>

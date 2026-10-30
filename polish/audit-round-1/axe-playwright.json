@@ -1,0 +1,31 @@
+{
+  "light": [],
+  "light_detail": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 1
+    }
+  ],
+  "dark": [],
+  "dark_detail": [],
+  "keyboard": {
+    "slash": "game-search",
+    "url_after_enter": "http://127.0.0.1:4173/games/spud-fling/#play",
+    "opened": true
+  },
+  "orientation": {
+    "before": {
+      "w": 364,
+      "h": 227.5,
+      "ar": 1.6
+    },
+    "after": {
+      "w": 818,
+      "h": 511.25,
+      "ar": 1.6
+    },
+    "ar_delta": 0.0
+  }
+}
