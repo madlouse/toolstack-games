@@ -1,0 +1,72 @@
+{
+  "console_errors": [
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "console:error:Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-CWn35lb5TRkhXKwubFUo2GwbpJpYAjn0LxTMMMDwD68='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked."
+  ],
+  "pages": {
+    "mobile-home": {
+      "url": "https://games.gettoolstacklab.com/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/mobile-home.png",
+      "title": "Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "mobile-spud": {
+      "url": "https://games.gettoolstacklab.com/games/spud-fling/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/mobile-spud.png",
+      "title": "Spud Fling \u2014 play free in browser \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "mobile-pip": {
+      "url": "https://games.gettoolstacklab.com/games/pips-bloom-isle/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/mobile-pip.png",
+      "title": "Pip's Bloom Isle \u2014 play free in browser \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "mobile-popular": {
+      "url": "https://games.gettoolstacklab.com/popular/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/mobile-popular.png",
+      "title": "Popularity board \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "desktop-home": {
+      "url": "https://games.gettoolstacklab.com/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/desktop-home.png",
+      "title": "Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "desktop-spud": {
+      "url": "https://games.gettoolstacklab.com/games/spud-fling/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/desktop-spud.png",
+      "title": "Spud Fling \u2014 play free in browser \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "desktop-pip": {
+      "url": "https://games.gettoolstacklab.com/games/pips-bloom-isle/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/desktop-pip.png",
+      "title": "Pip's Bloom Isle \u2014 play free in browser \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    },
+    "desktop-popular": {
+      "url": "https://games.gettoolstacklab.com/popular/",
+      "shot": "/workspace/exp28-games/game-hub/polish/live-round-1/desktop-popular.png",
+      "title": "Popularity board \u00b7 Toolstack Lab \u00b7 AI 3D \u6e38\u620f\u5408\u96c6"
+    }
+  },
+  "play": {
+    "mobile-spud": {
+      "src": "https://tsl-game1.pages.dev/?internal=1",
+      "ok": true
+    },
+    "mobile-pip": {
+      "src": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+      "ok": true
+    },
+    "desktop-spud": {
+      "src": "https://tsl-game1.pages.dev/?internal=1",
+      "ok": true
+    },
+    "desktop-pip": {
+      "src": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+      "ok": true
+    }
+  }
+}

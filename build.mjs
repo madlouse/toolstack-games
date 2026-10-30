@@ -517,7 +517,7 @@ ${shots}
   ${faqBlock(g)}
 
   <div class="license-box" id="license">
-    <h2 class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">License &amp; source</h2>
+    <h2 class="visually-hidden">License &amp; source</h2>
     <dl>
       <dt>License</dt>
       <dd>${esc(g.license)}${g.licenseUrl ? ` · ${esc(g.licenseUrl)}` : ""}</dd>

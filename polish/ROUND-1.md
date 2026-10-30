@@ -75,10 +75,47 @@ Screenshots: `polish/audit-round-1/{home,spud,pip,popular,about,404}-{320,768,12
 | P2 | micro | Card `tabindex=0` + nested links is a slight SR verbosity tradeoff |
 | P2 | SEO | Similar-games section describes genres honestly but has few on-site link targets (only 2 games) |
 
-No remaining **P0**. One **P1** typography / originality polish left for later rounds.
+No remaining **P0** after CSP fix. Remaining **P1**: typography + originality for later rounds.
+
+### In-round fix after live check (P0)
+
+| Sev | Dim | Gap | Fix |
+|-----|-----|-----|-----|
+| P0 | a11y/CSP | Live CSP `style-src 'self'` blocked inline `style=` on License h2 (8 console errors) + would block share fallback clipboard | Moved to `.visually-hidden` / `.sr-clip` CSS classes; no inline styles left in HTML/JS |
+
+## Live check (after deploy of Round 1 + CSP fix)
+
+Source: `polish/live-round-1/`. First push `e5aa10b`; CSP fix follows in a follow-up commit.
+
+### Live Playwright (`live_check.py`)
+
+- Viewports: 390×844 + 1280×800
+- Pages shot: home, spud, pip, popular (+ `*-playing` after Play)
+- Play Spud iframe → `https://tsl-game1.pages.dev/?internal=1`
+- Play Pip iframe → `https://bloom-isle.gettoolstacklab.com/?internal=1`
+- Screenshots: `polish/live-round-1/{mobile,desktop}-{home,spud,pip,popular,*-playing}.png`
+
+### Live Lighthouse mobile (`home-mobile-live-summary.json`) — pre-CSP-fix deploy
+
+| Metric | Value |
+|--------|-------|
+| Performance | 0.99 |
+| Accessibility | 1.0 |
+| Best-practices | 1.0 |
+| SEO | 1.0 |
+| FCP | 1077 ms |
+| LCP | 1117 ms |
+| CLS | 0 |
+| TBT | 0 ms |
+| TTI | 1117 ms |
+
+### Console on live (pre-CSP-fix)
+
+- 8× CSP `style-src 'self'` blocks from License heading inline style — **fixed in follow-up commit** (re-check after deploy).
 
 ## Honesty / not verified this round
 
-- Real-device 4G field LCP not measured (lab Lighthouse only).
-- Live deploy + live Lighthouse recorded after push in `polish/live-round-1/` (see that folder once deploy completes).
+- Real-device 4G field LCP not measured (lab + live Lighthouse only; both under 2.5s LCP).
+- Live Lighthouse above was measured on the pre-CSP-fix deploy (same visual/perf surface; CSP fix is CSS-class only).
 - Independent Agent review (directive step 5) not run in Round 1.
+- About page not re-shot in live_check set (exists locally in audit-round-1; live HTTP 200 confirmed earlier).

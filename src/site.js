@@ -202,8 +202,7 @@
       var ta = document.createElement("textarea");
       ta.value = url;
       ta.setAttribute("readonly", "");
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
+      ta.className = "sr-clip";
       document.body.appendChild(ta);
       ta.select();
       document.execCommand("copy");
