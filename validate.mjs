@@ -59,7 +59,7 @@ const OPTIONAL = [
   // provenance / credits (H-02)
   "licenseEvidence", "copyrightNotice", "sourceCommit", "authorUrl", "modifications", "shelf",
   // first-hand content (H-06)
-  "goals", "howWeMade",
+  "goals", "goalsIntro", "howWeMade", "testNotes",
 ];
 const KNOWN = new Set([...REQUIRED, ...OPTIONAL]);
 // Fields that would publish fake social proof or imply tracking / personal data (CONTENT-POLICY: privacy, SEO-PLAN §6)
@@ -134,6 +134,22 @@ export function validateGames(games, vercel) {
     if (!Array.isArray(g.screenshots) || g.screenshots.length < 3) err("screenshots must have at least 3 entries");
     if (typeof g.embed !== "boolean") err("embed must be boolean");
     if (g.shelf !== undefined && !SHELVES.has(g.shelf)) err(`shelf "${g.shelf}" must be one of ${[...SHELVES].join(", ")}`);
+    // H-06: goals come from the game's unlock config; testNotes carry a source for every measured value
+    if (g.goals !== undefined) {
+      if (!Array.isArray(g.goals) || !g.goals.length) err("goals must be a non-empty array of {name, threshold}");
+      else for (const x of g.goals)
+        if (typeof x?.name !== "string" || !x.name.trim() || !Number.isInteger(x?.threshold) || x.threshold <= 0)
+          err(`goal ${JSON.stringify(x)} needs a name and a positive integer threshold`);
+    }
+    if (g.howWeMade !== undefined && (typeof g.howWeMade !== "string" || g.howWeMade.trim().length < 80)) err("howWeMade must be 3-5 sentences of text");
+    if (g.testNotes !== undefined) {
+      if (!Array.isArray(g.testNotes)) err("testNotes must be an array of {label, value|null, source}");
+      else for (const n of g.testNotes) {
+        if (typeof n?.label !== "string" || !n.label.trim()) err("testNotes entry needs a label");
+        else if (n.value !== null && (typeof n.value !== "string" || !n.value.trim())) err(`testNotes "${n.label}": value must be text or null (null shows "No data yet")`);
+        else if (n.value !== null && (typeof n.source !== "string" || !n.source.trim())) err(`testNotes "${n.label}": a measured value needs a source`);
+      }
+    }
     if (g.slug) {
       if (slugs.has(g.slug)) err("duplicate slug");
       slugs.add(g.slug);

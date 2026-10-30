@@ -98,6 +98,23 @@ for (const g of real) {
   check(`H-05 ${g.slug}: facts Licence row links licenseUrl`, f.includes(`<dt>Licence</dt><dd><a href="${g.licenseUrl}"`));
 }
 
+// H-06: Unlocks and goals (games with goals) and How we made it (games with howWeMade), measured values only
+const section = (html, h) => { const i = html.indexOf(`>${h}</h2>`); return i < 0 ? "" : html.slice(i, html.indexOf("</section>", i)); };
+for (const g of real) {
+  const html = read(pr, `games/${g.slug}/index.html`);
+  if (g.goals) {
+    const sec = section(html, "Unlocks and goals");
+    check(`H-06 ${g.slug}: H2 "Unlocks and goals"`, sec !== "");
+    check(`H-06 ${g.slug}: every goal name + threshold shown`, g.goals.every((x) => sec.includes(x.name) && sec.includes(x.threshold.toLocaleString("en-US"))));
+  }
+  if (g.howWeMade) {
+    const sec = section(html, "How we made it");
+    check(`H-06 ${g.slug}: H2 "How we made it" with the text`, sec.includes(g.howWeMade.replaceAll("'", "&#39;")));
+    const nulls = (g.testNotes || []).filter((n) => n.value == null).length;
+    check(`H-06 ${g.slug}: "No data yet" exactly once per unmeasured note (${nulls})`, (html.match(/No data yet/g) || []).length === nulls);
+  }
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

@@ -34,6 +34,8 @@ const CASES = [
   [FX + "third-party-same-origin.json", VF, 1, /third-party game must be served from its own origin/],
   [FX + "forbidden-field.json", VF, 1, /forbidden field "aggregateRating"/],
   [FX + "unknown-field.json", VF, 1, /unknown field "licence"/],
+  [FX + "testnote-no-source.json", VF, 1, /testNotes "Frame rate on a real phone": a measured value needs a source/],
+  [FX + "goal-bad-threshold.json", VF, 1, /needs a name and a positive integer threshold/],
   ["data/games.json", FX + "vercel.missing-bloom.json", 1, /origin https:\/\/bloom-isle\.gettoolstacklab\.com is not in vercel\.json frame-src/],
   ["data/games.json", FX + "vercel.missing-classics.json", 1, /merge-tiles: embed origin https:\/\/tsl-classics\.pages\.dev is not in vercel\.json frame-src/],
 ];

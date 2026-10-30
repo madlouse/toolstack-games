@@ -1766,3 +1766,15 @@ body > .site-header, body > .site-footer { flex: none; }
 }
 /* inline-flex trims edge spaces of each text run — space the parts explicitly */
 .btn-newtab { gap: 0.3em; }
+
+/* H-06: Unlocks and goals table + How we made it notes */
+.table-wrap { overflow-x: auto; max-width: 68ch; margin: 0 0 var(--s5); }
+.goals-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.goals-table th, .goals-table td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--border); vertical-align: top; }
+.goals-table thead th { color: var(--muted); font-weight: 600; }
+.goals-table td:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.made-notes { grid-template-columns: 1fr; }
+.made-notes > div { grid-template-columns: 13em 1fr; }
+.made-notes dd.nodata { color: var(--muted); font-style: italic; }
+.made-foot { font-size: var(--fs-sm); color: var(--muted); }
+@media (max-width: 480px) { .made-notes > div { grid-template-columns: 1fr; gap: 0; } }

@@ -92,6 +92,36 @@ function creditsBlock(g, updated) {
     </dl>`;
 }
 
+/* H-06: first-hand sections, rendered only when games.json has the data. Thresholds come from the game's own
+   unlock config; testNotes with value null render as "No data yet" (we never fill in unmeasured numbers). */
+function goalsBlock(g) {
+  if (!g.goals || !g.goals.length) return "";
+  const rows = g.goals
+    .map((x) => `<tr><th scope="row">${esc(x.name)}</th><td>${esc(x.threshold.toLocaleString("en-US"))}</td><td>${esc(x.effect || "")}</td></tr>`)
+    .join("");
+  return `<section class="goals" aria-labelledby="goals-h">
+    <h2 id="goals-h">Unlocks and goals</h2>
+    ${g.goalsIntro ? `<p>${esc(g.goalsIntro)}</p>` : ""}
+    <div class="table-wrap"><table class="goals-table">
+      <thead><tr><th scope="col">Unlock</th><th scope="col">Coins needed</th><th scope="col">What it adds</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    </section>`;
+}
+
+function madeBlock(g) {
+  if (!g.howWeMade) return "";
+  const notes = (g.testNotes || [])
+    .map((n) => `<div><dt>${esc(n.label)}</dt><dd${n.value == null ? ' class="nodata">No data yet' : `>${esc(n.value)}`}</dd></div>`)
+    .join("");
+  return `<section class="made" aria-labelledby="made-h">
+    <h2 id="made-h">How we made it</h2>
+    <p>${esc(g.howWeMade)}</p>
+    ${notes ? `<dl class="facts made-notes">${notes}</dl>
+    <p class="made-foot">We only list numbers we have measured ourselves; the empty rows get filled in once we have real ones.</p>` : ""}
+    </section>`;
+}
+
 function tagsHtml(g) {
   return `<div class="tags">${(g.tags || []).slice(0, MAX_TAGS).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
 }
@@ -663,10 +693,12 @@ function detailPage(g, stats, allGames) {
     <ul>
 ${tips}
     </ul>
+    ${goalsBlock(g)}
     <h2>Screenshots</h2>
     <div class="shots">
 ${shots}
     </div>
+    ${madeBlock(g)}
   </article>
 
   ${faqBlock(g)}
