@@ -14,7 +14,7 @@ const FX = "test/fixtures/";
 const VF = FX + "vercel.fixture.json";
 const CASES = [
   // [games file, vercel file, expected exit, regex the output must contain]
-  ["data/games.json", "vercel.json", 0, /OK: 3 game\(s\) validated/],
+  ["data/games.json", "vercel.json", 0, /OK: 4 game\(s\) validated/],
   [FX + "valid-third-party.json", VF, 0, /OK: 1 game\(s\) validated/],
   [FX + "embedquery-missing.json", VF, 1, /embedQuery undefined must be one of "src=hub", "internal=1"/],
   [FX + "embedquery-bad.json", VF, 1, /embedQuery "utm_source=hub" must be one of/],
@@ -40,6 +40,15 @@ const CASES = [
   [FX + "testnote-no-source.json", VF, 1, /testNotes "Frame rate on a real phone": a measured value needs a source/],
   [FX + "goal-bad-threshold.json", VF, 1, /needs a name and a positive integer threshold/],
   [FX + "missing-lineage.json", VF, 1, /third-party game needs "lineage"/],
+  // Round 12 (Moon Rover): desktop-first label, requirements, no "How we made it" on a game we did not make
+  [FX + "valid-desktop-first.json", VF, 0, /OK: 1 game\(s\) validated/],
+  [FX + "desktop-first-no-note.json", VF, 1, /platform "desktop-first" needs a "platformNote"/],
+  [FX + "platform-note-without-platform.json", VF, 1, /platformNote is only allowed together with platform "desktop-first"/],
+  [FX + "platform-bad.json", VF, 1, /platform "mobile-first" must be "desktop-first"/],
+  [FX + "platform-note-no-desktop.json", VF, 1, /platformNote must say it is best on a desktop/],
+  [FX + "desktop-first-phone-claim.json", VF, 1, /desktop-first game must not claim phone play \(description\)/],
+  [FX + "requires-bad.json", VF, 1, /requires entry .* needs a name and a note/],
+  [FX + "third-party-howwemade.json", VF, 1, /howWeMade is only for our own games/],
   ["data/games.json", FX + "vercel.missing-bloom.json", 1, /origin https:\/\/bloom-isle\.gettoolstacklab\.com is not in vercel\.json frame-src/],
   ["data/games.json", FX + "vercel.missing-classics.json", 1, /merge-tiles: embed origin https:\/\/tsl-classics\.pages\.dev is not in vercel\.json frame-src/],
 ];

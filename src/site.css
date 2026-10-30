@@ -1792,3 +1792,28 @@ body > .site-header, body > .site-footer { flex: none; }
   letter-spacing: 0.02em;
 }
 .new-pill { margin-right: var(--s1); }
+
+/* Round 12: desktop-first label (data: platform + platformNote, requires) — detail head + home card */
+.platform-note {
+  max-width: 68ch;
+  margin: var(--s2) 0 var(--s3);
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--accent);
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.platform-note strong { font-weight: 700; }
+.card-platform {
+  display: inline-block;
+  margin-left: var(--s2);
+  padding: 0 var(--s2);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}

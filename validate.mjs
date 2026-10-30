@@ -63,6 +63,8 @@ const OPTIONAL = [
   "goals", "goalsIntro", "howWeMade", "testNotes",
   // hub iframe marker (counting)
   "embedQuery",
+  // round 12: platform label + hard requirements (e.g. WebGL2), shown on the game page and home card
+  "platform", "platformNote", "requires",
 ];
 // Hub iframe query per game. Only these exact forms: "src=hub" = the game counts the hub play with its own
 // cookie-free tag; "internal=1" = the game skips its own tag (another beacon already counts it, or a third-party game).
@@ -75,6 +77,9 @@ const FORBIDDEN_FIELDS = [
   "externalScripts", "scripts", "cookies", "email", "contactEmail", "personalData", "userData",
 ];
 const SHELVES = new Set(["3d", "classics"]);
+// Round 12: a game that is best on a computer says so; its copy may not then promise phone play.
+const PLATFORMS = new Set(["desktop-first"]);
+const PHONE_CLAIM = /\b(desktop|computer|laptop)\s*(?:,|or|and|&|\/)\s*(?:your\s+)?(phone|mobile|tablet)s?\b|\b(phone|mobile|tablet)s?\s*(?:or|and|&|\/)\s*(desktop|computer|laptop)\b|\bworks (?:great |well )?on (?:your |a )?(phone|mobile|tablet)s?\b|\bplay (?:it )?on (?:your |a )?(phone|mobile)\b/i;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 function parseArgs(argv) {
@@ -152,6 +157,24 @@ export function validateGames(games, vercel) {
           err(`goal ${JSON.stringify(x)} needs a name and a positive integer threshold`);
     }
     if (g.howWeMade !== undefined && (typeof g.howWeMade !== "string" || g.howWeMade.trim().length < 80)) err("howWeMade must be 3-5 sentences of text");
+    // Round 12: desktop-first label (platform + platformNote travel together) and requirements
+    if (g.platform !== undefined) {
+      if (!PLATFORMS.has(g.platform)) err(`platform ${JSON.stringify(g.platform)} must be "desktop-first" (or left out)`);
+      else if (typeof g.platformNote !== "string" || !g.platformNote.trim()) err(`platform "desktop-first" needs a "platformNote" (the visible label text)`);
+    } else if (g.platformNote !== undefined) err(`platformNote is only allowed together with platform "desktop-first"`);
+    if (g.platform === "desktop-first" && typeof g.platformNote === "string" && g.platformNote.trim()) {
+      if (g.platformNote.trim().length < 40 || !/\bdesktop\b/i.test(g.platformNote)) err("platformNote must say it is best on a desktop (≥40 chars)");
+      const texts = { pitch: g.pitch, description: g.description, seoDescription: g.seoDescription, subline: g.subline, definition: g.definition, howToPlay: g.howToPlay };
+      for (const [i, f] of (Array.isArray(g.faq) ? g.faq : []).entries()) texts[`faq[${i}]`] = `${f?.q || ""} ${f?.a || ""}`;
+      for (const [k, v] of Object.entries(texts))
+        if (typeof v === "string" && PHONE_CLAIM.test(v)) err(`desktop-first game must not claim phone play (${k}): "${v.match(PHONE_CLAIM)[0]}"`);
+    }
+    if (g.requires !== undefined) {
+      if (!Array.isArray(g.requires) || !g.requires.length) err("requires must be a non-empty array of {name, note}");
+      else for (const r of g.requires)
+        if (typeof r?.name !== "string" || !r.name.trim() || typeof r?.note !== "string" || r.note.trim().length < 20)
+          err(`requires entry ${JSON.stringify(r)} needs a name and a note (≥20 chars: what happens without it)`);
+    }
     if (g.testNotes !== undefined) {
       if (!Array.isArray(g.testNotes)) err("testNotes must be an array of {label, value|null, source}");
       else for (const n of g.testNotes) {
@@ -193,6 +216,7 @@ export function validateGames(games, vercel) {
       if (!httpsUrl(g.source)) err(`source must be an https:// URL for a third-party game (got ${JSON.stringify(g.source)})`);
       if (g.authorUrl !== undefined && !httpsUrl(g.authorUrl)) err("authorUrl must be an https:// URL");
       if (/toolstack/i.test(String(g.author || ""))) err("third-party game cannot have author Toolstack Lab");
+      if (g.howWeMade !== undefined) err('howWeMade is only for our own games; a game we did not make lists what we measured in testNotes ("What we measured")');
     }
 
     // --- embed origin vs CSP frame-src ---

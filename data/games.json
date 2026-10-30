@@ -373,5 +373,181 @@
       "Game over: no moves left, with the Try again button"
     ],
     "cover": "assets/games/merge-tiles/cover.jpg"
+  },
+  {
+    "slug": "moon-rover",
+    "title": "Moon Rover: Anaxagoras",
+    "pitch": "Drive a solar rover across a lunar crater: deploy the array, sweep with radar, drill samples and find out why the outpost went silent.",
+    "description": "Moon Rover: Anaxagoras is our hosted copy of REGOLITH — The Silence at Anaxagoras, an open-source 3D lunar survey game by winch, used under the MIT licence. You drive the MU-7 rover out from its sled, power it with a fold-out solar array, look under the regolith with ground-penetrating radar and drill core samples to haul home. Five missions lead from a cold start to the outpost that stopped transmitting, and a field codex fills with what you find. Every texture and sound is generated in your browser; progress stays in localStorage on its own web address. No cookies, no account. It needs WebGL2 and is best on a desktop or laptop with a keyboard.",
+    "howToPlay": "Each mission card lists a few objectives in the top-left. Mission 1 (Cold Start): press T to deploy the solar array, drive 120 m from the sled, then press G for a radar sweep. Later missions have you park on radar echoes, deploy the arm (R), aim it with W A S D and click to drill, carry samples back to the sled, lay relay beacons (B) to keep contact, and hold E at the old station to recover its logs. Watch power and hull: shadowed ground does not charge the array, and the sled recharges you and takes your samples. There is no score and no game over: if the hull gives out, the rover is winched back to the sled. Tab opens the field codex; Esc pauses.",
+    "controls": "W A S D or the arrow keys to drive, mouse to look (click the game to lock the pointer), T solar array, G radar, R arm and click to drill, Esc pause. Touch: twin sticks and buttons.",
+    "controlsShort": "W A S D or arrows drive, mouse looks; T array, G radar, R arm + click drill; Esc pauses",
+    "controlsKeyboard": "W/S or ↑/↓ throttle and reverse · A/D or ←/→ steer · Space brake · mouse look (click the game to lock the pointer), wheel zoom · T solar array · G radar sweep · R arm (then W A S D aims, click drills) · B relay beacon · E hold to interact · F lamps · C camera · P photo mode (Q/Z up/down, Shift fast) · H hide HUD · Tab codex · Esc pause and release the pointer · X right the chassis after a rollover. K (save the frame as a PNG) does nothing inside our frame, because the frame blocks downloads.",
+    "controlsTouch": "Twin sticks: DRIVE (left) and LOOK (right). Buttons: CAM, LAMP, ARRAY, HUD, SHOT, BRAKE on the left; SCAN, ARM, DRILL, RELAY on the right. SHOT (save a screenshot) does nothing inside our frame. We have not tested the touch controls on a real phone.",
+    "tips": [
+      "Deploy the solar array (T) first: it is the first objective and keeps your power up.",
+      "Park before drilling: deploying the arm (R) holds the chassis still while you aim.",
+      "Head back to the sled to recharge and unload samples. The Sample Bay holds 6.",
+      "Turn the lamps on (F) in shadowed craters, and check the field codex (Tab) after each discovery.",
+      "If it stutters, lower RENDER QUALITY under SYSTEMS on the main menu. It starts at a level guessed for your device."
+    ],
+    "faq": [
+      {
+        "q": "What is Moon Rover: Anaxagoras?",
+        "a": "Our hosted copy of REGOLITH — The Silence at Anaxagoras, an open-source 3D lunar rover survey game by winch. It is used under the MIT licence and credited on this page; it is not an official version and is not endorsed by the author."
+      },
+      {
+        "q": "Why is it called Moon Rover: Anaxagoras here?",
+        "a": "We list our copy under a plain descriptive name and credit the original title and author. We did not change the game, so its title screen still shows the original title REGOLITH."
+      },
+      {
+        "q": "Does it work on a phone?",
+        "a": "It has twin-stick touch controls, but it is a heavy 3D game and we have not tested it on real phones, so we cannot say how well it runs there. It is best on a desktop or laptop with a keyboard."
+      },
+      {
+        "q": "What do I need to run it?",
+        "a": "A browser with WebGL2. The game has no fallback: without WebGL2 it may not start at all."
+      },
+      {
+        "q": "Is my progress saved?",
+        "a": "Yes. Progress and settings are kept in localStorage on the game's own web address (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set), in your browser only. There are no cookies and no account."
+      },
+      {
+        "q": "Can I lose?",
+        "a": "No. There is no score and no game over. If the hull gives out, the rover is winched back to the sled and you carry on. Five missions lead to an ending."
+      },
+      {
+        "q": "Who made it and what is the licence?",
+        "a": "winch made the original, released under the MIT licence (Copyright (c) 2026 winch). It runs on three.js r160, also MIT. The licence box on this page links the licence text at the exact source commit we use."
+      }
+    ],
+    "similarGenres": [
+      {
+        "genre": "Exploration games",
+        "blurb": "Slow-paced games about crossing a place and finding out what happened there."
+      },
+      {
+        "genre": "Vehicle simulations",
+        "blurb": "Games where handling a machine, its power and its limits is the challenge."
+      }
+    ],
+    "tags": [
+      "simulation",
+      "exploration",
+      "3D",
+      "space"
+    ],
+    "url": "https://tsl-classics.pages.dev/moon-rover/",
+    "embed": true,
+    "embedQuery": "internal=1",
+    "thumbnail": "assets/games/moon-rover/thumb.jpg",
+    "screenshots": [
+      "assets/games/moon-rover/screenshots/01-title.jpg",
+      "assets/games/moon-rover/screenshots/02-driving.jpg",
+      "assets/games/moon-rover/screenshots/03-radar.jpg"
+    ],
+    "license": "MIT",
+    "licenseUrl": "https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE",
+    "licenseEvidence": {
+      "url": "https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE",
+      "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction",
+      "checked": "2026-10-30"
+    },
+    "copyrightNotice": "Copyright (c) 2026 winch",
+    "source": "https://github.com/winchxyz/moon-rover",
+    "sourceCommit": "f5f25ba6bf7477c612b408b265c9275a4fd1200d",
+    "author": "winch",
+    "authorUrl": "https://github.com/winchxyz",
+    "modifications": "No game logic changed. Removed the inline import map and rewrote the bare three.js imports to relative paths (import lines only), because our content security policy blocks inline scripts. Removed the data: favicon. Added the three.js r160 licence (MIT) and a PROVENANCE.txt. README, docs, server and package files not shipped. The game is otherwise unchanged, so its title screen still shows the original title REGOLITH. Full list: PROVENANCE.txt next to the game.",
+    "lineage": "Original title REGOLITH — The Silence at Anaxagoras, by winch. The upstream README names no earlier game it is based on; it uses the three.js engine (r160, MIT).",
+    "shelf": "classics",
+    "platform": "desktop-first",
+    "platformNote": "Best on a desktop or laptop with a keyboard; touch controls exist but this is a heavy 3D game and we have not tested it on real phones.",
+    "requires": [
+      {
+        "name": "WebGL2",
+        "note": "Needs WebGL2. There is no fallback: without it the game may not start."
+      }
+    ],
+    "added": "2026-10-30",
+    "updated": "2026-10-30",
+    "status": "live",
+    "playMode": "SinglePlayer",
+    "inLanguage": "en",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web browser",
+    "gamePlatform": "Web browser",
+    "seoTitle": "Moon Rover: Anaxagoras, 3D Lunar Rover Game | Toolstack Lab",
+    "seoDescription": "Moon Rover: Anaxagoras is REGOLITH by winch (MIT), a free open-source 3D lunar rover game in your browser. Best on desktop with a keyboard; needs WebGL2.",
+    "subline": "An open-source 3D game: REGOLITH by winch, a lunar rover survey you drive in your browser.",
+    "definition": "Moon Rover: Anaxagoras is Toolstack Lab's hosted copy of REGOLITH — The Silence at Anaxagoras, an open-source 3D lunar rover game by winch, used under the MIT licence.",
+    "genreLabel": "3D lunar rover survey (exploration)",
+    "coverAlt": "Moon Rover: Anaxagoras: a six-wheeled rover on grey lunar ground under a black sky",
+    "screenshotAlts": [
+      "The title screen, which still shows the original title REGOLITH",
+      "Mission 1: driving out from the sled with the objectives in the top-left",
+      "A ground-penetrating radar sweep with the full instrument HUD"
+    ],
+    "cover": "assets/games/moon-rover/cover.jpg",
+    "testNotes": [
+      {
+        "label": "Game files on first load",
+        "value": "404,153 bytes transferred (27 files, 1.68 MB unpacked)",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Requests to other web addresses",
+        "value": "None",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Cookies",
+        "value": "None",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Saved in your browser",
+        "value": "localStorage keys regolith.anaxagoras.v1 (progress) and regolith.anaxagoras.v1.set (settings), nothing else",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Mouse pointer lock in our frame",
+        "value": "Works: clicking the game locks the pointer, Esc pauses and releases it",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Tested in",
+        "value": "Headless Chromium with software WebGL (SwiftShader) only; its frame rate says nothing about real devices",
+        "source": "Chromium (software WebGL) loading https://tsl-classics.pages.dev/moon-rover/ in a frame with the hub's exact sandbox, 2026-10-30 (game-hub-evidence/polish/live-round-9)"
+      },
+      {
+        "label": "Frame rate on a real graphics card",
+        "value": null
+      },
+      {
+        "label": "Load time on a real phone",
+        "value": null
+      },
+      {
+        "label": "Touch controls on a real phone",
+        "value": null
+      },
+      {
+        "label": "Behaviour without WebGL2",
+        "value": null
+      },
+      {
+        "label": "Gamepad",
+        "value": null
+      },
+      {
+        "label": "Sound",
+        "value": null
+      },
+      {
+        "label": "Time to finish all five missions",
+        "value": null
+      }
+    ]
   }
 ]

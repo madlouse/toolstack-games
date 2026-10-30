@@ -113,16 +113,28 @@ function goalsBlock(g) {
 }
 
 function madeBlock(g) {
-  if (!g.howWeMade) return "";
+  /* Round 12: a game we did not make never gets "How we made it" (validate.mjs forbids howWeMade there);
+     its own measured facts render as "What we measured", same rows and same "No data yet" rule. */
+  const measuredOnly = !isSelfMade(g) && !g.howWeMade && (g.testNotes || []).length > 0;
+  if (!g.howWeMade && !measuredOnly) return "";
   const notes = (g.testNotes || [])
     .map((n) => `<div><dt>${esc(n.label)}</dt><dd${n.value == null ? ' class="nodata">No data yet' : `>${esc(n.value)}`}</dd></div>`)
     .join("");
   return `<section class="made" aria-labelledby="made-h">
-    <h2 id="made-h">How we made it</h2>
-    <p>${esc(g.howWeMade)}</p>
+    <h2 id="made-h">${measuredOnly ? "What we measured" : "How we made it"}</h2>
+    <p>${measuredOnly ? "We did not make this game. These are the checks we ran on the copy we host, and the gaps we have not measured yet." : esc(g.howWeMade)}</p>
     ${notes ? `<dl class="facts made-notes">${notes}</dl>
     <p class="made-foot">We only list numbers we have measured ourselves; the empty rows get filled in once we have real ones.</p>` : ""}
     </section>`;
+}
+
+/* Round 12: data-driven platform label (validate.mjs: platform "desktop-first" needs platformNote) and
+   hard requirements such as WebGL2; nothing renders for games without the fields. */
+const desktopFirst = (g) => g.platform === "desktop-first" && !!g.platformNote;
+function platformNoteHtml(g) {
+  if (!desktopFirst(g) && !(g.requires || []).length) return "";
+  const req = (g.requires || []).map((r) => ` <span class="platform-req">${esc(r.note)}</span>`).join("");
+  return `<p class="platform-note" role="note">${desktopFirst(g) ? `<strong>Desktop first.</strong> ${esc(g.platformNote)}` : ""}${req}</p>`;
 }
 
 function tagsHtml(g) {
@@ -348,7 +360,7 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
     </picture>
   </a>
   <div class="card-body">
-    <div class="cart-plate"><span class="cart-serial" aria-hidden="true">TSL·${String(index + 1).padStart(2, "0")}</span>${featured ? '<span class="cart-badge">Most visited</span>' : ""}</div>
+    <div class="cart-plate"><span class="cart-serial" aria-hidden="true">TSL·${String(index + 1).padStart(2, "0")}</span>${featured ? '<span class="cart-badge">Most visited</span>' : ""}${desktopFirst(g) ? `<span class="card-platform" title="${esc(g.platformNote)}">Desktop first</span>` : ""}</div>
     <h2 class="card-title"><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a></h2>
     <p class="card-pitch">${esc(g.pitch)}</p>
     ${tagsHtml(g)}
@@ -585,6 +597,7 @@ function detailPage(g, stats, allGames) {
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     author: authorLd(g),
     publisher: ORG,
+    ...((g.requires || []).length ? { softwareRequirements: g.requires.map((r) => r.name).join(", ") } : {}),
     license: g.licenseUrl || policyUrl,
     datePublished: g.added,
     dateModified: updated,
@@ -626,7 +639,8 @@ function detailPage(g, stats, allGames) {
   const pageDesc = g.seoDescription || g.pitch;
   const facts = [
     ["Genre", g.genreLabel || (g.tags || []).slice(0, 2).join(", ")],
-    ["Platforms", "Web browser – desktop and mobile"],
+    ["Platforms", desktopFirst(g) ? "Web browser – best on a desktop or laptop with a keyboard" : "Web browser – desktop and mobile"],
+    ...(g.requires || []).map((r) => ["Needs", r.name]),
     ["Price", "Free"],
     ["Account needed", "No"],
     ["Save data", "Stays in your browser (localStorage)"],
@@ -648,6 +662,7 @@ function detailPage(g, stats, allGames) {
       <div class="detail-head">
       <h1>${esc(g.title)}</h1>
       <p class="pitch">${esc(g.subline || g.pitch)}</p>
+      ${platformNoteHtml(g)}
       ${tagsHtml(g)}
       <p class="score-hint">${isNew(stats, g) ? `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${esc(g.added)}</time>; no visit data yet` : heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
       </div>

@@ -173,6 +173,42 @@ for (const g of real.filter((x) => x.license !== "self-made")) {
   }
 }
 
+// Round 12 (Moon Rover): every third-party iframe is sandboxed exactly and loads only after Play; a desktop-first
+// game shows its platformNote prominently (detail head + home card), its requirements, and a truthful Platforms row;
+// a game we did not make gets "What we measured" (never "How we made it" or an AI-assistance sentence).
+for (const g of real.filter((x) => x.license !== "self-made" && x.embed)) {
+  const html = read(pr, `games/${g.slug}/index.html`);
+  check(`R12 ${g.slug}: iframe sandbox exactly "${SANDBOX}"`, (iframeTag(html).match(/sandbox="[^"]*"/) || [""])[0] === SANDBOX);
+  check(`R12 ${g.slug}: iframe src empty until Play`, iframeTag(html) !== "" && !/\ssrc="/.test(iframeTag(html)));
+  check(`R12 ${g.slug}: no AI-assistance sentence and no "How we made it"`, !/AI assistance/i.test(html) && !html.includes(">How we made it</h2>"));
+  if (g.testNotes) {
+    const sec = section(html, "What we measured");
+    check(`R12 ${g.slug}: H2 "What we measured" lists every note`, sec !== "" && g.testNotes.every((n) => sec.includes(`<dt>${n.label}</dt>`)));
+    const nulls = g.testNotes.filter((n) => n.value == null).length;
+    check(`R12 ${g.slug}: "No data yet" exactly once per unmeasured note (${nulls})`, (html.match(/No data yet/g) || []).length === nulls);
+    check(`R12 ${g.slug}: italic note under the measured rows`, sec.includes('class="made-foot"'));
+  }
+}
+for (const g of real) {
+  const html = read(pr, `games/${g.slug}/index.html`);
+  const head = (html.split('<div class="detail-head">')[1] || "").split('<div class="detail-cta">')[0];
+  const plat = (factsOf(html).match(/<dt>Platforms<\/dt><dd>([^<]*)<\/dd>/) || ["", ""])[1];
+  const card = (pHome.split(`<a class="card-thumb" href="/games/${g.slug}/"`)[1] || "").split("</article>")[0];
+  if (g.platform === "desktop-first") {
+    check(`R12 ${g.slug}: detail head shows the platformNote`, head.includes('class="platform-note"') && head.includes(g.platformNote.replaceAll("'", "&#39;")));
+    check(`R12 ${g.slug}: home card shows "Desktop first"`, card.includes('class="card-platform"') && card.includes("Desktop first"));
+    check(`R12 ${g.slug}: Platforms row says desktop, not "desktop and mobile" (got "${plat}")`, /desktop or laptop/.test(plat) && !/mobile/.test(plat));
+    for (const r of g.requires || []) {
+      check(`R12 ${g.slug}: detail head shows the ${r.name} requirement`, head.includes(r.note));
+      check(`R12 ${g.slug}: facts row "Needs" ${r.name}`, factsOf(html).includes(`<dt>Needs</dt><dd>${r.name}`));
+    }
+    const vg = ld(html).find((j) => [].concat(j["@type"]).includes("VideoGame"));
+    check(`R12 ${g.slug}: JSON-LD softwareRequirements`, (g.requires || []).every((r) => String(vg?.softwareRequirements || "").includes(r.name)));
+  } else {
+    check(`R12 ${g.slug}: no platform note`, !html.includes('class="platform-note"') && !card.includes('class="card-platform"'));
+  }
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

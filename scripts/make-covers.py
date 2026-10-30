@@ -9,6 +9,7 @@ GAMES = {  # slug: (title, 16:9 crop box on the 1920x1080 clean frame, centre x 
     "spud-fling": ("Spud Fling", (300, 40, 1920, 951), 1190),
     "pips-bloom-isle": ("Pip's Bloom Isle", (0, 0, 1920, 1080), 960),
     "merge-tiles": ("Merge Tiles", (0, 0, 1920, 1080), 960),  # H-09 classic: clean frame = live tsl-classics board slice
+    "moon-rover": ("Moon Rover: Anaxagoras", (0, 0, 1920, 1080), 960),  # REGOLITH classic: clean frame captured live at tsl-classics/moon-rover (HUD hidden)
 }
 
 def font(px):
