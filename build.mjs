@@ -277,7 +277,7 @@ ${ldBlocks}
 ${body}
 <footer class="site-footer">
   <div class="wrap inner">
-    <div class="copy">© Toolstack Lab · browser games, self-hosted · no trackers</div>
+    <div class="copy">© Toolstack Lab · browser games, self-hosted · no ads, no cookies · cookie-free visit counting only</div>
     <nav class="links" aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/popular/">All games</a>
@@ -431,7 +431,7 @@ ${classics.map(cardOf).join("\n")}
   </section>` : ""}
   <section class="section wrap safe-note" aria-labelledby="safe-h">
     <h2 id="safe-h">Why these games are safe to play</h2>
-    <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : "Most games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors."} There is no sign-up, no cookies and no ad or tracking scripts; progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
+    <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : "Most games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors."} There is no sign-up. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. Progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
   </section>
 </main>`;
 
@@ -807,7 +807,7 @@ function aboutPage(games) {
     <h1>About Toolstack Lab Games</h1>
     <p>${allOwn(games)
       ? "Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page."
-      : `Toolstack Lab Games is where Toolstack Lab publishes small browser games: ${MIX_PHRASE}. Most are our own; each classic is a clearly-licensed open-source game, credited to its author on its page. Press Play and it loads right in the page.`} No accounts, no cookies, no third-party scripts or fonts.</p>
+      : `Toolstack Lab Games is where Toolstack Lab publishes small browser games: ${MIX_PHRASE}. Most are our own; each classic is a clearly-licensed open-source game, credited to its author on its page. Press Play and it loads right in the page.`} No accounts, and no third-party scripts or fonts on these pages. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting, inside our own games.</p>
   </section>
   <div class="page-cols">
   <article class="prose page-main">
@@ -842,9 +842,7 @@ ${games.filter((g) => !isSelfMade(g)).map((g) => `      <li><a href="/games/${es
   return layout({
     title: "About Toolstack Lab Games – Who Makes Them & Licences",
     description:
-      allOwn(games)
-        ? "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Every game is our own."
-        : "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Mostly 3D, plus classics.",
+      "Who makes Toolstack Lab Games and how each game is licensed. No ads, no cookies, no scripts that track individuals; only cookie-free visit counting.",
     canonicalPath: "/about/",
     ogImage: "/og.jpg",
     body,
@@ -929,7 +927,7 @@ function policyPage(games) {
     <h2>How we vet games</h2>
     <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
     <h2>Your privacy</h2>
-    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Pressing Play on one of our games here loads that game, which counts it as one visit. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
+    <p>No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Pressing Play on one of our games here loads that game, which counts it as one visit. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
     <h2>Questions or a problem?</h2>
     <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
   </article>
