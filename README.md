@@ -1,5 +1,7 @@
 # Toolstack Lab · AI 3D 游戏合集
 
+> **Live:** https://games.gettoolstacklab.com/ · evidence: [evidence/LIVE.md](evidence/LIVE.md)
+
 Public static hub for browser 3D games made by [Toolstack Lab](https://gettoolstacklab.com).
 
 - **Target host:** `https://games.gettoolstacklab.com` (Vercel static)

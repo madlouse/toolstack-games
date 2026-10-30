@@ -1,0 +1,20 @@
+{
+ "mobile-spud-iframe": {
+  "present": true,
+  "src": "https://tsl-game1.pages.dev/?internal=1"
+ },
+ "mobile-pip-iframe": {
+  "present": true,
+  "src": "https://bloom-isle.gettoolstacklab.com/?internal=1"
+ },
+ "mobile-console-errors": [],
+ "desktop-spud-iframe": {
+  "present": true,
+  "src": "https://tsl-game1.pages.dev/?internal=1"
+ },
+ "desktop-pip-iframe": {
+  "present": true,
+  "src": "https://bloom-isle.gettoolstacklab.com/?internal=1"
+ },
+ "desktop-console-errors": []
+}
