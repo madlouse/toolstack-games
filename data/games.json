@@ -64,6 +64,7 @@
     ],
     "url": "https://tsl-game1.pages.dev",
     "embed": true,
+    "embedQuery": "src=hub",
     "thumbnail": "assets/games/spud-fling/thumb.jpg",
     "screenshots": [
       "assets/games/spud-fling/screenshots/01-title.jpg",
@@ -218,6 +219,7 @@
     ],
     "url": "https://bloom-isle.gettoolstacklab.com",
     "embed": true,
+    "embedQuery": "internal=1",
     "thumbnail": "assets/games/pips-bloom-isle/thumb.jpg",
     "screenshots": [
       "assets/games/pips-bloom-isle/screenshots/01-title.jpg",
@@ -329,6 +331,7 @@
     ],
     "url": "https://tsl-classics.pages.dev/2048/",
     "embed": true,
+    "embedQuery": "internal=1",
     "thumbnail": "assets/games/merge-tiles/thumb.jpg",
     "screenshots": [
       "assets/games/merge-tiles/screenshots/01-start.jpg",

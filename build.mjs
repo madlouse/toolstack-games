@@ -162,13 +162,17 @@ function esc(s) {
     .replaceAll("'", "&#39;");
 }
 
-function embedUrl(url) {
+// Hub iframe URL = the game's url + its games.json `embedQuery` (validate.mjs allows only "src=hub" or "internal=1").
+//   src=hub    the game counts the play with its own cookie-free Web Analytics tag (marker tells hub plays apart in the URL)
+//   internal=1 the game skips its own tag: another beacon already counts it (Pip: the zone beacon) or nothing should
+function embedUrl(url, query) {
+  const params = new URLSearchParams(query || "internal=1");
   try {
     const u = new URL(url);
-    if (!u.searchParams.has("internal")) u.searchParams.set("internal", "1");
+    for (const [k, v] of params) if (!u.searchParams.has(k)) u.searchParams.set(k, v);
     return u.toString();
   } catch {
-    return url.includes("?") ? url + "&internal=1" : url + "?internal=1";
+    return url + (url.includes("?") ? "&" : "?") + params.toString();
   }
 }
 
@@ -650,7 +654,7 @@ function detailPage(g, stats, allGames) {
       <div class="detail-cta">
       <div class="card-actions detail-actions">
         <button type="button" class="btn btn-play btn-lg" id="play-embed"
-          data-game-url="${esc(embedUrl(g.url))}"
+          data-game-url="${esc(embedUrl(g.url, g.embedQuery))}"
           data-game-slug="${esc(g.slug)}"
           data-game-title="${esc(g.title)}">${PLAY_ICON}Play</button>
         <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}"><span class="lbl-idle">Copy link</span><span class="lbl-done" aria-hidden="true">Copied ✓</span></button>
@@ -680,7 +684,7 @@ function detailPage(g, stats, allGames) {
       </div>
       <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
       <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">${esc(g.title)}</span></div>
-      <iframe id="game-frame" title="${esc(g.title)}"${isSelfMade(g) ? "" : ` sandbox="${SANDBOX_THIRD_PARTY}"`} allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+      <iframe id="game-frame" title="${esc(g.title)}"${isSelfMade(g) ? "" : ` sandbox="${SANDBOX_THIRD_PARTY}"`} allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="${isSelfMade(g) ? "strict-origin" : "no-referrer"}" hidden></iframe>
     </div>
   </section>
 
@@ -925,7 +929,7 @@ function policyPage(games) {
     <h2>How we vet games</h2>
     <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
     <h2>Your privacy</h2>
-    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
+    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Pressing Play on one of our games here loads that game, which counts it as one visit. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
     <h2>Questions or a problem?</h2>
     <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
   </article>

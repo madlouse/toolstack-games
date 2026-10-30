@@ -16,6 +16,9 @@ const CASES = [
   // [games file, vercel file, expected exit, regex the output must contain]
   ["data/games.json", "vercel.json", 0, /OK: 3 game\(s\) validated/],
   [FX + "valid-third-party.json", VF, 0, /OK: 1 game\(s\) validated/],
+  [FX + "embedquery-missing.json", VF, 1, /embedQuery undefined must be one of "src=hub", "internal=1"/],
+  [FX + "embedquery-bad.json", VF, 1, /embedQuery "utm_source=hub" must be one of/],
+  [FX + "embedquery-srchub-third-party.json", VF, 1, /embedQuery "src=hub" is only for self-made games/],
   [FX + "gpl.json", VF, 1, /licen[cs]e "GPL-3\.0-only" is copyleft/],
   [FX + "agpl.json", VF, 1, /licen[cs]e "AGPL-3\.0" is copyleft/],
   [FX + "lgpl.json", VF, 1, /licen[cs]e "LGPL-2\.1-or-later" is copyleft/],

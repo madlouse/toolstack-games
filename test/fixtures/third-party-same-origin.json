@@ -24,6 +24,7 @@
     ],
     "url": "/play/example-classic/",
     "embed": true,
+    "embedQuery": "internal=1",
     "thumbnail": "assets/games/spud-fling/thumb.jpg",
     "screenshots": [
       "assets/games/spud-fling/screenshots/01-title.jpg",

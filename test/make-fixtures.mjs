@@ -17,6 +17,7 @@ const base = {
   tags: ["puzzle", "2D", "classic"],
   url: "https://classics-example.pages.dev/",
   embed: true,
+  embedQuery: "internal=1",
   thumbnail: spud.thumbnail,
   screenshots: spud.screenshots,
   license: "MIT",
@@ -48,6 +49,9 @@ const w = (name, patch, del = []) => {
   writeFileSync(D + name + ".json", JSON.stringify([g], null, 2) + "\n");
 };
 w("valid-third-party", {});
+w("embedquery-missing", {}, ["embedQuery"]);
+w("embedquery-bad", { embedQuery: "utm_source=hub" });
+w("embedquery-srchub-third-party", { embedQuery: "src=hub" });
 w("gpl", { license: "GPL-3.0-only" });
 w("agpl", { license: "AGPL-3.0" });
 w("lgpl", { license: "LGPL-2.1-or-later" });

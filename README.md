@@ -48,6 +48,35 @@ Counts live in `data/stats.json`. Seed for this MVP (external visits, 14 days 20
 
 Client-side “recently played” is **not** a popularity signal — it never leaves the browser.
 
+### Counting basis (what a visit is)
+
+The hub pages themselves never count anything: no beacon, no analytics request (gate `beacon-count`, check
+`beacon.hub-page`). Counting happens only inside our own games, on their own web addresses, with Cloudflare's
+cookie-free Web Analytics.
+
+- **Unit:** one Web Analytics page-load (`rumPageloadEventsAdaptiveGroups` → `sum.visits`) of a game's page. On the hub
+  the game iframe loads only when the player presses Play, so **a hub play = one game page-load**, counted like a
+  direct visit. Headless/bot user agents are dropped as internal (`../analytics/pull.py`).
+- **Per game, exactly one beacon per page-load**, chosen by the hub iframe's `embedQuery` (data/games.json, allowed
+  values checked by validate.mjs):
+
+  | game | direct visit | hub play (iframe) | counted from |
+  |---|---|---|---|
+  | spud-fling | own tag (site 458b…, token ca5fd27c…) | `?src=hub` → own tag | site 458b…, all hosts |
+  | pips-bloom-isle | own tag (site 3e2e…, token cece3f04…); the zone beacon script also loads but sends nothing | `?internal=1` → own tag skipped; the Cloudflare zone beacon (site 263d…, token d6efacb3…) is the only one | site 3e2e… + site 263d… rows with requestHost bloom-isle.gettoolstacklab.com |
+  | merge-tiles (third-party) | not counted | `?internal=1`, no beacon | — |
+
+- **Hub vs direct:** the beacon drops the query string from the page URL and Web Analytics has no query dimension, so
+  `?src=hub` itself never reaches the data (it only selects the behaviour). The split is the **referrer host**: our own
+  games' iframes send only the hub's origin as referrer (`referrerpolicy="strict-origin"`; third-party iframes keep
+  `no-referrer`), so a hub play has `refererHost = games.gettoolstacklab.com`; anything else is direct.
+- **Not double counted:** each page-load sends one beacon POST (gate `beacon.count`; direct Pip has two beacon scripts
+  but only one posts). Zone rows of hosts other than bloom-isle (e.g. spud-fling.gettoolstacklab.com) are never added to
+  a game.
+- **History:** before the 2026-10-30 hub deploy every hub embed used `?internal=1`, so Spud hub plays were not counted,
+  and Pip hub plays reached only the zone site, which `pull.py` did not read (and most of those were our own headless
+  gate runs). Gate tools now abort every beacon POST, so gate runs record nothing.
+
 ### Updating counts later
 
 1. Export `{ "slug": { "visits": N, "plays": M }, ... }` from Cloudflare Web Analytics events or a tiny Vercel function + free store.

@@ -15,6 +15,7 @@
  *  - licenseUrl must be a syntactically valid https:// URL (no "n/a")
  *  - third-party (non self-made) games also need: licenseEvidence {url, quote, checked}, a licenseUrl that is
  *    not on this hub (real proof), source as an https URL, copyrightNotice (except CC0), modifications notes
+ *  - every embed:true game has embedQuery "src=hub" (self-made only) or "internal=1" (hub iframe counting marker)
  *  - every embed:true game's origin must be listed in vercel.json CSP frame-src ('self' for same-origin paths);
  *    a third-party game must be on its own origin, never same-origin with the hub
  *  - forbidden fields (ratings, analytics/ads/tracking, personal data) fail; unknown fields fail (typo guard)
@@ -60,7 +61,12 @@ const OPTIONAL = [
   "licenseEvidence", "copyrightNotice", "sourceCommit", "authorUrl", "modifications", "lineage", "shelf",
   // first-hand content (H-06)
   "goals", "goalsIntro", "howWeMade", "testNotes",
+  // hub iframe marker (counting)
+  "embedQuery",
 ];
+// Hub iframe query per game. Only these exact forms: "src=hub" = the game counts the hub play with its own
+// cookie-free tag; "internal=1" = the game skips its own tag (another beacon already counts it, or a third-party game).
+const EMBED_QUERIES = new Set(["src=hub", "internal=1"]);
 const KNOWN = new Set([...REQUIRED, ...OPTIONAL]);
 // Fields that would publish fake social proof or imply tracking / personal data (CONTENT-POLICY: privacy, SEO-PLAN §6)
 const FORBIDDEN_FIELDS = [
@@ -133,6 +139,10 @@ export function validateGames(games, vercel) {
     if (!Array.isArray(g.tags) || g.tags.length === 0) err("tags must be a non-empty array");
     if (!Array.isArray(g.screenshots) || g.screenshots.length < 3) err("screenshots must have at least 3 entries");
     if (typeof g.embed !== "boolean") err("embed must be boolean");
+    if (g.embed === true) {
+      if (!EMBED_QUERIES.has(g.embedQuery)) err(`embedQuery ${JSON.stringify(g.embedQuery)} must be one of ${[...EMBED_QUERIES].map((q) => `"${q}"`).join(", ")} for an embed:true game`);
+      else if (g.embedQuery === "src=hub" && g.license !== "self-made") err(`embedQuery "src=hub" is only for self-made games (third-party embeds use "internal=1")`);
+    } else if (g.embedQuery !== undefined) err("embedQuery is only allowed on embed:true games");
     if (g.shelf !== undefined && !SHELVES.has(g.shelf)) err(`shelf "${g.shelf}" must be one of ${[...SHELVES].join(", ")}`);
     // H-06: goals come from the game's unlock config; testNotes carry a source for every measured value
     if (g.goals !== undefined) {

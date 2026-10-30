@@ -88,6 +88,21 @@ const pMerge = read(pr, "games/merge-tiles/index.html");
 check("prod merge-tiles iframe sandboxed", iframeTag(pMerge).includes(SANDBOX));
 check('prod merge-tiles credits "Gabriele Cirulli et al." + MIT', pMerge.includes("Gabriele Cirulli et al.") && pMerge.includes(">MIT</a>"));
 check("prod spud + pips iframes have no sandbox", ["spud-fling", "pips-bloom-isle"].every((sl) => !iframeTag(read(pr, `games/${sl}/index.html`)).includes("sandbox")));
+// Counting marker: each prod Play button loads the game url + exactly its embedQuery (spud src=hub, pip/classic internal=1)
+for (const g of real.filter((x) => x.embed)) {
+  const m = read(pr, `games/${g.slug}/index.html`).match(/id="play-embed"[\s\S]*?data-game-url="([^"]+)"/);
+  const got = m ? new URL(m[1].replaceAll("&amp;", "&")) : null;
+  const want = new URL(g.url);
+  for (const [k, v] of new URLSearchParams(g.embedQuery)) want.searchParams.set(k, v);
+  check(`prod ${g.slug} play url = url + embedQuery "${g.embedQuery}"`, got && got.href === want.href);
+}
+check("prod spud embed has src=hub and no internal=1", (read(pr, "games/spud-fling/index.html").match(/data-game-url="([^"]+)"/) || ["", ""])[1].endsWith("?src=hub"));
+// Hub-vs-direct split in Web Analytics: own-game iframes send only the hub ORIGIN as referrer (strict-origin) so the
+// beacon reports refererHost=games.gettoolstacklab.com; third-party iframes keep no-referrer.
+for (const g of real.filter((x) => x.embed)) {
+  const want = g.license === "self-made" ? "strict-origin" : "no-referrer";
+  check(`prod ${g.slug} iframe referrerpolicy="${want}"`, iframeTag(read(pr, `games/${g.slug}/index.html`)).includes(`referrerpolicy="${want}"`));
+}
 check("prod build has no fixture slug", !existsSync(join(pr, "games", classic.slug)) && !read(pr, "sitemap.xml").includes(classic.slug));
 
 // H-05: every game page's facts <dl> has a one-line Controls row and a Licence row linking games.json licenseUrl

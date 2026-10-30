@@ -2,7 +2,8 @@
   "_meta": {
     "scoreFormula": "plays * 3 + visits",
     "seedSource": "/workspace/exp28-games/analytics/TABLE-10-16_to_10-29.md",
-    "seedNote": "External visits over 14 days (2026-10-16 to 2026-10-29, Asia/Shanghai). G1 Spud Fling external total 104; G2 Pip's Bloom Isle external total 10. plays=0 unknown (no playtime data; Analytics Engine SQL 403)."
+    "seedNote": "External visits over 14 days (2026-10-16 to 2026-10-29, Asia/Shanghai). G1 Spud Fling external total 104; G2 Pip's Bloom Isle external total 10. plays=0 unknown (no playtime data; Analytics Engine SQL 403).",
+    "countingBasis": "See README 'Counting basis'. visits = Cloudflare Web Analytics page-loads of each game (headless/bot excluded); a hub Play = one game page-load (spud: own tag via ?src=hub; pip: zone beacon only via ?internal=1, zone rows on bloom-isle host). Hub vs direct = refererHost games.gettoolstacklab.com (query strings are not in the data). Hub plays counted from the 2026-10-30 hub deploy on; the seed above predates it."
   },
   "spud-fling": { "visits": 104, "plays": 0 },
   "pips-bloom-isle": { "visits": 10, "plays": 0 }
