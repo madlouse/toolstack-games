@@ -1,0 +1,64 @@
+{
+  "marker": true,
+  "console_errors": [],
+  "play": {
+    "mobile-spud": {
+      "src": "https://tsl-game1.pages.dev/?internal=1",
+      "click_to_src_ms": 106,
+      "header_bottom": -279,
+      "header_pos": "relative",
+      "frame_top": 112,
+      "frame_h": 560,
+      "vh": 844,
+      "frame_ratio": 0.66,
+      "clipped": false
+    },
+    "mobile-pip": {
+      "src": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+      "click_to_src_ms": 65,
+      "header_bottom": -279,
+      "header_pos": "relative",
+      "frame_top": 112,
+      "frame_h": 560,
+      "vh": 844,
+      "frame_ratio": 0.66,
+      "clipped": false
+    },
+    "desktop-spud": {
+      "src": "https://tsl-game1.pages.dev/?internal=1",
+      "click_to_src_ms": 89,
+      "header_bottom": 62,
+      "header_pos": "sticky",
+      "frame_top": 124,
+      "frame_h": 640,
+      "vh": 800,
+      "frame_ratio": 0.8,
+      "clipped": false
+    },
+    "desktop-pip": {
+      "src": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+      "click_to_src_ms": 68,
+      "header_bottom": 62,
+      "header_pos": "sticky",
+      "frame_top": 124,
+      "frame_h": 640,
+      "vh": 800,
+      "frame_ratio": 0.8,
+      "clipped": false
+    }
+  },
+  "auto_play": {
+    "src": "https://tsl-game1.pages.dev/?internal=1",
+    "header_bottom": -335,
+    "header_pos": "relative",
+    "frame_top": 56,
+    "frame_h": 560,
+    "vh": 844,
+    "frame_ratio": 0.66,
+    "clipped": false
+  },
+  "fonts": [
+    "system-ui",
+    "\"TSL Display\""
+  ]
+}

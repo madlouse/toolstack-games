@@ -1,0 +1,2058 @@
+{
+ "home-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 12,
+    "y": 371,
+    "w": 366,
+    "h": 443,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 12,
+    "y": 830,
+    "w": 366,
+    "h": 443,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 366,
+  "grid_x": 12,
+  "main_x": 0,
+  "main_w": 390,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-390-light-full.png",
+  "first": "polish/live-round-3/shots/home-390-light-first.png"
+ },
+ "spud-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover-800x1200.jpg",
+    "fit": "cover",
+    "nat": 0.667,
+    "box": 0.65,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.786,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [
+   366
+  ],
+  "similar_w": 366,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-390-light-full.png",
+  "first": "polish/live-round-3/shots/spud-390-light-first.png"
+ },
+ "pip-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover-800x1200.jpg",
+    "fit": "cover",
+    "nat": 0.667,
+    "box": 0.65,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.786,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [
+   366
+  ],
+  "similar_w": 366,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-390-light-full.png",
+  "first": "polish/live-round-3/shots/pip-390-light-first.png"
+ },
+ "popular-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-390-light-full.png",
+  "first": "polish/live-round-3/shots/popular-390-light-first.png"
+ },
+ "about-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-390-light-full.png",
+  "first": "polish/live-round-3/shots/about-390-light-first.png"
+ },
+ "policy-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-390-light-full.png",
+  "first": "polish/live-round-3/shots/policy-390-light-first.png"
+ },
+ "404-390-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-390-light-full.png",
+  "first": "polish/live-round-3/shots/404-390-light-first.png"
+ },
+ "home-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 12,
+    "y": 367,
+    "w": 364,
+    "h": 446,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 392,
+    "y": 367,
+    "w": 364,
+    "h": 446,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 744,
+  "grid_x": 12,
+  "main_x": 0,
+  "main_w": 768,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-768-light-full.png",
+  "first": "polish/live-round-3/shots/home-768-light-first.png"
+ },
+ "spud-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.789,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [
+   744
+  ],
+  "similar_w": 744,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-768-light-full.png",
+  "first": "polish/live-round-3/shots/spud-768-light-first.png"
+ },
+ "pip-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.789,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [
+   744
+  ],
+  "similar_w": 744,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-768-light-full.png",
+  "first": "polish/live-round-3/shots/pip-768-light-first.png"
+ },
+ "popular-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-768-light-full.png",
+  "first": "polish/live-round-3/shots/popular-768-light-first.png"
+ },
+ "about-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-768-light-full.png",
+  "first": "polish/live-round-3/shots/about-768-light-first.png"
+ },
+ "policy-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 100,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-768-light-full.png",
+  "first": "polish/live-round-3/shots/policy-768-light-first.png"
+ },
+ "404-768-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-768-light-full.png",
+  "first": "polish/live-round-3/shots/404-768-light-first.png"
+ },
+ "home-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 80,
+    "y": 368,
+    "w": 552,
+    "h": 551,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 648,
+    "y": 368,
+    "w": 552,
+    "h": 551,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 1120,
+  "grid_x": 80,
+  "main_x": 0,
+  "main_w": 1280,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-1280-light-full.png",
+  "first": "polish/live-round-3/shots/home-1280-light-first.png"
+ },
+ "spud-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.747,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-1280-light-full.png",
+  "first": "polish/live-round-3/shots/spud-1280-light-first.png"
+ },
+ "pip-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.747,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-1280-light-full.png",
+  "first": "polish/live-round-3/shots/pip-1280-light-first.png"
+ },
+ "popular-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-1280-light-full.png",
+  "first": "polish/live-round-3/shots/popular-1280-light-first.png"
+ },
+ "about-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-1280-light-full.png",
+  "first": "polish/live-round-3/shots/about-1280-light-first.png"
+ },
+ "policy-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 356,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-1280-light-full.png",
+  "first": "polish/live-round-3/shots/policy-1280-light-first.png"
+ },
+ "404-1280-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-1280-light-full.png",
+  "first": "polish/live-round-3/shots/404-1280-light-first.png"
+ },
+ "home-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 360,
+    "y": 368,
+    "w": 592,
+    "h": 553,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 968,
+    "y": 368,
+    "w": 592,
+    "h": 553,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 1200,
+  "grid_x": 360,
+  "main_x": 0,
+  "main_w": 1920,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-1920-light-full.png",
+  "first": "polish/live-round-3/shots/home-1920-light-first.png"
+ },
+ "spud-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-1920-light-full.png",
+  "first": "polish/live-round-3/shots/spud-1920-light-first.png"
+ },
+ "pip-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-1920-light-full.png",
+  "first": "polish/live-round-3/shots/pip-1920-light-first.png"
+ },
+ "popular-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-1920-light-full.png",
+  "first": "polish/live-round-3/shots/popular-1920-light-first.png"
+ },
+ "about-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-1920-light-full.png",
+  "first": "polish/live-round-3/shots/about-1920-light-first.png"
+ },
+ "policy-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 676,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-1920-light-full.png",
+  "first": "polish/live-round-3/shots/policy-1920-light-first.png"
+ },
+ "404-1920-light": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-1920-light-full.png",
+  "first": "polish/live-round-3/shots/404-1920-light-first.png"
+ },
+ "home-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 12,
+    "y": 371,
+    "w": 366,
+    "h": 443,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 12,
+    "y": 830,
+    "w": 366,
+    "h": 443,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 366,
+  "grid_x": 12,
+  "main_x": 0,
+  "main_w": 390,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-390-dark-full.png",
+  "first": "polish/live-round-3/shots/home-390-dark-first.png"
+ },
+ "spud-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover-800x1200.jpg",
+    "fit": "cover",
+    "nat": 0.667,
+    "box": 0.65,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.786,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [
+   366
+  ],
+  "similar_w": 366,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-390-dark-full.png",
+  "first": "polish/live-round-3/shots/spud-390-dark-first.png"
+ },
+ "pip-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover-800x1200.jpg",
+    "fit": "cover",
+    "nat": 0.667,
+    "box": 0.65,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.786,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [
+   366
+  ],
+  "similar_w": 366,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-390-dark-full.png",
+  "first": "polish/live-round-3/shots/pip-390-dark-first.png"
+ },
+ "popular-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-390-dark-full.png",
+  "first": "polish/live-round-3/shots/popular-390-dark-first.png"
+ },
+ "about-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-390-dark-full.png",
+  "first": "polish/live-round-3/shots/about-390-dark-first.png"
+ },
+ "policy-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-390-dark-full.png",
+  "first": "polish/live-round-3/shots/policy-390-dark-first.png"
+ },
+ "404-390-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 366,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-390-dark-full.png",
+  "first": "polish/live-round-3/shots/404-390-dark-first.png"
+ },
+ "home-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.786,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 12,
+    "y": 367,
+    "w": 364,
+    "h": 446,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 392,
+    "y": 367,
+    "w": 364,
+    "h": 446,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 744,
+  "grid_x": 12,
+  "main_x": 0,
+  "main_w": 768,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-768-dark-full.png",
+  "first": "polish/live-round-3/shots/home-768-dark-first.png"
+ },
+ "spud-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.789,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [
+   744
+  ],
+  "similar_w": 744,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-768-dark-full.png",
+  "first": "polish/live-round-3/shots/spud-768-dark-first.png"
+ },
+ "pip-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "",
+    "fit": "cover",
+    "nat": NaN,
+    "box": 1.789,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [
+   744
+  ],
+  "similar_w": 744,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-768-dark-full.png",
+  "first": "polish/live-round-3/shots/pip-768-dark-first.png"
+ },
+ "popular-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-768-dark-full.png",
+  "first": "polish/live-round-3/shots/popular-768-dark-first.png"
+ },
+ "about-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-768-dark-full.png",
+  "first": "polish/live-round-3/shots/about-768-dark-first.png"
+ },
+ "policy-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 100,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-768-dark-full.png",
+  "first": "polish/live-round-3/shots/policy-768-dark-first.png"
+ },
+ "404-768-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 12,
+  "main_w": 744,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-768-dark-full.png",
+  "first": "polish/live-round-3/shots/404-768-dark-first.png"
+ },
+ "home-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 80,
+    "y": 368,
+    "w": 552,
+    "h": 551,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 648,
+    "y": 368,
+    "w": 552,
+    "h": 551,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 1120,
+  "grid_x": 80,
+  "main_x": 0,
+  "main_w": 1280,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/home-1280-dark-first.png"
+ },
+ "spud-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.747,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/spud-1280-dark-first.png"
+ },
+ "pip-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.747,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/pip-1280-dark-first.png"
+ },
+ "popular-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/popular-1280-dark-first.png"
+ },
+ "about-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/about-1280-dark-first.png"
+ },
+ "policy-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 356,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/policy-1280-dark-first.png"
+ },
+ "404-1280-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 80,
+  "main_w": 1120,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-1280-dark-full.png",
+  "first": "polish/live-round-3/shots/404-1280-dark-first.png"
+ },
+ "home-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.783,
+    "fills_parent": true,
+    "bars": false
+   }
+  ],
+  "cards": [
+   {
+    "x": 360,
+    "y": 368,
+    "w": 592,
+    "h": 553,
+    "actions_bottom_gap": 17
+   },
+   {
+    "x": 968,
+    "y": 368,
+    "w": 592,
+    "h": 553,
+    "actions_bottom_gap": 17
+   }
+  ],
+  "grid_holes": false,
+  "grid_w": 1200,
+  "grid_x": 360,
+  "main_x": 0,
+  "main_w": 1920,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/home-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/home-1920-dark-first.png"
+ },
+ "spud-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "spud-fling/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-charging.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-flight.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "pips-bloom-isle/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/spud-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/spud-1920-dark-first.png"
+ },
+ "pip-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [
+   {
+    "src": "pips-bloom-isle/cover.webp",
+    "fit": "cover",
+    "nat": 1.779,
+    "box": 1.6,
+    "fills_parent": null,
+    "bars": false
+   },
+   {
+    "src": "screenshots/01-title.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/02-world.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "screenshots/03-play.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.778,
+    "fills_parent": false,
+    "bars": false
+   },
+   {
+    "src": "spud-fling/thumb.webp",
+    "fit": "cover",
+    "nat": 1.778,
+    "box": 1.787,
+    "fills_parent": null,
+    "bars": false
+   }
+  ],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [
+   340
+  ],
+  "similar_w": 340,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/pip-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/pip-1920-dark-first.png"
+ },
+ "popular-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/popular-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/popular-1920-dark-first.png"
+ },
+ "about-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/about-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/about-1920-dark-first.png"
+ },
+ "policy-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 676,
+  "main_w": 567,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [],
+  "shot": "polish/live-round-3/shots/policy-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/policy-1920-dark-first.png"
+ },
+ "404-1920-dark": {
+  "overflow_x": false,
+  "fonts": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "images": [],
+  "cards": [],
+  "main_x": 360,
+  "main_w": 1200,
+  "hint_visible": false,
+  "similar": [],
+  "similar_w": 0,
+  "small_targets": [],
+  "console_errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "shot": "polish/live-round-3/shots/404-1920-dark-full.png",
+  "first": "polish/live-round-3/shots/404-1920-dark-first.png"
+ }
+}
