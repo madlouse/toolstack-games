@@ -348,6 +348,7 @@
     "author": "Gabriele Cirulli et al.",
     "authorUrl": "https://github.com/gabrielecirulli/2048/graphs/contributors",
     "modifications": "No game logic changed (all js/ files byte-identical to the source commit). Title and heading say Merge Tiles instead of 2048. The original's 'official version' note is replaced by an unofficial-copy note. Credit links to gabrielecirulli.com, 1024 and Threes became plain text (same wording). Clear Sans web font removed for a system font stack. Favicon, Apple touch icons and iOS meta tags removed; viewport meta simplified. Added a small stylesheet that fits the page into the play bay. How-to-play line mentions swiping. Development files not shipped. Full list: PROVENANCE.txt next to the game.",
+    "lineage": "Gabriele Cirulli made 2048 as a small clone of 1024 by Veewo Studio, based on Saming's 2048 (also a clone); 2048 was indirectly inspired by Threes by Asher Vollmer. These credits are from the original README and game page.",
     "shelf": "classics",
     "added": "2026-10-30",
     "updated": "2026-10-30",

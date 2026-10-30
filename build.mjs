@@ -86,6 +86,7 @@ function creditsBlock(g, updated) {
       <div><dt>Licence</dt><dd><a class="hit" href="${esc(g.licenseUrl)}" rel="noopener">${esc(g.license)}</a></dd></div>
       ${g.copyrightNotice ? `<div><dt>Copyright</dt><dd>${esc(g.copyrightNotice)}</dd></div>` : ""}
       <div><dt>Source</dt><dd>${src}</dd></div>
+      ${g.lineage ? `<div><dt>Based on</dt><dd>${esc(g.lineage)}</dd></div>` : ""}
       <div><dt>Our changes</dt><dd>${esc(g.modifications)}</dd></div>
       <div><dt>Licence proof</dt><dd><a href="${esc(ev.url)}" rel="noopener">licence text</a>: “${esc(ev.quote)}”</dd></div>
       <div><dt>Checked</dt><dd><time datetime="${esc(ev.checked)}">${esc(ev.checked)}</time></dd></div>
@@ -877,6 +878,7 @@ function policyPage(games) {
   <dl>
     <div><dt>Made by</dt><dd>${esc(g.author)}</dd></div>
     <div><dt>Licence</dt><dd>${isSelfMade(g) ? "Our own work, all rights reserved" : `<a href="${esc(g.licenseUrl)}" rel="noopener">${esc(g.license)}</a>${g.copyrightNotice ? ` · ${esc(g.copyrightNotice)}` : ""}`}</dd></div>
+    ${g.lineage ? `<div><dt>Based on</dt><dd>${esc(g.lineage)}</dd></div>` : ""}
     <div><dt>Source</dt><dd>${g.source === "self-made by Toolstack Lab" ? "Made by Toolstack Lab" : `<a href="${esc(g.source)}" rel="noopener">${esc(g.source)}</a>`}</dd></div>
     <div><dt>Checked</dt><dd><time datetime="${esc(isSelfMade(g) ? g.updated || BUILD_DATE : g.licenseEvidence?.checked || g.updated || BUILD_DATE)}">${esc(isSelfMade(g) ? g.updated || BUILD_DATE : g.licenseEvidence?.checked || g.updated || BUILD_DATE)}</time></dd></div>
   </dl>

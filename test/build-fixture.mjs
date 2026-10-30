@@ -127,6 +127,15 @@ const pages = ["index.html", "popular/index.html", "about/index.html", "content-
 const anchors = pages.flatMap((p) => [...read(pr, p).matchAll(/href="(?:https:\/\/games\.gettoolstacklab\.com)?\/content-policy\/#([^"]+)"/g)].map((m) => m[1]));
 check(`H-07 every /content-policy/#slug link resolves (${anchors.length} links)`, anchors.length > 0 && anchors.every((a) => policyIds.has(a)));
 
+// H-08: a classic's licence box and policy entry credit the game's lineage (CONTENT-POLICY: no unattributed classics)
+for (const g of real.filter((x) => x.license !== "self-made")) {
+  const box = (read(pr, `games/${g.slug}/index.html`).split('id="license"')[1] || "").split("</section>")[0];
+  check(`H-08 ${g.slug}: games.json has a lineage credit`, typeof g.lineage === "string" && g.lineage.length > 20);
+  check(`H-08 ${g.slug}: licence box shows "Based on" lineage`, !!g.lineage && box.includes(`<dt>Based on</dt><dd>${g.lineage.replaceAll("'", "&#39;")}</dd>`));
+  const pol = (read(pr, "content-policy/index.html").split(`id="${g.slug}"`)[1] || "").split("</section>")[0];
+  check(`H-08 ${g.slug}: policy entry shows the lineage`, !!g.lineage && pol.includes(g.lineage.replaceAll("'", "&#39;")));
+}
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

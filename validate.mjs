@@ -51,13 +51,13 @@ const REQUIRED = [
   "slug", "title", "pitch", "description", "controls", "tags", "url", "embed", "thumbnail",
   "screenshots", "license", "licenseUrl", "source", "author", "added", "status",
 ];
-const THIRD_PARTY_REQUIRED = ["licenseEvidence", "copyrightNotice", "modifications"];
+const THIRD_PARTY_REQUIRED = ["licenseEvidence", "copyrightNotice", "modifications", "lineage"];
 const OPTIONAL = [
   "howToPlay", "controlsShort", "controlsKeyboard", "controlsTouch", "tips", "faq", "similarGenres", "playMode", "inLanguage",
   "applicationCategory", "operatingSystem", "gamePlatform", "seoTitle", "seoDescription", "subline",
   "definition", "genreLabel", "coverAlt", "screenshotAlts", "updated", "cover",
   // provenance / credits (H-02)
-  "licenseEvidence", "copyrightNotice", "sourceCommit", "authorUrl", "modifications", "shelf",
+  "licenseEvidence", "copyrightNotice", "sourceCommit", "authorUrl", "modifications", "lineage", "shelf",
   // first-hand content (H-06)
   "goals", "goalsIntro", "howWeMade", "testNotes",
 ];
@@ -168,7 +168,7 @@ export function validateGames(games, vercel) {
       for (const k of THIRD_PARTY_REQUIRED) {
         if (k === "copyrightNotice" && NO_NOTICE_NEEDED.has(lic)) continue;
         if (g[k] === undefined || g[k] === null || (typeof g[k] === "string" && !g[k].trim()))
-          err(`third-party game needs "${k}"${k === "licenseEvidence" ? " {url, quote, checked}" : k === "copyrightNotice" ? " (MIT/BSD/Apache/Zlib/CC-BY require the notice to be retained)" : " (what we changed; \"None\" if nothing)"}`);
+          err(`third-party game needs "${k}"${k === "licenseEvidence" ? " {url, quote, checked}" : k === "copyrightNotice" ? " (MIT/BSD/Apache/Zlib/CC-BY require the notice to be retained)" : k === "lineage" ? " (H-08: which games it is a clone of or based on, from the upstream credits; say so if none)" : " (what we changed; \"None\" if nothing)"}`);
       }
       const ev = g.licenseEvidence;
       if (ev !== undefined && ev !== null) {

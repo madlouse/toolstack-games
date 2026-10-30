@@ -51,6 +51,7 @@
     "seoDescription": "Fixture only. Example Classic is a fake MIT-licensed sliding puzzle used to test the hub build; it is never shipped to the live site at all.",
     "definition": "Example Classic is a fixture entry by Jane Example, MIT licence.",
     "genreLabel": "Sliding puzzle",
-    "cover": "assets/games/spud-fling/cover.jpg"
+    "cover": "assets/games/spud-fling/cover.jpg",
+    "lineage": "An original game; not based on another game."
   }
 ]
