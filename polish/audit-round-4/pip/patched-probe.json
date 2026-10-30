@@ -1,0 +1,237 @@
+{
+ "364x560": {
+  "play": {
+   "x": 108.84375,
+   "y": 457,
+   "w": 146.296875,
+   "h": 68,
+   "vis": true
+  },
+  "stick": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "jump": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "dive": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "hint": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "title": {
+   "x": 0,
+   "y": 0,
+   "w": 364,
+   "h": 560,
+   "vis": true
+  },
+  "overlap": [],
+  "hintText": "\n  Move W A S D / arrows\n  Jump 1 / Space\n  Dive Shift / C\n  Plant E\n  Pause Esc\n  Start Enter\n",
+  "hintVisible": false
+ },
+ "364x640": {
+  "play": {
+   "x": 108.84375,
+   "y": 497,
+   "w": 146.296875,
+   "h": 68,
+   "vis": true
+  },
+  "stick": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "jump": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "dive": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "hint": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "title": {
+   "x": 0,
+   "y": 0,
+   "w": 364,
+   "h": 640,
+   "vis": true
+  },
+  "overlap": [],
+  "hintText": "\n  Move W A S D / arrows\n  Jump 1 / Space\n  Dive Shift / C\n  Plant E\n  Pause Esc\n  Start Enter\n",
+  "hintVisible": false
+ },
+ "364x700": {
+  "play": {
+   "x": 108.84375,
+   "y": 527,
+   "w": 146.296875,
+   "h": 68,
+   "vis": true
+  },
+  "stick": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "jump": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "dive": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "hint": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "title": {
+   "x": 0,
+   "y": 0,
+   "w": 364,
+   "h": 700,
+   "vis": true
+  },
+  "overlap": [],
+  "hintText": "\n  Move W A S D / arrows\n  Jump 1 / Space\n  Dive Shift / C\n  Plant E\n  Pause Esc\n  Start Enter\n",
+  "hintVisible": false
+ },
+ "364x760": {
+  "play": {
+   "x": 108.84375,
+   "y": 557,
+   "w": 146.296875,
+   "h": 68,
+   "vis": true
+  },
+  "stick": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "jump": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "dive": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "hint": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "title": {
+   "x": 0,
+   "y": 0,
+   "w": 364,
+   "h": 760,
+   "vis": true
+  },
+  "overlap": [],
+  "hintText": "\n  Move W A S D / arrows\n  Jump 1 / Space\n  Dive Shift / C\n  Plant E\n  Pause Esc\n  Start Enter\n",
+  "hintVisible": false
+ },
+ "390x844": {
+  "play": {
+   "x": 121.84375,
+   "y": 599,
+   "w": 146.296875,
+   "h": 68,
+   "vis": true
+  },
+  "stick": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "jump": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "dive": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "hint": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": false
+  },
+  "title": {
+   "x": 0,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "vis": true
+  },
+  "overlap": [],
+  "hintText": "\n  Move W A S D / arrows\n  Jump 1 / Space\n  Dive Shift / C\n  Plant E\n  Pause Esc\n  Start Enter\n",
+  "hintVisible": false
+ }
+}
