@@ -54,7 +54,13 @@
         "blurb": "Lightweight WebGL toys that load in a tab — no install, no account."
       }
     ],
-    "tags": ["arcade", "physics", "one-button", "3D", "distance"],
+    "tags": [
+      "arcade",
+      "physics",
+      "one-button",
+      "3D",
+      "distance"
+    ],
     "url": "https://tsl-game1.pages.dev",
     "embed": true,
     "thumbnail": "assets/games/spud-fling/thumb.jpg",
@@ -64,16 +70,29 @@
       "assets/games/spud-fling/screenshots/03-flight.jpg"
     ],
     "license": "self-made",
-    "licenseUrl": "n/a (self-made)",
+    "licenseUrl": "https://games.gettoolstacklab.com/content-policy/#spud-fling",
     "source": "self-made by Toolstack Lab",
     "author": "Toolstack Lab",
     "added": "2026-10-16",
     "status": "live",
     "playMode": "SinglePlayer",
     "inLanguage": "en",
-    "applicationCategory": "Game",
-    "operatingSystem": "Any",
-    "gamePlatform": "Web browser"
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web browser",
+    "gamePlatform": "Web browser",
+    "seoTitle": "Spud Fling – One-Button Potato Slingshot Game | Toolstack Lab",
+    "seoDescription": "Spud Fling is a one-button physics game you play free in your browser: charge a slingshot, fling a potato, smash crates. No download, no account.",
+    "subline": "A free one-button potato slingshot game you play in your browser.",
+    "definition": "Spud Fling is a free one-button physics game for web browsers, made by Toolstack Lab.",
+    "genreLabel": "One-button physics / distance",
+    "coverAlt": "Spud Fling: a googly-eyed potato on a giant slingshot over a green field, crate tower ahead",
+    "screenshotAlts": [
+      "Start screen: Spud loaded in the slingshot, crate tower in the distance",
+      "Charging the slingshot – the power meter swings while you hold",
+      "Spud mid-flight over the green field toward the crates"
+    ],
+    "updated": "2026-10-30",
+    "cover": "assets/games/spud-fling/cover.jpg"
   },
   {
     "slug": "pips-bloom-isle",
@@ -130,7 +149,13 @@
         "blurb": "WebGL experiences aimed at 13+ casual players, playable in a tab."
       }
     ],
-    "tags": ["platformer", "collector", "cozy", "3D", "casual"],
+    "tags": [
+      "platformer",
+      "collector",
+      "cozy",
+      "3D",
+      "casual"
+    ],
     "url": "https://bloom-isle.gettoolstacklab.com",
     "embed": true,
     "thumbnail": "assets/games/pips-bloom-isle/thumb.jpg",
@@ -140,15 +165,28 @@
       "assets/games/pips-bloom-isle/screenshots/03-play.jpg"
     ],
     "license": "self-made",
-    "licenseUrl": "n/a (self-made)",
+    "licenseUrl": "https://games.gettoolstacklab.com/content-policy/#pips-bloom-isle",
     "source": "self-made by Toolstack Lab",
     "author": "Toolstack Lab",
     "added": "2026-10-16",
     "status": "live",
     "playMode": "SinglePlayer",
     "inLanguage": "en",
-    "applicationCategory": "Game",
-    "operatingSystem": "Any",
-    "gamePlatform": "Web browser"
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web browser",
+    "gamePlatform": "Web browser",
+    "seoTitle": "Pip's Bloom Isle – Cozy 3D Platformer in Browser | Toolstack Lab",
+    "seoDescription": "Pip's Bloom Isle is a cozy 3D platformer you play free in your browser: guide Tansy across four island levels. No download, no account, works on mobile.",
+    "subline": "A free cozy 3D platformer you play in your browser, on desktop or phone.",
+    "definition": "Pip's Bloom Isle is a free cozy 3D platformer for web browsers, made by Toolstack Lab.",
+    "genreLabel": "Cozy 3D platformer / collector",
+    "coverAlt": "Pip's Bloom Isle: Tansy and Pip on a grassy island path under sunlight beams",
+    "screenshotAlts": [
+      "Level select: four World 1 levels and the Gentle, Breezy and Bold tiers",
+      "Sunny Shelf: stepping stones and sunlight beams across the island",
+      "Collecting sunlight on Sunny Shelf, goal banner at the top"
+    ],
+    "updated": "2026-10-30",
+    "cover": "assets/games/pips-bloom-isle/cover.jpg"
   }
 ]

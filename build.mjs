@@ -20,13 +20,32 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
 const DIST = resolve(ROOT, "dist");
 const CANONICAL = "https://games.gettoolstacklab.com";
-const SITE_NAME = "Toolstack Lab · AI 3D 游戏合集";
+const SITE_NAME = "Toolstack Lab Games";
+const BUILD_DATE = "2026-10-30";
+const ORG = { "@type": "Organization", name: "Toolstack Lab", url: "https://gettoolstacklab.com" };
+const MAX_TAGS = 3;
+const SEARCH_MIN_GAMES = 6;
 const TAGLINE =
-  "Tiny browser 3D games from Toolstack Lab. No accounts, no cookies — dock a cartridge and play.";
+  "Small games made by Toolstack Lab. Click Play and you are in — no download, no account, no cookies.";
+const HOME_DESC =
+  "Free 3D browser games by Toolstack Lab: a one-button potato slingshot and a cozy island platformer. Play instantly on desktop or phone. No download, no account.";
+
+function tagsHtml(g) {
+  return `<div class="tags">${(g.tags || []).slice(0, MAX_TAGS).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
+}
 
 function score(stats, slug) {
   const s = stats[slug] || { visits: 0, plays: 0 };
   return (Number(s.plays) || 0) * 3 + (Number(s.visits) || 0);
+}
+
+/* Honest heat label: visits until real plays exist (no misleading "0 plays") */
+function heat(stats, slug) {
+  const s = stats[slug] || { visits: 0, plays: 0 };
+  const plays = Number(s.plays) || 0;
+  const visits = Number(s.visits) || 0;
+  if (plays > 0) return { n: score(stats, slug), unit: "score", title: "score = plays×3 + visits" };
+  return { n: visits, unit: "visits", title: "external visits, last 14 days" };
 }
 
 function esc(s) {
@@ -74,6 +93,9 @@ function layout({
   jsonLd,
   extraHead = "",
   navActive = "",
+  ogAlt = "Toolstack Lab Games – free 3D browser games",
+  ogW = 1200,
+  ogH = 630,
 }) {
   const canon = `${CANONICAL}${canonicalPath}`;
   const og = ogImage.startsWith("http")
@@ -116,12 +138,14 @@ function layout({
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(canon)}">
 <meta property="og:image" content="${esc(og)}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="${ogW}">
+<meta property="og:image:height" content="${ogH}">
+<meta property="og:image:alt" content="${esc(ogAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${esc(og)}">
+<meta name="twitter:image:alt" content="${esc(ogAlt)}">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
@@ -134,7 +158,7 @@ ${ldBlocks}
   <div class="wrap inner">
     <a class="brand" href="/">
       <span class="brand-name">Toolstack Lab</span>
-      <span class="brand-sub">AI 3D 游戏合集</span>
+      <span class="brand-sub">Games</span>
     </a>
     <nav class="nav" aria-label="Primary">
       ${nav}
@@ -144,18 +168,15 @@ ${ldBlocks}
 ${body}
 <footer class="site-footer">
   <div class="wrap inner">
-    <div>© Toolstack Lab · browser games, self-hosted · no trackers</div>
-    <div>
+    <div class="copy">© Toolstack Lab · browser games, self-hosted · no trackers</div>
+    <nav class="links" aria-label="Footer">
       <a href="/about/">About</a>
-      ·
-      <a href="/popular/">Popular</a>
-      ·
-      <a href="/CONTENT-POLICY.html">Content policy</a>
-      ·
+      <a href="/popular/">All games</a>
+      <a href="/content-policy/">Content policy</a>
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
-    </div>
+    </nav>
   </div>
-  <!-- polish-r2 -->
+  <!-- polish-r3 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>
@@ -171,7 +192,7 @@ function allTags(games) {
 }
 
 function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
-  const sc = score(stats, g.slug);
+  const ht = heat(stats, g.slug);
   const thumb = assetPath(g.thumbnail);
   const thumbWebp = webpOf(thumb);
   const shots = (g.screenshots || []).map(assetPath);
@@ -183,22 +204,21 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
   <a class="card-thumb" href="/games/${esc(g.slug)}/" aria-label="${esc(g.title)}">
     <picture>
       <source type="image/webp" srcset="${esc(thumbWebp)}">
-      <img src="${esc(thumb)}" alt="${esc(g.title)} thumbnail" width="640" height="360" loading="${featured ? "eager" : "lazy"}" decoding="async"${featured ? ' fetchpriority="high"' : ""}>
+      <img src="${esc(thumb)}" alt="" width="640" height="360" loading="${featured ? "eager" : "lazy"}" decoding="async"${featured ? ' fetchpriority="high"' : ""}>
     </picture>
     <picture class="preview-layer" aria-hidden="true">
       <source type="image/webp" srcset="${esc(previewWebp)}">
       <img src="${esc(preview)}" alt="" width="640" height="360" loading="lazy" decoding="async">
     </picture>
-    <span class="cart-teeth" aria-hidden="true"></span>
   </a>
   <div class="card-body">
-    <div class="cart-plate" aria-hidden="true"><span class="cart-serial">TSL·${String(index + 1).padStart(2, "0")}</span><span class="cart-grip"></span></div>
+    <div class="cart-plate"><span class="cart-serial" aria-hidden="true">TSL·${String(index + 1).padStart(2, "0")}</span>${featured ? '<span class="cart-badge">Most visited</span>' : ""}</div>
     <h2 class="card-title"><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a></h2>
     <p class="card-pitch">${esc(g.pitch)}</p>
-    <div class="tags">${(g.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+    ${tagsHtml(g)}
     <div class="card-actions">
-      <a class="btn" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">Play</a>
-      <span class="card-score" title="score = plays×3 + visits">★ <span data-count-to="${sc}">${sc}</span></span>
+      <a class="btn" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">Play<span class="visually-hidden"> ${esc(g.title)}</span></a>
+      <span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>
     </div>
   </div>
 </article>`;
@@ -209,32 +229,9 @@ function homePage(games, stats) {
   const hot = games[0];
   const rest = games.slice(1);
 
-  const featured = hot
-    ? `<section class="featured card-like" aria-label="Hottest game" data-play-href="/games/${esc(hot.slug)}/#play" tabindex="0">
-  <div class="detail-media cart-face">
-    <picture>
-      <source type="image/webp" srcset="${esc(webpOf(assetPath(hot.thumbnail)))}">
-      <img src="${esc(assetPath(hot.thumbnail))}" alt="${esc(hot.title)}" width="640" height="360" decoding="async" fetchpriority="high">
-    </picture>
-    <div class="cart-teeth" aria-hidden="true"></div>
-  </div>
-  <div>
-    <div class="featured-badge"><span class="cart-serial">TSL·01</span> Hot cartridge · score <span data-count-to="${score(stats, hot.slug)}">${score(stats, hot.slug)}</span></div>
-    <h2><a href="/games/${esc(hot.slug)}/">${esc(hot.title)}</a></h2>
-    <p class="pitch">${esc(hot.pitch)}</p>
-    <div class="tags">${(hot.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-    <div class="card-actions pad-top">
-      <a class="btn btn-lg" href="/games/${esc(hot.slug)}/#play" data-recent-slug="${esc(hot.slug)}" data-recent-title="${esc(hot.title)}">Play</a>
-      <a class="btn btn-ghost" href="/games/${esc(hot.slug)}/">Details</a>
-    </div>
-  </div>
-</section>`
-    : "";
-
-  const cards = (rest.length ? rest : games)
-    .map((g, i) => cardHtml(g, stats, { index: rest.length ? i + 1 : i }))
-    .join("\n");
-  const cardCount = rest.length ? rest.length : games.length;
+  // R3: one card design for every game (no separate featured slot) — same text sizes, same actions
+  const cards = games.map((g, i) => cardHtml(g, stats, { featured: i === 0, index: i })).join("\n");
+  const cardCount = games.length;
 
   const tagBtns = [
     `<button type="button" data-filter-tag="all" aria-pressed="true">All</button>`,
@@ -247,17 +244,16 @@ function homePage(games, stats) {
   const body = `
 <main id="main">
   <section class="hero wrap">
-    <div class="hero-kicker">Lab cartridge workbench</div>
-    <h1>${esc(SITE_NAME)}</h1>
-    <p>${esc(TAGLINE)} Press <span class="kbd">/</span> to filter. <span class="pointer-fine">Hover</span><span class="pointer-coarse">Press</span> a cartridge to flip its label.</p>
+    <div class="hero-kicker">Toolstack Lab Games</div>
+    <h1>Free 3D browser games – play instantly, no account</h1>
+    <p>${esc(TAGLINE)}</p>
   </section>
   <section class="section wrap" id="games">
     <div class="section-head">
-      <h2>Games on the bench</h2>
-      <span class="score-hint">Sorted by popularity (plays×3 + visits) · <a href="/popular/">full board</a></span>
+      <h2>All games</h2>
+      <a class="section-link" href="/popular/">See the list</a>
     </div>
-    ${featured}
-    <div class="toolbar">
+    ${games.length >= SEARCH_MIN_GAMES ? `<div class="toolbar">
       <div class="search-wrap">
         <label for="game-search">Search games</label>
         <span class="search-icon" aria-hidden="true">/</span>
@@ -267,24 +263,26 @@ function homePage(games, stats) {
         ${tagBtns}
       </div>` : ""}
     </div>
-    <p class="filter-hint">Tip: <span class="kbd">/</span> focuses search · <span class="kbd">Enter</span> plays the focused cartridge</p>
+    <p class="filter-hint hint-fine">Tip: <span class="kbd">/</span> focuses search · <span class="kbd">Enter</span> plays the focused cartridge</p>` : ""}
     <div class="grid${cardCount <= 6 ? " stagger" : ""}" id="games-grid">
 ${cards}
     </div>
-    <div class="shelf" aria-hidden="true"></div>
     <p class="empty-filter" id="filter-empty" hidden>No cartridges match that filter.</p>
     <aside class="recent" id="recent-played" hidden>
       <h2>Recently played on this device</h2>
       <ul></ul>
     </aside>
   </section>
+  <section class="section wrap safe-note" aria-labelledby="safe-h">
+    <h2 id="safe-h">Why these games are safe to play</h2>
+    <p>Every game here is made by Toolstack Lab. There is no sign-up, no cookies and no ad or tracking scripts; progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
+  </section>
 </main>`;
 
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: SITE_NAME,
-    description: TAGLINE,
+    name: "All games",
     url: CANONICAL + "/",
     numberOfItems: games.length,
     itemListElement: games.map((g, i) => ({
@@ -304,45 +302,52 @@ ${cards}
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: SITE_NAME,
-    description: TAGLINE,
+    description: HOME_DESC,
     url: CANONICAL + "/",
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Toolstack Lab",
-      url: "https://gettoolstacklab.com",
-    },
+    inLanguage: "en",
+    isPartOf: { "@id": CANONICAL + "/#website" },
     mainEntity: { "@id": CANONICAL + "/#itemlist" },
   };
   itemList["@id"] = CANONICAL + "/#itemlist";
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": CANONICAL + "/#website",
+    name: SITE_NAME,
+    url: CANONICAL + "/",
+    inLanguage: "en",
+    publisher: { "@id": "https://gettoolstacklab.com/#org" },
+  };
+  const org = { "@context": "https://schema.org", ...ORG, "@id": "https://gettoolstacklab.com/#org" };
 
   return layout({
-    title: SITE_NAME,
-    description: TAGLINE,
+    title: "Free 3D Browser Games – No Download, No Account | Toolstack Lab",
+    description: HOME_DESC,
     canonicalPath: "/",
-    ogImage: "/og.png",
+    ogImage: "/og.jpg",
     body,
-    jsonLd: [collection, itemList],
+    jsonLd: [website, org, collection, itemList],
     navActive: "games",
   });
 }
 
 function similarBlock(g, allGames) {
   const others = allGames.filter((x) => x.slug !== g.slug);
-  const genres = (g.similarGenres || [])
-    .map(
-      (sg) => `<div class="similar-item">
-  <h3>${esc(sg.genre)}</h3>
-  <p>${esc(sg.blurb)}</p>
-</div>`
-    )
-    .join("\n");
+  const sg = g.similarGenres || [];
+  const genres = sg.length
+    ? `<p class="similar-prose">If you like ${esc(g.title)}, the closest genres are ${sg
+        .map((x) => `<strong>${esc(x.genre.toLowerCase())}</strong>`)
+        .join(", ")
+        .replace(/, ([^,]*)$/, " and $1")}. These are genre pointers, not other studios’ games.</p>`
+    : "";
 
   const hubCarts =
     others.length > 0
       ? `<div class="similar-carts">${others
           .map(
-            (o, i) => `<a class="similar-cart" href="/games/${esc(o.slug)}/#play">
-  <span class="cart-serial">TSL·${String(i + 2).padStart(2, "0")}</span>
+            (o, i) => `<a class="similar-cart" href="/games/${esc(o.slug)}/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="${esc(webpOf(assetPath(o.thumbnail)))}"><img src="${esc(assetPath(o.thumbnail))}" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·${String(allGames.indexOf(o) + 1).padStart(2, "0")}</span>
   <strong>${esc(o.title)}</strong>
   <span class="muted">${esc(o.pitch)}</span>
 </a>`
@@ -350,13 +355,10 @@ function similarBlock(g, allGames) {
           .join("")}</div>`
       : "";
 
-  return `<section class="prose" aria-labelledby="similar-h">
-  <h2 id="similar-h">Similar on this shelf</h2>
-  <p>Other cartridges on this workbench, then honest genre neighbours (not claims that other studios’ titles are ours).</p>
+  return `<section class="prose similar" aria-labelledby="similar-h">
+  <h2 id="similar-h">More games on Toolstack Lab</h2>
   ${hubCarts}
-  <div class="similar-list">
-${genres}
-  </div>
+  ${genres}
 </section>`;
 }
 
@@ -384,11 +386,14 @@ function detailPage(g, stats, allGames) {
     .map((s, i) => {
       const src = assetPath(s);
       const webp = webpOf(src);
+      const alt = (g.screenshotAlts && g.screenshotAlts[i]) || `${g.title} screenshot ${i + 1}`;
       return `<figure class="shot-slot">
+  <img class="lqip" src="${esc(src.replace(/\.jpe?g$/i, "-lqip.jpg"))}" alt="" width="32" height="18" aria-hidden="true">
   <picture>
     <source type="image/webp" srcset="${esc(webp)}">
-    <img src="${esc(src)}" alt="${esc(g.title)} screenshot ${i + 1}" width="1280" height="720" loading="lazy" decoding="async">
+    <img src="${esc(src)}" alt="${esc(alt)}" width="1280" height="720" loading="lazy" decoding="async">
   </picture>
+  <figcaption>${esc(alt)}</figcaption>
 </figure>`;
     })
     .join("\n");
@@ -401,29 +406,33 @@ function detailPage(g, stats, allGames) {
   const kb = g.controlsKeyboard || g.controls;
   const touch = g.controlsTouch || g.controls;
 
+  const cover = assetPath(g.cover || g.thumbnail);
+  const coverDir = cover.replace(/\/[^/]+$/, "");
+  const policyUrl = `${CANONICAL}/content-policy/#${g.slug}`;
+  const updated = g.updated || BUILD_DATE;
   const videoGameLd = {
     "@context": "https://schema.org",
-    "@type": "VideoGame",
+    "@type": ["VideoGame", "WebApplication"],
+    "@id": `${CANONICAL}/games/${g.slug}/#game`,
     name: g.title,
-    description: g.description,
+    description: how,
     url: `${CANONICAL}/games/${g.slug}/`,
-    image: `${CANONICAL}${thumb}`,
-    author: { "@type": "Organization", name: g.author },
-    publisher: { "@type": "Organization", name: "Toolstack Lab" },
-    gamePlatform: g.gamePlatform || "Web browser",
+    image: [`${CANONICAL}${coverDir}/cover-1920x1080.jpg`, `${CANONICAL}${coverDir}/cover-800x800.jpg`, `${CANONICAL}${coverDir}/og.jpg`],
+    screenshot: (g.screenshots || []).map((x) => CANONICAL + assetPath(x)),
+    applicationCategory: "GameApplication",
+    operatingSystem: "Web browser",
+    gamePlatform: "Web browser",
     playMode: g.playMode || "SinglePlayer",
-    applicationCategory: g.applicationCategory || "Game",
-    operatingSystem: g.operatingSystem || "Any",
-    inLanguage: g.inLanguage || "en",
     genre: g.tags,
-    datePublished: g.added,
-    license: g.licenseUrl && g.licenseUrl.startsWith("http") ? g.licenseUrl : undefined,
+    inLanguage: g.inLanguage || "en",
+    isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    author: ORG,
+    publisher: ORG,
+    license: policyUrl,
+    datePublished: g.added,
+    dateModified: updated,
   };
-  // Keep license as text when no URL
-  if (!videoGameLd.license) {
-    videoGameLd.license = g.license;
-  }
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -457,24 +466,33 @@ function detailPage(g, stats, allGames) {
         }
       : null;
 
-  const pageTitle = `${g.title} — play free in browser · ${SITE_NAME}`;
-  const pageDesc = `${g.pitch} Controls, tips, FAQ, and licence. Free browser play, no account.`;
+  const pageTitle = g.seoTitle || `${g.title} | Toolstack Lab`;
+  const pageDesc = g.seoDescription || g.pitch;
+  const facts = [
+    ["Genre", g.genreLabel || (g.tags || []).slice(0, 2).join(", ")],
+    ["Platforms", "Web browser – desktop and mobile"],
+    ["Price", "Free"],
+    ["Account needed", "No"],
+    ["Save data", "Stays in your browser (localStorage)"],
+    ["Made by", "Toolstack Lab"],
+    ["Released", g.added],
+    ["Updated", updated],
+  ]
+    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${k === "Updated" || k === "Released" ? `<time datetime="${esc(v)}">${esc(v)}</time>` : esc(v)}</dd></div>`)
+    .join("");
 
   const body = `
 <main id="main" class="wrap">
   <p class="crumb"><a href="/">Games</a> / ${esc(g.title)}</p>
-  <div class="detail-hero">
-    <div class="detail-media">
-      <picture>
-        <source type="image/webp" srcset="${esc(webpOf(thumb))}">
-        <img src="${esc(thumb)}" alt="${esc(g.title)}" width="640" height="360" decoding="async" fetchpriority="high">
-      </picture>
-    </div>
+  <div class="detail-hero detail-hero-text">
     <div class="detail-meta">
+      <div class="detail-head">
       <h1>${esc(g.title)}</h1>
-      <p class="pitch">${esc(g.pitch)}</p>
-      <div class="tags">${(g.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-      <p class="score-hint pad-top">Popularity score <span data-count-to="${sc}">${sc}</span> (plays×3 + visits)</p>
+      <p class="pitch">${esc(g.subline || g.pitch)}</p>
+      ${tagsHtml(g)}
+      </div>
+      <div class="detail-cta">
+      <p class="score-hint">${heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
       <div class="card-actions pad-top">
         <button type="button" class="btn btn-lg" id="play-embed"
           data-game-url="${esc(embedUrl(g.url))}"
@@ -483,25 +501,24 @@ function detailPage(g, stats, allGames) {
         <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}">Copy link</button>
         <a class="btn-link" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a>
       </div>
+      </div>
     </div>
   </div>
 
   <section class="play-panel" id="play" aria-label="Play bay">
     <div class="play-bar">
-      <span class="bay-label">Play bay · dock cartridge</span>
+      <span class="bay-led" aria-hidden="true"></span>
+      <span class="bay-label">Play bay</span>
+      <span class="bay-status" id="bay-status" aria-live="polite">Ready · nothing loads until you press Play</span>
     </div>
     <div class="play-frame-wrap" id="play-frame-wrap">
       <div class="play-placeholder" id="play-placeholder">
-        <svg class="bay-graphic" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
-          <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
-          <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
-          <g class="bay-pins">
-            <rect x="70" y="86" width="6" height="10" rx="1"/><rect x="84" y="86" width="6" height="10" rx="1"/><rect x="98" y="86" width="6" height="10" rx="1"/><rect x="112" y="86" width="6" height="10" rx="1"/><rect x="126" y="86" width="6" height="10" rx="1"/><rect x="140" y="86" width="6" height="10" rx="1"/><rect x="154" y="86" width="6" height="10" rx="1"/><rect x="168" y="86" width="6" height="10" rx="1"/>
-          </g>
-          <path class="bay-arrow" d="M120 44 v24 m-9 -9 l9 9 l9 -9"/>
-        </svg>
-        <div class="bay-empty-label">Bay empty</div>
-        <div>Press <strong>Play</strong> above to dock this cartridge. Nothing loads until you ask.</div>
+        <picture class="bay-cover">
+          <source media="(max-width: 480px)" srcset="${esc(coverDir)}/cover-800x1200.jpg">
+          <source type="image/webp" srcset="${esc(webpOf(thumb))} 640w, ${esc(webpOf(cover))} 1280w" sizes="(min-width: 1200px) 1200px, 100vw">
+          <img src="${esc(cover)}" srcset="${esc(thumb)} 640w, ${esc(cover)} 1280w" sizes="(min-width: 1200px) 1200px, 100vw" alt="${esc(g.coverAlt || g.title)}" width="1280" height="720" decoding="async" fetchpriority="high">
+        </picture>
+        <button type="button" class="bay-play" id="bay-play" aria-label="Play ${esc(g.title)}"><span class="bay-play-icon" aria-hidden="true"></span><span>Play</span></button>
       </div>
       <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
       <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">${esc(g.title)}</span></div>
@@ -509,8 +526,12 @@ function detailPage(g, stats, allGames) {
     </div>
   </section>
 
+  <div class="detail-cols">
+  <div class="detail-main">
   <article class="prose">
-    <h2>What it is &amp; how to play</h2>
+    <p class="definition">${esc(g.definition || "")}</p>
+    <dl class="facts">${facts}</dl>
+    <h2>How to play ${esc(g.title)}</h2>
     <p>${esc(how)}</p>
     <h2>Controls</h2>
     <div class="controls-grid">
@@ -523,7 +544,7 @@ function detailPage(g, stats, allGames) {
         <p>${esc(touch)}</p>
       </div>
     </div>
-    <h2>Tips</h2>
+    <h2>Tips for ${esc(g.title)}</h2>
     <ul>
 ${tips}
     </ul>
@@ -533,21 +554,21 @@ ${shots}
     </div>
   </article>
 
-  ${similarBlock(g, allGames)}
   ${faqBlock(g)}
+  </div>
+  <aside class="detail-side" aria-label="More on this cartridge">
+  ${similarBlock(g, allGames)}
 
-  <div class="license-box" id="license">
-    <h2 class="visually-hidden">License &amp; source</h2>
+  <section class="license-box prose" id="license" aria-labelledby="license-h">
+    <h2 id="license-h">Who made ${esc(g.title)} and its licence</h2>
+    <p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved.</p>
     <dl>
-      <dt>License</dt>
-      <dd>${esc(g.license)}${g.licenseUrl ? ` · ${esc(g.licenseUrl)}` : ""}</dd>
-      <dt>Source</dt>
-      <dd>${esc(g.source)}</dd>
-      <dt>Author</dt>
-      <dd>${esc(g.author)}</dd>
-      <dt>Status</dt>
-      <dd>${esc(g.status)} · added ${esc(g.added)}</dd>
+      <div><dt>Licence</dt><dd><a href="/content-policy/#${esc(g.slug)}">Self-made · content policy</a></dd></div>
+      <div><dt>Source</dt><dd>${esc(g.source)}</dd></div>
+      <div><dt>Checked</dt><dd><time datetime="${esc(updated)}">${esc(updated)}</time></dd></div>
     </dl>
+  </section>
+  </aside>
   </div>
 </main>`;
 
@@ -555,7 +576,8 @@ ${shots}
     title: pageTitle,
     description: pageDesc,
     canonicalPath: `/games/${g.slug}/`,
-    ogImage: thumb,
+    ogImage: `${coverDir}/og.jpg`,
+    ogAlt: g.coverAlt || `${g.title} cover art`,
     body,
     jsonLd: [videoGameLd, breadcrumbLd, faqLd].filter(Boolean),
     navActive: "games",
@@ -565,7 +587,7 @@ ${shots}
 function popularPage(games, stats) {
   const rows = games
     .map((g, i) => {
-      const sc = score(stats, g.slug);
+      const ht = heat(stats, g.slug);
       const st = stats[g.slug] || { visits: 0, plays: 0 };
       return `<a class="board-row" href="/games/${esc(g.slug)}/">
   <div class="board-rank">#${i + 1}</div>
@@ -574,8 +596,8 @@ function popularPage(games, stats) {
     <p>${esc(g.pitch)}</p>
   </div>
   <div class="board-score">
-    <div>★ <span data-count-to="${sc}">${sc}</span></div>
-    <div>${Number(st.visits) || 0} visits${Number(st.plays) > 0 ? ` · ${Number(st.plays)} plays` : ""}</div>
+    <div class="board-n"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits" : "plays"}</div>
+    <div>${Number(st.plays) > 0 ? `${Number(st.visits) || 0} visits · ${Number(st.plays)} plays` : "last 14 days"}</div>
   </div>
 </a>`;
     })
@@ -584,8 +606,8 @@ function popularPage(games, stats) {
   const body = `
 <main id="main" class="wrap">
   <section class="page-intro">
-    <h1>Popularity board</h1>
-    <p>Score = plays × 3 + visits. Current seed is visit-based (plays not exported yet). Client “recently played” is never a popularity signal.</p>
+    <h1>All games</h1>
+    <p>Every game on Toolstack Lab Games, most visited first (external visits over the last 14 days). Play counts will appear here once we can measure them.</p>
   </section>
   <section class="section" aria-label="Ranking">
     <div class="board">
@@ -595,16 +617,16 @@ ${rows}
 </main>`;
 
   return layout({
-    title: `Popularity board · ${SITE_NAME}`,
+    title: "All Games | Toolstack Lab",
     description:
-      "Popularity ranking for Toolstack Lab browser games. Score = plays×3 + visits.",
+      "All free 3D browser games on Toolstack Lab, most visited first: Spud Fling and Pip's Bloom Isle. Play instantly on desktop or phone, no download or account.",
     canonicalPath: "/popular/",
-    ogImage: "/og.png",
+    ogImage: "/og.jpg",
     body,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Popularity board",
+      name: "All games",
       url: CANONICAL + "/popular/",
       itemListElement: games.map((g, i) => ({
         "@type": "ListItem",
@@ -621,8 +643,8 @@ function aboutPage() {
   const body = `
 <main id="main" class="wrap">
   <section class="page-intro">
-    <h1>About this hub</h1>
-    <p>This is the lab workbench: every game is a labeled cartridge on the shelf. Press Play to dock it into the glowing play bay. No accounts, no cookies, no third-party scripts or fonts.</p>
+    <h1>About Toolstack Lab Games</h1>
+    <p>Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page. No accounts, no cookies, no third-party scripts or fonts.</p>
   </section>
   <article class="prose policy-page">
     <div class="about-bay" aria-hidden="true">
@@ -636,27 +658,29 @@ function aboutPage() {
       <li>Popularity sorted by a documented formula; “recently played” stays on your device only.</li>
     </ul>
     <h2>Lab cartridge workbench</h2>
-    <p>Cards are cartridges with a spine, notch, label plate, and edge connector. Press/hover flips the label through a real screenshot. Play docks the cartridge into the bay — one memorable beat, no video or 3D backgrounds.</p>
+    <p>Every game gets the same cartridge card with a label plate. On a mouse, hovering a card flips its label to a real screenshot. Play docks the cartridge into the bay — one memorable beat, no video or 3D backgrounds.</p>
     <h2>Audience &amp; boundaries</h2>
-    <p>Pip's Bloom Isle is aimed at casual players 13+. We only list what each build already ships. See the <a href="/CONTENT-POLICY.html">content policy</a> for licence rules.</p>
+    <p>Pip's Bloom Isle is aimed at casual players 13+. We only list what each build already ships. See the <a href="/content-policy/">content policy</a> for licence rules.</p>
     <h2>Contact</h2>
     <p>Parent site: <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>. Source for this hub: public GitHub <code>madlouse/toolstack-games</code>.</p>
   </article>
 </main>`;
 
   return layout({
-    title: `About · ${SITE_NAME}`,
+    title: "About Toolstack Lab Games – Who Makes Them & Licences",
     description:
-      "About the Toolstack Lab AI 3D game hub: self-made browser games, no trackers, cartridge play bay.",
+      "Who makes Toolstack Lab Games, how each game is licensed, and what we never do: no accounts, no cookies, no ad or tracking scripts. Every game is our own.",
     canonicalPath: "/about/",
-    ogImage: "/og.png",
+    ogImage: "/og.jpg",
     body,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "AboutPage",
-      name: `About · ${SITE_NAME}`,
+      name: "About Toolstack Lab Games",
       url: CANONICAL + "/about/",
-      isPartOf: { "@type": "WebSite", name: SITE_NAME, url: CANONICAL + "/" },
+      inLanguage: "en",
+      isPartOf: { "@type": "WebSite", "@id": CANONICAL + "/#website", name: SITE_NAME, url: CANONICAL + "/" },
+      publisher: ORG,
     },
     navActive: "about",
   });
@@ -669,7 +693,7 @@ function notFoundPage() {
     <svg class="bay-graphic" viewBox="0 0 240 120" focusable="false">
       <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
       <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
-      <text x="120" y="70" text-anchor="middle" fill="#9aa8bc" font-size="14" font-family="ui-monospace,monospace">EMPTY SLOT</text>
+      <text x="120" y="70" text-anchor="middle" fill="#9aa8bc" font-size="14">EMPTY SLOT</text>
     </svg>
   </div>
   <h1>Cartridge not found</h1>
@@ -677,28 +701,38 @@ function notFoundPage() {
   <p><a class="btn" href="/">Back to the shelf</a></p>
 </main>`;
   return layout({
-    title: `Not found · ${SITE_NAME}`,
+    title: "Page not found | Toolstack Lab",
     description: "Page not found on the Toolstack Lab game hub.",
     canonicalPath: "/404",
-    ogImage: "/og.png",
+    ogImage: "/og.jpg",
     body,
     jsonLd: null,
   });
 }
 
-function policyPage(mdHtml) {
+function policyPage(mdHtml, games) {
+  const perGame = games
+    .map(
+      (g) => `<section id="${esc(g.slug)}" class="policy-game">
+  <h3>${esc(g.title)}</h3>
+  <p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved. Licence: ${esc(g.license)}. Source: ${esc(g.source)}. Added ${esc(g.added)}; last checked <time datetime="${esc(g.updated || BUILD_DATE)}">${esc(g.updated || BUILD_DATE)}</time>.</p>
+</section>`
+    )
+    .join("\n");
   const body = `
 <main id="main" class="wrap prose policy-page">
   <p class="crumb"><a href="/">Games</a> / Content policy</p>
   ${mdHtml}
+  <h2 id="games-licences">Licences of the games listed now</h2>
+  ${perGame}
 </main>`;
   return layout({
-    title: `Content policy · ${SITE_NAME}`,
-    description: "Which games may appear on the Toolstack Lab game hub.",
-    canonicalPath: "/CONTENT-POLICY.html",
-    ogImage: "/og.png",
+    title: "Content & Licence Policy | Toolstack Lab",
+    description: "Which games may appear on Toolstack Lab Games, how each one's licence and source are recorded, and the licence of every game listed today.",
+    canonicalPath: "/content-policy/",
+    ogImage: "/og.jpg",
     body,
-    jsonLd: null,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", name: "Content & Licence Policy", url: CANONICAL + "/content-policy/", inLanguage: "en", dateModified: BUILD_DATE, publisher: ORG },
     navActive: "policy",
   });
 }
@@ -841,22 +875,26 @@ function main() {
   write(resolve(DIST, "404.html"), notFoundPage());
 
   const policyMd = readFileSync(resolve(ROOT, "CONTENT-POLICY.md"), "utf8");
-  write(resolve(DIST, "CONTENT-POLICY.html"), policyPage(mdToHtml(policyMd)));
+  write(resolve(DIST, "content-policy/index.html"), policyPage(mdToHtml(policyMd), games));
 
   const urls = [
     "/",
     "/popular/",
     "/about/",
-    "/CONTENT-POLICY.html",
+    "/content-policy/",
     ...games.map((g) => `/games/${g.slug}/`),
   ];
+  const lastmod = (u) => {
+    const g = games.find((x) => u === `/games/${x.slug}/`);
+    return g ? g.updated || BUILD_DATE : BUILD_DATE;
+  };
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
     (u) => `  <url>
     <loc>${CANONICAL}${u}</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>${lastmod(u)}</lastmod>
   </url>`
   )
   .join("\n")}

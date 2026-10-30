@@ -1,0 +1,246 @@
+{
+ "base": "http://127.0.0.1:4173",
+ "console": [],
+ "play": {
+  "320": {
+   "header_pos": "relative",
+   "header_bottom": 0,
+   "header_h": 53,
+   "panel_top": 12.265625,
+   "iframe_top": 56.265625,
+   "iframe_h": 460.796875,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 623,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  },
+  "320-from-home": {
+   "header_pos": "relative",
+   "header_bottom": 0,
+   "header_h": 53,
+   "panel_top": 12.265625,
+   "iframe_top": 56.265625,
+   "iframe_h": 460.796875,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 623,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  },
+  "390": {
+   "header_pos": "relative",
+   "header_bottom": 0,
+   "header_h": 53,
+   "panel_top": 12.140625,
+   "iframe_top": 56.140625,
+   "iframe_h": 560,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 658,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  },
+  "390-from-home": {
+   "header_pos": "relative",
+   "header_bottom": 0,
+   "header_h": 53,
+   "panel_top": 12.140625,
+   "iframe_top": 56.140625,
+   "iframe_h": 560,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 658,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  },
+  "1280": {
+   "header_pos": "sticky",
+   "header_bottom": 62,
+   "header_h": 62,
+   "panel_top": 80.15625,
+   "iframe_top": 124.15625,
+   "iframe_h": 640,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 398,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  },
+  "1280-from-home": {
+   "header_pos": "sticky",
+   "header_bottom": 62,
+   "header_h": 62,
+   "panel_top": 80.15625,
+   "iframe_top": 124.15625,
+   "iframe_h": 640,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 398,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  }
+ },
+ "fonts": {
+  "home-320": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "spud-320": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "popular-320": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "home-390": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "spud-390": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "popular-390": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "home-1280": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "spud-1280": [
+   "system-ui",
+   "TSL Display"
+  ],
+  "popular-1280": [
+   "system-ui",
+   "TSL Display"
+  ]
+ },
+ "overflow": {
+  "home-320": true,
+  "spud-320": true,
+  "popular-320": true,
+  "home-390": true,
+  "spud-390": true,
+  "popular-390": true,
+  "home-1280": true,
+  "spud-1280": true,
+  "popular-1280": true
+ },
+ "reduced": {
+  "running_anims_at_100ms": [],
+  "measure": {
+   "header_pos": "relative",
+   "header_bottom": 0,
+   "header_h": 53,
+   "panel_top": 12.140625,
+   "iframe_top": 56.140625,
+   "iframe_h": 560,
+   "iframe_src": "https://tsl-game1.pages.dev/?internal=1",
+   "scrollY": 658,
+   "ok_panel": true,
+   "ok_iframe": true,
+   "iframe_fully_visible": true
+  }
+ },
+ "shelf": {
+  "320": [
+   {
+    "w": 304,
+    "x": 8
+   }
+  ],
+  "390": [
+   {
+    "w": 366,
+    "x": 12
+   }
+  ],
+  "1280": [
+   {
+    "w": 1120,
+    "x": 80
+   }
+  ]
+ },
+ "touch": {
+  "320": 44,
+  "390": 44,
+  "1280": 44
+ },
+ "dock": {
+  "src_set_ms_after_click": 53,
+  "src": "https://tsl-game1.pages.dev/?internal=1",
+  "anims": [
+   {
+    "name": null,
+    "props": [
+     "opacity"
+    ]
+   },
+   {
+    "name": "bay-glow",
+    "props": [
+     "opacity"
+    ]
+   },
+   {
+    "name": "shimmer",
+    "props": [
+     "transform"
+    ]
+   },
+   {
+    "name": "dock-in",
+    "props": [
+     "transform",
+     "opacity"
+    ]
+   },
+   {
+    "name": "shimmer",
+    "props": [
+     "transform"
+    ]
+   },
+   {
+    "name": "shimmer",
+    "props": [
+     "transform"
+    ]
+   },
+   {
+    "name": "shimmer",
+    "props": [
+     "transform"
+    ]
+   }
+  ]
+ },
+ "shots": [
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/home-320.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-320.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-idle-320.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/popular-320.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-320.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-320-iframe-top.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/home-390.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-390.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-idle-390.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/popular-390.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-390.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-390-iframe-top.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/home-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-idle-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/popular-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-docking-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-1280.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-autoplay-1280-iframe-top.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-390-reduced-autoplay.png",
+  "/workspace/exp28-games/game-hub/polish/audit-round-3/spud-dock-midbeat-1280.png"
+ ]
+}

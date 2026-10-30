@@ -134,8 +134,15 @@
       /* Dock-in: decorative only, runs in parallel with iframe load */
       var wrap = document.getElementById("play-frame-wrap");
       var panel = wrap && wrap.closest ? wrap.closest(".play-panel") : null;
-      if (panel) panel.classList.add("docked");
+      if (panel) {
+        panel.classList.add("docked");
+        if (!reduceMotion) panel.classList.add("docking-glow");
+        /* Land the bay below the sticky header (scroll-margin-top); instant, never delays load */
+        if (panel.scrollIntoView) panel.scrollIntoView({ block: "start", behavior: "auto" });
+      }
       if (wrap && !reduceMotion) wrap.classList.add("docking");
+      var status = document.getElementById("bay-status");
+      if (status) status.textContent = "Docked · " + (title || "cartridge");
       frame.addEventListener(
         "load",
         function () {
@@ -156,6 +163,8 @@
     }
 
     btn.addEventListener("click", load);
+    var bayPlay = document.getElementById("bay-play");
+    if (bayPlay) bayPlay.addEventListener("click", load);
 
     /* Home card / featured Play → /games/x/#play auto-docks (iframe stays lazy until intent) */
     function maybeAutoDock() {

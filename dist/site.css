@@ -67,7 +67,7 @@
   --max: 1120px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-display: "TSL Display", "TSL Display Fallback", system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Two families only (R3): --font (system UI) + --font-display. Numerals use tabular-nums, no mono. */
 
   /* Motion tokens */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -188,7 +188,7 @@ a:hover { filter: brightness(1.1); }
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  transition: none;
 }
 .nav a:hover,
 .nav a[aria-current="page"] {
@@ -271,7 +271,8 @@ a:hover { filter: brightness(1.1); }
   transform: translateY(-50%);
   color: var(--muted);
   pointer-events: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-sm);
 }
 .tag-filters {
@@ -289,7 +290,7 @@ a:hover { filter: brightness(1.1); }
   font: inherit;
   font-size: var(--fs-xs);
   cursor: pointer;
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  transition: none;
 }
 .tag-filters button:hover,
 .tag-filters button[aria-pressed="true"] {
@@ -384,7 +385,7 @@ a:hover { filter: brightness(1.1); }
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
 .card::after {
   /* cartridge top notch */
@@ -473,7 +474,8 @@ a:hover { filter: brightness(1.1); }
   font-variant-numeric: tabular-nums;
   font-size: var(--fs-sm);
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Buttons */
@@ -493,7 +495,7 @@ a:hover { filter: brightness(1.1); }
   text-decoration: none;
   color: var(--primary-ink);
   background: var(--primary);
-  transition: transform var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  transition: transform var(--dur-fast) var(--ease);
 }
 .btn:hover { filter: brightness(1.06); color: var(--primary-ink); }
 .btn:active { transform: scale(0.97); }
@@ -637,21 +639,35 @@ a:hover { filter: brightness(1.1); }
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(90deg, #1a2433 0%, #243044 50%, #1a2433 100%);
-  background-size: 200% 100%;
-  animation: shimmer var(--dur-slow) ease-in-out infinite;
+  background: #1a2433;
+  overflow: hidden;
   display: grid;
   place-content: center;
   color: #b7c4d6;
   font-size: var(--fs-sm);
 }
 .play-skeleton[hidden] { display: none; }
+.play-skeleton::before,
+.shot-slot::before {
+  /* shimmer sweep: transform only */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.play-skeleton > span { position: relative; }
 @keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .play-skeleton::before { animation: shimmer 1.2s ease-in-out infinite; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .play-skeleton { animation: none; background: var(--skeleton); }
+  .play-skeleton { background: var(--skeleton); }
+  .play-skeleton::before { display: none; }
 }
 
 .prose { max-width: 62ch; }
@@ -773,7 +789,7 @@ a:hover { filter: brightness(1.1); }
   text-decoration: none;
   color: inherit;
   min-height: 72px;
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
 .board-row:hover {
   transform: translateY(-2px);
@@ -783,7 +799,8 @@ a:hover { filter: brightness(1.1); }
   .board-row:hover { transform: none; }
 }
 .board-rank {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-weight: 700;
   font-size: var(--fs-lg);
   color: var(--primary);
@@ -792,7 +809,8 @@ a:hover { filter: brightness(1.1); }
 .board-meta h2 { margin: 0; font-size: var(--fs-md); }
 .board-meta p { margin: 0; color: var(--muted); font-size: var(--fs-sm); }
 .board-score {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
   font-size: var(--fs-sm);
@@ -847,7 +865,8 @@ a:hover { filter: brightness(1.1); }
 }
 
 .kbd {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-size: 0.85em;
   padding: 0.1em 0.4em;
   border: 1px solid var(--border);
@@ -933,7 +952,8 @@ a:hover { filter: brightness(1.1); }
   margin: calc(var(--s1) * -1) 0 0;
 }
 .cart-serial {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -991,7 +1011,8 @@ a:hover { filter: brightness(1.1); }
 .bay-pins rect { fill: #3dd68c; opacity: 0.55; }
 .bay-arrow { fill: none; stroke: #3dd68c; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .bay-empty-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1006,8 +1027,9 @@ a:hover { filter: brightness(1.1); }
   width: min(260px, 60%);
   aspect-ratio: 16 / 7;
   margin: 0;
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
   border: 1px solid #3a4a62;
   background:
@@ -1027,14 +1049,7 @@ a:hover { filter: brightness(1.1); }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.play-frame-wrap.docking .dock-cart {
-  animation: dock-in 280ms var(--ease) forwards;
-}
-@keyframes dock-in {
-  0% { opacity: 0; transform: translate(-50%, -140%); }
-  70% { opacity: 1; transform: translate(-50%, -50%); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
-}
+
 .play-panel { position: relative; }
 .play-panel::after {
   content: "";
@@ -1117,17 +1132,17 @@ a:hover { filter: brightness(1.1); }
 
 /* Screenshot skeleton until lazy img paints */
 .shot-slot {
-  background:
-    linear-gradient(90deg, var(--skeleton) 0%, var(--skeleton-shine) 50%, var(--skeleton) 100%);
-  background-size: 200% 100%;
+  background: var(--skeleton);
   min-height: 0;
+  position: relative;
 }
+.shot-slot picture { position: relative; z-index: 1; display: block; }
 .shot-slot img { background: transparent; }
 @media (prefers-reduced-motion: no-preference) {
-  .shot-slot { animation: shimmer var(--dur-slow) ease-in-out infinite; }
+  .shot-slot::before { animation: shimmer 1.2s ease-in-out infinite; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .shot-slot { animation: none; background: var(--skeleton); }
+  .shot-slot::before { display: none; }
 }
 
 /* Similar hub cartridges */
@@ -1151,7 +1166,7 @@ a:hover { filter: brightness(1.1); }
   text-decoration: none;
   position: relative;
   min-height: 72px;
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
 .similar-cart::before {
   content: "";
@@ -1221,3 +1236,310 @@ a:hover { filter: brightness(1.1); }
   .nav a { padding: var(--s2) var(--s2); font-size: var(--fs-xs); }
   .brand-sub { display: none; }
 }
+
+
+/* ===== Round 3: independent review R2 P1/P2 ===== */
+/* UA monospace for code/kbd/pre would be a 3rd family — inherit instead */
+code, kbd, pre, samp { font-family: inherit; font-variant-numeric: tabular-nums; }
+code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-elev); font-size: 0.92em; }
+.bay-empty-404 text { font-family: var(--font-display); letter-spacing: 0.12em; }
+
+/* P1-1: auto-dock lands below the sticky header */
+#play, .play-panel { scroll-margin-top: calc(var(--header-h) + var(--s5)); }
+/* Desktop/tablet: whole docked game fits the viewport under the header */
+@media (min-width: 481px) {
+  .play-frame-wrap { max-height: max(360px, calc(100vh - var(--header-h) - 104px)); }
+}
+/* Narrow phones: header scrolls away (not sticky), compact brand on one line */
+@media (max-width: 480px) {
+  :root { --header-h: 52px; }
+  .site-header { position: relative; backdrop-filter: none; background: var(--bg); }
+  .site-header .inner { gap: var(--s2); padding: var(--s1) 0; }
+  .brand-name { font-size: var(--fs-base); white-space: nowrap; }
+  .nav { flex-wrap: nowrap; }
+  #play, .play-panel { scroll-margin-top: var(--s3); }
+  /* Taller portrait play bay */
+  .play-frame-wrap { aspect-ratio: auto; height: 72vh; height: min(72svh, 560px); }
+}
+
+/* P2: signature dock beat — cartridge drops into the bay, seats, glow settles.
+   Purely parallel chrome: iframe src is set in the same tick. transform/opacity only. */
+.play-frame-wrap.docking .dock-cart { animation: dock-in 380ms var(--ease) forwards; }
+@keyframes dock-in {
+  0%   { opacity: 0; transform: translate(-50%, -190%) scale(1.06); }
+  45%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  62%  { opacity: 1; transform: translate(-50%, -44%) scale(0.98); }
+  80%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.94); }
+}
+.play-panel.docking-glow::after { animation: bay-glow 520ms var(--ease) forwards; }
+@keyframes bay-glow {
+  0%   { opacity: 0; }
+  55%  { opacity: 1; }
+  100% { opacity: 0.55; }
+}
+.bay-led {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px var(--bay-glow);
+  opacity: 0.25;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+.play-panel.docked .bay-led { opacity: 1; }
+.play-bar .bay-label { margin-right: 0; }
+.play-bar .bay-status { margin-left: auto; font-size: var(--fs-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  .play-frame-wrap.docking .dock-cart { animation: none; opacity: 0; }
+  .play-panel.docking-glow::after { animation: none; opacity: 0.55; }
+  .bay-led { transition: none; }
+}
+
+/* P2: press-in on cartridges */
+@media (prefers-reduced-motion: no-preference) {
+  .card:active, .featured.card-like:active { transform: translateY(1px) scale(0.99); transition-duration: var(--dur-fast); }
+}
+
+/* P0-1/P0-3: every cartridge uses the same inset, rounded label as the featured slot */
+.card-thumb {
+  margin: var(--s3) var(--s3) 0;
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--border);
+}
+.card-body { padding: var(--s3) var(--s3) var(--s4); }
+@media (min-width: 640px) {
+  .card-thumb { margin: var(--s4) var(--s4) 0; }
+  .card-body { padding: var(--s4); }
+}
+@media (max-width: 799px) { .featured::before { display: none; } }
+
+/* P0-2: odd last cartridge becomes a wide shelf slot that mirrors the featured slot (no holes) */
+.grid > .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 800px) {
+  .grid > .card:last-child:nth-child(odd) {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--s4);
+    align-items: center;
+    padding: var(--s4) var(--s4) var(--s4) calc(var(--s4) + 10px);
+  }
+  .grid > .card:last-child:nth-child(odd) .card-thumb { margin: 0; }
+  .grid > .card:last-child:nth-child(odd) .card-body { padding: 0; }
+  .grid > .card:last-child:nth-child(odd) .card-title { font-size: clamp(var(--fs-lg), 3vw, var(--fs-xl)); }
+}
+
+/* P0-3: consistent card text rhythm — clamped title/pitch, equal-height cards, actions on one baseline */
+.card-title, .featured h2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.card-pitch, .featured .pitch {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+.grid { align-items: stretch; }
+.card-body .card-actions { min-height: 44px; margin-top: auto; }
+.card-pitch { flex: 0 0 auto; }
+
+@media (min-width: 1600px) {
+  :root { --max: 1200px; }
+}
+
+/* P2: ≥44px touch targets for footer + crumb links */
+.site-footer a, .crumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s1);
+}
+.site-footer .links { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--s2); }
+.site-footer .copy { display: flex; align-items: center; min-height: 44px; }
+.crumb { margin: var(--s2) 0 var(--s2); }
+.board-n { color: var(--text); font-weight: 700; font-size: var(--fs-md); }
+.detail-media > picture { display: block; width: 100%; height: 100%; }
+
+/* P0: detail pages — two deliberate columns on wide screens instead of a 62ch strip + dead band */
+.shots figure, .shot-slot { background: var(--bg-elev); }
+.detail-cols { display: grid; gap: 0 var(--s6); }
+.detail-main .prose, .detail-side .prose { max-width: none; }
+.detail-main .prose > p, .detail-main .prose > ul { max-width: 68ch; }
+@media (min-width: 1024px) {
+  .detail-cols { grid-template-columns: minmax(0, 1fr) minmax(300px, 340px); align-items: start; }
+  .detail-side .similar-carts { grid-template-columns: 1fr; }
+  .detail-side > .prose > h2:first-child { margin-top: var(--s5); }
+}
+.similar-cart { grid-template-columns: 1fr; }
+.similar-thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: calc(var(--radius-sm) - 2px);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  margin-bottom: var(--s2);
+}
+.similar-thumb picture, .similar-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ===== Round 3b: CURRENT-AUDIT P1/P2 (review framework) ===== */
+/* P1-10: mouse/keyboard-only hints never show on touch-first devices */
+@media (hover: none), (pointer: coarse) {
+  .hint-fine { display: none; }
+}
+/* P2-4: decorative teeth never sit on top of game art */
+.card-thumb .cart-teeth, .featured .cart-face .cart-teeth { display: none; }
+/* P2-8: "see the list" is a real 44px target */
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  margin-right: calc(var(--s3) * -1);
+  font-size: var(--fs-sm);
+  color: var(--accent);
+  border-radius: 999px;
+}
+.section-link:hover { background: var(--accent-soft); }
+.safe-note { padding-top: 0; }
+.safe-note h2 { font-size: var(--fs-lg); margin: 0 0 var(--s2); }
+.safe-note p { margin: 0; max-width: 68ch; color: var(--muted); }
+
+/* P1-8: bay before Play = the game's cover + one big Play button (no black box) */
+.play-placeholder { padding: 0; place-content: center; overflow: hidden; }
+.play-placeholder .bay-cover { position: absolute; inset: 0; display: block; }
+.play-placeholder .bay-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.play-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(5, 7, 11, 0.15) 0%, rgba(5, 7, 11, 0.5) 100%);
+  pointer-events: none;
+}
+.bay-play {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 64px;
+  padding: 0 var(--s6) 0 var(--s5);
+  border: 0;
+  border-radius: 999px;
+  background: #3dd68c; /* fixed: sits on game art in both themes; #05140c on it = 10.9:1 */
+  color: #05140c;
+  font: 700 var(--fs-xl) / 1 var(--font-display);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform var(--dur) var(--ease);
+}
+.bay-play:hover { transform: scale(1.04); }
+.bay-play:active { transform: scale(0.98); }
+.bay-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.bay-play-icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent currentColor;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bay-play, .bay-play:hover, .bay-play:active { transition: none; transform: none; }
+}
+
+/* P2-7: screenshots show a blurred low-res frame (not black) until the real one paints */
+.shot-slot { position: relative; overflow: hidden; }
+.shot-slot .lqip {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  filter: blur(10px);
+  transform: scale(1.08);
+  z-index: 0;
+}
+.shot-slot figcaption {
+  position: relative;
+  z-index: 1;
+  padding: var(--s2) var(--s3);
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--muted);
+  background: var(--bg-elev);
+}
+
+/* GEO: one-line definition + facts table */
+.definition { font-size: var(--fs-md); color: var(--text); margin-top: 0; }
+.facts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0 0 var(--s5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-width: 68ch;
+}
+@media (min-width: 640px) { .facts { grid-template-columns: 1fr 1fr; } }
+.facts > div {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; color: var(--text); }
+.license-box dl { margin: var(--s3) 0 0; }
+.license-box dl > div { display: grid; grid-template-columns: 6em 1fr; gap: var(--s2); }
+.license-box dd a { color: var(--accent); }
+.license-box h2 { font-size: var(--fs-lg); }
+
+/* P1-4: a lone "more games" card never leaves a hole */
+.similar-carts { grid-template-columns: 1fr; }
+@media (min-width: 640px) and (max-width: 1023px) {
+  .similar-carts { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .similar-carts:has(> .similar-cart:only-child) .similar-cart {
+    grid-template-columns: minmax(160px, 240px) 1fr;
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--s4);
+    align-items: start;
+  }
+  .similar-carts:has(> .similar-cart:only-child) .similar-thumb { grid-row: 1 / span 3; }
+}
+.similar-prose { font-size: var(--fs-sm); color: var(--muted); margin-top: var(--s4); }
+.policy-game { scroll-margin-top: calc(var(--header-h) + var(--s4)); }
+
+/* P0-3: one cartridge design for every game — no spine ridges/notch, no grip stripes */
+.card { padding-left: 0; }
+.card::before, .card::after { display: none; }
+.cart-grip { display: none; }
+.cart-badge { font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary); }
+.card-title { font-size: var(--fs-lg); }
+
+/* Detail top: one cover only (in the bay). Title left, actions right at ≥900 — no duplicate hero image */
+.detail-hero.detail-hero-text { display: block; margin-bottom: var(--s4); }
+.detail-hero-text .detail-meta { display: grid; gap: var(--s3); }
+.detail-hero-text .detail-head > :last-child { margin-bottom: 0; }
+.detail-cta .score-hint { margin: 0 0 var(--s2); }
+.detail-cta .card-actions { margin: 0; }
+@media (min-width: 900px) {
+  .detail-hero-text .detail-meta { grid-template-columns: 1fr auto; align-items: end; column-gap: var(--s6); }
+  .detail-cta { text-align: right; }
+  .detail-cta .card-actions { justify-content: flex-end; }
+}
+/* lazy screenshots paint above their blurred placeholder */
+.shot-slot picture { position: relative; z-index: 1; display: block; }
+/* lone similar card: single track (no collapsed second column) */
+.similar-carts:has(> .similar-cart:only-child) { grid-template-columns: 1fr; }
+/* touch: no hover-preview layer at all (nothing to flip, nothing to show black while loading) */
+@media (hover: none), (pointer: coarse) { .card-thumb .preview-layer { display: none; } }
+.skip-link { min-height: 44px; display: inline-flex; align-items: center; }

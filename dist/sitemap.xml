@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://games.gettoolstacklab.com/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://games.gettoolstacklab.com/popular/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://games.gettoolstacklab.com/about/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
-    <loc>https://games.gettoolstacklab.com/CONTENT-POLICY.html</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://games.gettoolstacklab.com/content-policy/</loc>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://games.gettoolstacklab.com/games/spud-fling/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://games.gettoolstacklab.com/games/pips-bloom-isle/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-30</lastmod>
   </url>
 </urlset>
