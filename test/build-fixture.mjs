@@ -115,6 +115,18 @@ for (const g of real) {
   }
 }
 
+// H-07: About lists "Games we make" (title as anchor text); home, popular and About link every game; every
+// /content-policy/#slug link on any built page resolves to an id on the policy page
+const aboutList = (pAbout.split(">Games we make</h2>")[1] || "").split("</ul>")[0];
+for (const g of real.filter((x) => x.license === "self-made"))
+  check(`H-07 About "Games we make" links ${g.slug} with its title`, aboutList.includes(`<a href="/games/${g.slug}/">${g.title.replaceAll("'", "&#39;")}</a>`));
+for (const [name, html] of [["home", pHome], ["popular", read(pr, "popular/index.html")], ["about", pAbout]])
+  check(`H-07 ${name} links every game page`, real.every((g) => html.includes(`href="/games/${g.slug}/"`)));
+const policyIds = new Set([...read(pr, "content-policy/index.html").matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+const pages = ["index.html", "popular/index.html", "about/index.html", "content-policy/index.html", ...real.map((g) => `games/${g.slug}/index.html`)];
+const anchors = pages.flatMap((p) => [...read(pr, p).matchAll(/href="(?:https:\/\/games\.gettoolstacklab\.com)?\/content-policy\/#([^"]+)"/g)].map((m) => m[1]));
+check(`H-07 every /content-policy/#slug link resolves (${anchors.length} links)`, anchors.length > 0 && anchors.every((a) => policyIds.has(a)));
+
 const ow = join(tmp, "out-own");
 const b3 = build(["--data", ownData], ow);
 check("own-games-only build exits 0", b3.ok);

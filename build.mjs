@@ -799,6 +799,14 @@ function aboutPage(games) {
       <li>Nothing heavy loads until you press Play. You can also open any game in its own tab.</li>
       <li>The ranking uses visits from the last 14 days. “Recently played” stays on your device only.</li>
     </ul>
+    <h2>Games we make</h2>
+    <ul class="game-list">
+${games.filter(isSelfMade).map((g) => `      <li><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a>: ${esc(g.pitch)} <a class="hit" href="/content-policy/#${esc(g.slug)}">Licence and source</a></li>`).join("\n")}
+    </ul>${games.some((g) => !isSelfMade(g)) ? `
+    <h2>Classics we host</h2>
+    <ul class="game-list">
+${games.filter((g) => !isSelfMade(g)).map((g) => `      <li><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a>: by ${esc(g.author)}, ${esc(g.license)} licence. <a class="hit" href="/content-policy/#${esc(g.slug)}">Licence and source</a></li>`).join("\n")}
+    </ul>` : ""}
     <h2>The lab cartridge idea</h2>
     <p>Every game gets the same cartridge card with a label plate and a serial number (TSL·01, TSL·02…). On a game page, Play docks the cartridge into the play bay. That is the one bit of motion on the site; there are no video or 3D backgrounds.</p>
     <h2>Who the games are for</h2>
