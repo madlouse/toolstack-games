@@ -2,3 +2,29 @@ node_modules/
 assets/games/*/screenshots/_raw/
 .DS_Store
 *.log
+
+# polish/ evidence (screenshots, lighthouse/probe JSON, HTML/log reports, baselines) lives off-repo on the
+# build box at /workspace/exp28-games/game-hub-evidence/polish/ — see polish/EVIDENCE-LOCATION.md.
+# Whitelist: only small text notes and check scripts under polish/ are tracked.
+polish/**
+!polish/**/
+!polish/**/*.md
+!polish/**/*.py
+!polish/**/*.cjs
+!polish/**/*.mjs
+!polish/**/*.sh
+# explicit evidence patterns (belt and braces)
+polish/**/*.png
+polish/**/*.jpg
+polish/**/*.jpeg
+polish/**/*.webp
+polish/**/*.mp4
+polish/**/*.json
+polish/**/*.html
+polish/**/*.txt
+polish/**/*.log
+polish/**/*.patch
+polish/**/shots/
+polish/**/shots-*/
+polish/**/lighthouse/
+polish/**/baseline-*/
