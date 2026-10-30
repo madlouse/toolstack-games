@@ -15,6 +15,7 @@ import {
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
@@ -148,7 +149,7 @@ function layout({
 <meta name="twitter:image:alt" content="${esc(ogAlt)}">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/site.css?v=${ASSET_V}">
 ${extraHead}
 ${ldBlocks}
 </head>
@@ -176,14 +177,21 @@ ${body}
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </nav>
   </div>
-  <!-- polish-r4 -->
+  <!-- polish-r5 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
-<script src="/site.js" defer></script>
+<script src="/site.js?v=${ASSET_V}" defer></script>
 </body>
 </html>
 `;
 }
+
+// R5: cache-bust site.css/js (served with a 1-day cache) so new HTML never pairs with stale CSS
+const ASSET_V = createHash("sha256")
+  .update(readFileSync(resolve(ROOT, "src/site.css")))
+  .update(readFileSync(resolve(ROOT, "src/site.js")))
+  .digest("hex")
+  .slice(0, 10);
 
 const PLAY_ICON = '<span class="play-icon" aria-hidden="true"></span>';
 
@@ -268,6 +276,10 @@ function homePage(games, stats) {
       <div class="hero-kicker">Toolstack Lab Games</div>
       <h1>Free 3D browser games – play instantly, no account</h1>
       <p>${esc(TAGLINE)}</p>
+      <div class="hero-actions">
+        <a class="btn btn-play btn-lg" href="/games/${esc(hot.slug)}/#play" data-recent-slug="${esc(hot.slug)}" data-recent-title="${esc(hot.title)}">${PLAY_ICON}Play ${esc(hot.title)}</a>
+        <a class="btn-link" href="#games">See all ${games.length} games</a>
+      </div>
     </div>
     ${howItWorks(games)}
   </section>
@@ -344,7 +356,7 @@ ${cards}
   const org = { "@context": "https://schema.org", ...ORG, "@id": "https://gettoolstacklab.com/#org" };
 
   return layout({
-    title: "Free 3D Browser Games – No Download, No Account | Toolstack Lab",
+    title: "Free 3D Browser Games: No Download, No Login | Toolstack Lab",
     description: HOME_DESC,
     canonicalPath: "/",
     ogImage: "/og.jpg",
@@ -513,16 +525,17 @@ function detailPage(g, stats, allGames) {
       <h1>${esc(g.title)}</h1>
       <p class="pitch">${esc(g.subline || g.pitch)}</p>
       ${tagsHtml(g)}
+      <p class="score-hint">${heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
       </div>
       <div class="detail-cta">
-      <p class="score-hint">${heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
-      <div class="card-actions pad-top">
+      <div class="card-actions detail-actions">
         <button type="button" class="btn btn-play btn-lg" id="play-embed"
           data-game-url="${esc(embedUrl(g.url))}"
           data-game-slug="${esc(g.slug)}"
           data-game-title="${esc(g.title)}">${PLAY_ICON}Play</button>
-        <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}">Copy link</button>
-        <a class="btn-link" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a>
+        <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}"><span class="lbl-idle">Copy link</span><span class="lbl-done" aria-hidden="true">Copied ✓</span></button>
+        <a class="btn-link btn-newtab" href="${esc(g.url)}" target="_blank" rel="noopener"><span class="nt-long">Open in </span>new tab <span aria-hidden="true">↗</span></a>
+        <span class="visually-hidden" data-copy-live aria-live="polite"></span>
       </div>
       </div>
     </div>
@@ -532,7 +545,9 @@ function detailPage(g, stats, allGames) {
     <div class="play-bar">
       <span class="bay-led" aria-hidden="true"></span>
       <span class="bay-label">Play bay</span>
+      <span class="bay-chip cart-serial" aria-hidden="true">TSL·${String(Math.max(0, allGames.indexOf(g)) + 1).padStart(2, "0")}</span>
       <span class="bay-status" id="bay-status" aria-live="polite">Ready · nothing loads until you press Play</span>
+      <span class="bay-progress" aria-hidden="true"></span>
     </div>
     <div class="play-frame-wrap" id="play-frame-wrap">
       <div class="play-placeholder" id="play-placeholder">
@@ -750,9 +765,9 @@ function policyPage(games) {
     .join("\n");
   const body = `
 <main id="main" class="wrap">
-  <p class="crumb"><a href="/">Games</a> / Content policy</p>
+  <p class="crumb"><a href="/">Games</a> / Content &amp; licence policy</p>
   <section class="page-intro page-intro-tight">
-    <h1>Content policy</h1>
+    <h1>Content &amp; licence policy</h1>
     <p>Which games may appear on Toolstack Lab Games, and what we show you about each one.</p>
   </section>
   <div class="page-cols">
@@ -834,7 +849,7 @@ function main() {
 
   write(resolve(DIST, "index.html"), homePage(sorted, stats));
   for (const g of games) {
-    write(resolve(DIST, "games", g.slug, "index.html"), detailPage(g, stats, games));
+    write(resolve(DIST, "games", g.slug, "index.html"), detailPage(g, stats, sorted));
   }
   write(resolve(DIST, "popular/index.html"), popularPage(sorted, stats));
   write(resolve(DIST, "about/index.html"), aboutPage(games));

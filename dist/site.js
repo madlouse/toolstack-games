@@ -126,11 +126,28 @@
     var title = btn.getAttribute("data-game-title");
     if (!url || !frame) return;
 
+    var status = document.getElementById("bay-status");
+    /* R5: status crossfade (opacity out → swap → in, 150ms each); instant under reduced motion */
+    function setStatus(text) {
+      if (!status) return;
+      if (reduceMotion) {
+        status.textContent = text;
+        return;
+      }
+      status.classList.add("is-swapping");
+      setTimeout(function () {
+        status.textContent = text;
+        status.classList.remove("is-swapping");
+      }, 150);
+    }
+
     function load() {
       if (frame.getAttribute("src")) return;
+      /* R5: src FIRST, in the click task — dock chrome below runs in parallel and never gates play */
+      frame.hidden = false;
+      frame.src = url;
       if (skeleton) skeleton.hidden = false;
       if (placeholder) placeholder.hidden = true;
-      frame.hidden = false;
       /* Dock-in: decorative only, runs in parallel with iframe load */
       var wrap = document.getElementById("play-frame-wrap");
       var panel = wrap && wrap.closest ? wrap.closest(".play-panel") : null;
@@ -141,16 +158,17 @@
         if (panel.scrollIntoView) panel.scrollIntoView({ block: "start", behavior: "auto" });
       }
       if (wrap && !reduceMotion) wrap.classList.add("docking");
-      var status = document.getElementById("bay-status");
-      if (status) status.textContent = "Docked · " + (title || "cartridge");
+      if (panel) panel.classList.add("is-loading");
+      setStatus("Loading…");
       frame.addEventListener(
         "load",
         function () {
           if (skeleton) skeleton.hidden = true;
+          if (panel) panel.classList.remove("is-loading");
+          setStatus("Docked · " + (title || "cartridge"));
         },
         { once: true }
       );
-      frame.src = url;
       pushRecent(slug, title);
       btn.textContent = "Playing…";
       btn.disabled = true;
@@ -195,34 +213,57 @@
           navigator
             .share({ title: title, url: url })
             .then(function () {
-              toast("Shared");
+              flashDone(btn, "Shared ✓", "Shared");
             })
             .catch(function () {
-              copyUrl(url);
+              copyUrl(url, btn);
             });
         } else {
-          copyUrl(url);
+          copyUrl(url, btn);
         }
       });
     });
   }
 
-  function copyUrl(url) {
+  /* R5: inline "Copied ✓" on the button for 1.5s (+ polite live region); toast only as fallback */
+  function flashDone(btn, label, spoken) {
+    var done = btn && btn.querySelector ? btn.querySelector(".lbl-done") : null;
+    if (!done) {
+      toast(spoken);
+      return;
+    }
+    done.textContent = label;
+    btn.setAttribute("data-state", "copied");
+    var scope = btn.closest ? btn.closest(".card-actions") || document : document;
+    var live = scope.querySelector("[data-copy-live]");
+    if (live) {
+      live.textContent = "";
+      setTimeout(function () {
+        live.textContent = spoken;
+      }, 30);
+    }
+    clearTimeout(btn._doneT);
+    btn._doneT = setTimeout(function () {
+      btn.removeAttribute("data-state");
+    }, 1500);
+  }
+
+  function copyUrl(url, btn) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url).then(
         function () {
-          toast("Link copied");
+          flashDone(btn, "Copied ✓", "Link copied");
         },
         function () {
-          fallbackCopy(url);
+          fallbackCopy(url, btn);
         }
       );
     } else {
-      fallbackCopy(url);
+      fallbackCopy(url, btn);
     }
   }
 
-  function fallbackCopy(url) {
+  function fallbackCopy(url, btn) {
     try {
       var ta = document.createElement("textarea");
       ta.value = url;
@@ -232,7 +273,7 @@
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
-      toast("Link copied");
+      flashDone(btn, "Copied ✓", "Link copied");
     } catch (e) {
       toast("Copy failed — select the address bar");
     }
