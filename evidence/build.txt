@@ -1,0 +1,2 @@
+OK: 2 game(s) validated (/workspace/exp28-games/game-hub/data/games.json)
+OK: built 2 games → /workspace/exp28-games/game-hub/dist (home html+css+js = 14910 B excl images)

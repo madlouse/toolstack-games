@@ -1,0 +1,4 @@
+FAIL: 2 validation error(s) in /workspace/exp28-games/game-hub/evidence/games-missing-license.json
+ - spud-fling: empty field "license"
+ - spud-fling: LICENSE missing/empty (CONTENT-POLICY)
+exit=1

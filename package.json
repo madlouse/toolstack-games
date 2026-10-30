@@ -1,0 +1,14 @@
+{
+  "name": "toolstack-games-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Toolstack Lab AI 3D game collection hub (static)",
+  "type": "module",
+  "scripts": {
+    "validate": "node validate.mjs",
+    "build": "node build.mjs",
+    "update-stats": "node scripts/update-stats.mjs",
+    "capture": "/workspace/.venv-pw/bin/python scripts/capture-screenshots.py && python3 scripts/optimize-images.py"
+  },
+  "license": "MIT"
+}

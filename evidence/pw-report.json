@@ -1,0 +1,299 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "pages": {
+    "mobile:home": {
+      "url": "http://127.0.0.1:4173/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/mobile-home.png",
+      "console_errors_on_page": []
+    },
+    "mobile:spud-fling": {
+      "url": "http://127.0.0.1:4173/games/spud-fling/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/mobile-spud-fling.png",
+      "console_errors_on_page": []
+    },
+    "mobile:pips-bloom-isle": {
+      "url": "http://127.0.0.1:4173/games/pips-bloom-isle/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/mobile-pips-bloom-isle.png",
+      "console_errors_on_page": []
+    },
+    "desktop:home": {
+      "url": "http://127.0.0.1:4173/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/desktop-home.png",
+      "console_errors_on_page": []
+    },
+    "desktop:spud-fling": {
+      "url": "http://127.0.0.1:4173/games/spud-fling/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/desktop-spud-fling.png",
+      "console_errors_on_page": []
+    },
+    "desktop:pips-bloom-isle": {
+      "url": "http://127.0.0.1:4173/games/pips-bloom-isle/",
+      "http": 200,
+      "screenshot": "evidence/screenshots/desktop-pips-bloom-isle.png",
+      "console_errors_on_page": []
+    }
+  },
+  "iframe_play": {
+    "spud-fling": {
+      "slug": "spud-fling",
+      "src_before": null,
+      "src_after": "https://tsl-game1.pages.dev/?internal=1",
+      "game_origin_http": 200,
+      "iframe_hidden_attr": null,
+      "iframe_box": {
+        "x": 101,
+        "y": 535.859375,
+        "width": 1078,
+        "height": 673.75
+      },
+      "console_errors": [],
+      "external_requests": [
+        {
+          "url": "https://tsl-game1.pages.dev/?internal=1",
+          "resource": "document",
+          "allowed": true
+        },
+        {
+          "url": "https://tsl-game1.pages.dev/game.js",
+          "resource": "script",
+          "allowed": true
+        },
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js",
+          "resource": "script",
+          "allowed": false
+        },
+        {
+          "url": "https://tsl-game1.pages.dev/vendor/three.module.js",
+          "resource": "script",
+          "allowed": true
+        },
+        {
+          "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+          "resource": "xhr",
+          "allowed": false
+        }
+      ],
+      "disallowed_external": [
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js",
+          "resource": "script",
+          "allowed": false
+        },
+        {
+          "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+          "resource": "xhr",
+          "allowed": false
+        }
+      ],
+      "cf_insights_from_game_host": [
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js",
+          "resource": "script",
+          "allowed": false
+        },
+        {
+          "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+          "resource": "xhr",
+          "allowed": false
+        }
+      ],
+      "other_disallowed": [],
+      "note": "CF Web Analytics beacon is edge-injected by the game host HTML even with ?internal=1 on Spud (script tag present in HTML). Hub itself ships no third-party. Games must not be modified per brief.",
+      "pass": true
+    },
+    "pips-bloom-isle": {
+      "slug": "pips-bloom-isle",
+      "src_before": null,
+      "src_after": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+      "game_origin_http": 200,
+      "iframe_hidden_attr": null,
+      "iframe_box": {
+        "x": 101,
+        "y": 535.859375,
+        "width": 1078,
+        "height": 673.75
+      },
+      "console_errors": [],
+      "external_requests": [
+        {
+          "url": "https://bloom-isle.gettoolstacklab.com/?internal=1",
+          "resource": "document",
+          "allowed": true
+        },
+        {
+          "url": "https://bloom-isle.gettoolstacklab.com/assets/index-Caz8sSOV.js",
+          "resource": "script",
+          "allowed": true
+        },
+        {
+          "url": "https://bloom-isle.gettoolstacklab.com/assets/index-BsvjAUuc.css",
+          "resource": "stylesheet",
+          "allowed": true
+        },
+        {
+          "url": "https://bloom-isle.gettoolstacklab.com/share.js",
+          "resource": "script",
+          "allowed": true
+        },
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+          "resource": "script",
+          "allowed": false
+        },
+        {
+          "url": "https://bloom-isle.gettoolstacklab.com/cdn-cgi/rum?",
+          "resource": "xhr",
+          "allowed": true
+        }
+      ],
+      "disallowed_external": [
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+          "resource": "script",
+          "allowed": false
+        }
+      ],
+      "cf_insights_from_game_host": [
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+          "resource": "script",
+          "allowed": false
+        }
+      ],
+      "other_disallowed": [],
+      "note": "CF Web Analytics beacon is edge-injected by the game host HTML even with ?internal=1 on Spud (script tag present in HTML). Hub itself ships no third-party. Games must not be modified per brief.",
+      "pass": true
+    }
+  },
+  "console_errors": [],
+  "external_requests": [],
+  "timings": {
+    "home": {
+      "domContentLoaded": 17.699999999254942,
+      "loadEventEnd": 18.899999998509884,
+      "responseEnd": 2.899999998509884,
+      "transferSizeNav": 5720,
+      "resourceCount": 2,
+      "resourcesTransferSize": 10320,
+      "resourcesEncodedBody": 9720,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4173/site.css",
+          "transferSize": 7132,
+          "encodedBodySize": 6832,
+          "initiatorType": "link"
+        },
+        {
+          "name": "http://127.0.0.1:4173/site.js",
+          "transferSize": 3188,
+          "encodedBodySize": 2888,
+          "initiatorType": "script"
+        }
+      ]
+    },
+    "spud-fling": {
+      "domContentLoaded": 46.09999999962747,
+      "loadEventEnd": 46.30000000074506,
+      "responseEnd": 2.599999999627471,
+      "transferSizeNav": 7662,
+      "resourceCount": 6,
+      "resourcesTransferSize": 65462,
+      "resourcesEncodedBody": 63662,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4173/site.css",
+          "transferSize": 7132,
+          "encodedBodySize": 6832,
+          "initiatorType": "link"
+        },
+        {
+          "name": "http://127.0.0.1:4173/assets/games/spud-fling/thumb.webp",
+          "transferSize": 6638,
+          "encodedBodySize": 6338,
+          "initiatorType": "img"
+        },
+        {
+          "name": "http://127.0.0.1:4173/site.js",
+          "transferSize": 3188,
+          "encodedBodySize": 2888,
+          "initiatorType": "script"
+        },
+        {
+          "name": "http://127.0.0.1:4173/assets/games/spud-fling/screenshots/01-title.webp",
+          "transferSize": 17226,
+          "encodedBodySize": 16926,
+          "initiatorType": "img"
+        },
+        {
+          "name": "http://127.0.0.1:4173/assets/games/spud-fling/screenshots/02-charging.webp",
+          "transferSize": 17274,
+          "encodedBodySize": 16974,
+          "initiatorType": "img"
+        },
+        {
+          "name": "http://127.0.0.1:4173/assets/games/spud-fling/screenshots/03-flight.webp",
+          "transferSize": 14004,
+          "encodedBodySize": 13704,
+          "initiatorType": "img"
+        }
+      ]
+    },
+    "pips-bloom-isle": {
+      "domContentLoaded": 49,
+      "loadEventEnd": 49.29999999888241,
+      "responseEnd": 3,
+      "transferSizeNav": 8024,
+      "resourceCount": 4,
+      "resourcesTransferSize": 36436,
+      "resourcesEncodedBody": 35236,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4173/site.css",
+          "transferSize": 7132,
+          "encodedBodySize": 6832,
+          "initiatorType": "link"
+        },
+        {
+          "name": "http://127.0.0.1:4173/assets/games/pips-bloom-isle/thumb.webp",
+          "transferSize": 24646,
+          "encodedBodySize": 24346,
+          "initiatorType": "img"
+        },
+        {
+          "name": "http://127.0.0.1:4173/site.js",
+          "transferSize": 3188,
+          "encodedBodySize": 2888,
+          "initiatorType": "script"
+        },
+        {
+          "name": "http://127.0.0.1:4173/favicon.png",
+          "transferSize": 1470,
+          "encodedBodySize": 1170,
+          "initiatorType": "other"
+        }
+      ]
+    }
+  },
+  "lighthouse": {
+    "ran": true,
+    "error": null,
+    "scores": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "path": "evidence/lighthouse/home-mobile.json"
+  },
+  "hub_only_external": {
+    "home": [],
+    "spud-fling": [],
+    "pips-bloom-isle": []
+  }
+}

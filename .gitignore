@@ -1,0 +1,4 @@
+node_modules/
+assets/games/*/screenshots/_raw/
+.DS_Store
+*.log

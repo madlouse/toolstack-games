@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content policy · Toolstack Lab · AI 3D 游戏合集</title>
+<meta name="description" content="Which games may appear on the Toolstack Lab game hub.">
+<link rel="canonical" href="https://games.gettoolstacklab.com/CONTENT-POLICY.html">
+<meta name="theme-color" content="#0e1218">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolstack Lab · AI 3D 游戏合集">
+<meta property="og:title" content="Content policy · Toolstack Lab · AI 3D 游戏合集">
+<meta property="og:description" content="Which games may appear on the Toolstack Lab game hub.">
+<meta property="og:url" content="https://games.gettoolstacklab.com/CONTENT-POLICY.html">
+<meta property="og:image" content="https://games.gettoolstacklab.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Content policy · Toolstack Lab · AI 3D 游戏合集">
+<meta name="twitter:description" content="Which games may appear on the Toolstack Lab game hub.">
+<meta name="twitter:image" content="https://games.gettoolstacklab.com/og.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/site.css">
+
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap inner">
+    <a class="brand" href="/">
+      <span class="brand-name">Toolstack Lab</span>
+      <span class="brand-sub">AI 3D 游戏合集</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/#games">Games</a>
+      <a href="/CONTENT-POLICY.html">Policy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap prose policy-page">
+  <p class="crumb"><a href="/">Games</a> / Content policy</p>
+  <h1>Content policy — Toolstack Lab game hub</h1>
+<p>This hub only lists games that are safe to host, embed, and redistribute commercially.</p>
+<h2>Allowed origins</h2>
+<p>A game may appear here only if <strong>all</strong> of the following are true:</p>
+<ol>
+<li><strong>Ownership / licence fits one of:</strong></li>
+</ol>
+<p>   - <strong>Self-made</strong> by Toolstack Lab (or an author who granted us rights), or</p>
+<p>   - <strong>Public domain</strong> (CC0 or equivalent PD dedication), or</p>
+<p>   - <strong>Open-source</strong> with an explicit licence that permits <strong>commercial use and embedding</strong> (for example MIT, Apache-2.0, BSD-2/3, zlib — check the exact text).</p>
+<ol>
+<li><strong>Provenance is recorded</strong> in <code>data/games.json</code>:</li>
+</ol>
+<p>   - <code>license</code> — short label (e.g. <code>self-made</code>, <code>MIT</code>, <code>CC0</code>)</p>
+<p>   - <code>licenseUrl</code> — proof URL, or the literal string <code>n/a (self-made)</code></p>
+<p>   - <code>source</code> — repo / origin URL, or <code>self-made by Toolstack Lab</code></p>
+<ol>
+<li><strong>No unattributed classics.</strong> Ports or remakes of well-known arcade/console games are not allowed unless we hold clear rights or a permissive licence covering that content. &quot;Inspired by a mechanic&quot; is fine; copying characters, levels, or branding is not.</li>
+<li><strong>Embedding.</strong> If <code>embed: true</code>, the upstream must allow framing / embedding on a third-party origin (or we host a copy we control). Otherwise set <code>embed: false</code> and link out only.</li>
+</ol>
+<h2>Build gate</h2>
+<p><code>validate.mjs</code> <strong>fails the build</strong> when <code>license</code> or <code>source</code> (or <code>licenseUrl</code>) is missing or empty. Do not bypass it.</p>
+<h2>Screenshots and art</h2>
+<p>Hub screenshots and Open Graph images must come from the game itself (captured frames) or from assets we own. Do not scrape third-party store art.</p>
+<h2>Privacy</h2>
+<p>Listed games should not require accounts or collect personal data for basic play. The hub itself uses no cookies, no third-party scripts, and no analytics beacons in this MVP.</p>
+<h2>Changes</h2>
+<p>When adding a game, update <code>data/games.json</code>, capture screenshots, re-run <code>node validate.mjs &amp;&amp; node build.mjs</code>, and keep this policy in the PR description checklist.</p>
+</main>
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div>© Toolstack Lab · browser games, self-hosted · no trackers</div>
+    <div>
+      <a href="/CONTENT-POLICY.html">Content policy</a>
+      ·
+      <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
+    </div>
+  </div>
+</footer>
+<script src="/site.js" defer></script>
+</body>
+</html>

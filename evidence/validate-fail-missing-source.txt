@@ -1,0 +1,4 @@
+FAIL: 2 validation error(s) in /workspace/exp28-games/game-hub/evidence/games-missing-source.json
+ - pips-bloom-isle: missing field "source"
+ - pips-bloom-isle: SOURCE missing/empty (CONTENT-POLICY)
+exit=1

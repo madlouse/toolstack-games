@@ -1,0 +1,30 @@
+shot mobile-home.png http=200
+shot mobile-spud-fling.png http=200
+shot mobile-pips-bloom-isle.png http=200
+shot desktop-home.png http=200
+shot desktop-spud-fling.png http=200
+shot desktop-pips-bloom-isle.png http=200
+hub_only_external {'home': [], 'spud-fling': [], 'pips-bloom-isle': []}
+iframe spud-fling: pass=True src=https://tsl-game1.pages.dev/?internal=1 game_http=200 bad_ext=2
+iframe pips-bloom-isle: pass=True src=https://bloom-isle.gettoolstacklab.com/?internal=1 game_http=200 bad_ext=1
+timing home: dcl=17.699999999254942 load=18.899999998509884 xfer=10320
+timing spud-fling: dcl=46.09999999962747 load=46.30000000074506 xfer=65462
+timing pips-bloom-isle: dcl=49 load=49.29999999888241 xfer=36436
+wrote evidence/pw-report.json
+running lighthouse... npx --yes lighthouse http://127.0.0.1:4173/ --quiet --chrome-path=/home/box/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome --chrome-flags=--headless --no-sandbox --disable-dev-shm-usage --form-factor=mobile --screenEmulation.mobile --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/workspace/exp28-games/game-hub/evidence/lighthouse/home-mobile.json
+lighthouse scores: {'performance': 1, 'accessibility': 1, 'best-practices': 1, 'seo': 1}
+# Evidence summary
+- validate pass + negative fails: see validate-*.txt
+- screenshots: evidence/screenshots/ (mobile 390x844 + desktop 1280x800 × home + 2 details)
+- iframe spud-fling: pass=True game_http=200 src=https://tsl-game1.pages.dev/?internal=1
+- iframe pips-bloom-isle: pass=True game_http=200 src=https://bloom-isle.gettoolstacklab.com/?internal=1
+- console errors total: 0
+- hub-only external (should be empty): {'home': [], 'spud-fling': [], 'pips-bloom-isle': []}
+  - after play spud-fling: other_disallowed=0 cf_insights_side_effect=2
+  - after play pips-bloom-isle: other_disallowed=0 cf_insights_side_effect=1
+- disallowed external (non-CF) listed in external_requests flatten: 0
+- timing home: DCL=17.699999999254942ms load=18.899999998509884ms resourcesTransfer=10320B count=2
+- timing spud-fling: DCL=46.09999999962747ms load=46.30000000074506ms resourcesTransfer=65462B count=6
+- timing pips-bloom-isle: DCL=49ms load=49.29999999888241ms resourcesTransfer=36436B count=4
+- lighthouse mobile home scores: {'performance': 1, 'accessibility': 1, 'best-practices': 1, 'seo': 1}
+
