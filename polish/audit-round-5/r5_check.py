@@ -120,8 +120,12 @@ with sync_playwright() as p:
                 early = pg.evaluate("""() => { const p=document.querySelector('.bay-progress'); const s=document.getElementById('bay-status');
                   return {progressVisible: !!p && !p.hidden && getComputedStyle(p).display!=='none', progressH: p?Math.round(p.getBoundingClientRect().height):null, statusOpacityTransition: s?getComputedStyle(s).transitionProperty+' '+getComputedStyle(s).transitionDuration:null}; }""")
                 anims = pg.evaluate(ANIM_JS)
-                try: pg.wait_for_function("window.__r5.load!=null", timeout=20000)
-                except Exception: pass
+                wait_err = None; deadline = time.time() + int(os.environ.get("R5_LOAD_TIMEOUT", "20000")) / 1000
+                while time.time() < deadline:  # plain polling: wait_for_function's rAF polling can error while a same-site game saturates the renderer
+                    try:
+                        if pg.evaluate("window.__r5.load!=null"): break
+                    except Exception as e: wait_err = repr(e)[:200]
+                    pg.wait_for_timeout(250)
                 pg.wait_for_timeout(400)
                 r5 = pg.evaluate("window.__r5")
                 prog_after = pg.evaluate("""() => { const p=document.querySelector('.bay-progress'); return p ? {hidden:p.hidden, opacity:getComputedStyle(p).opacity} : null; }""")
@@ -129,7 +133,7 @@ with sync_playwright() as p:
                 key = f"{slug}@{w}-{motion}"
                 rec = {"click_to_src_ms": round(ms, 1), "loaded_ms_after_click": round((r5.get("load") or 0) - (r5.get("click") or 0)),
                        "status_seq": r5.get("status"), "early": early, "anims_at_40ms": anims, "progress_after_load": prog_after,
-                       "console_errors": [e for e in errs]}
+                       "console_errors": [e for e in errs], "wait_err": wait_err}
                 if ms > 50: fail("R5-instant-play", f"{key}: {ms} ms")
                 seq = [s for s in (r5.get("status") or []) if s]
                 if not (any(s.startswith("Ready") for s in seq) and any(s.startswith("Loading") for s in seq) and seq[-1].startswith("Docked")):
