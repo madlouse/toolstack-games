@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="Fling a googly-eyed potato, smash crates, unlock boosts, chase a new best. Controls, tips, FAQ, and licence. Free browser play, no account.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/assets/games/spud-fling/thumb.jpg">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Spud Fling","description":"Hold to charge a giant slingshot, release to fling Spud across a bright 3D field. Smash crate towers for potato coins, bounce off mushrooms, and climb an unlock ladder: Double Band, Bouncy Mushrooms, Air Toot, Pond of Gulpo, Mega Band, and Golden Spud. After the Gulpo unlock, a giant frog at the pond can swallow Spud and spit the potato out for a burst of distance. Single-player, one continuous progression mode. Progress saves locally in your browser.","url":"https://games.gettoolstacklab.com/games/spud-fling/","image":"https://games.gettoolstacklab.com/assets/games/spud-fling/thumb.jpg","author":{"@type":"Organization","name":"Toolstack Lab"},"publisher":{"@type":"Organization","name":"Toolstack Lab"},"gamePlatform":"Web browser","playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any","inLanguage":"en","genre":["arcade","physics","one-button","3D","distance"],"datePublished":"2026-10-16","license":"self-made","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
@@ -39,7 +40,6 @@
       <a href="/#games" aria-current="page">Games</a>
       <a href="/popular/">Popular</a>
       <a href="/about/">About</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
     </nav>
   </div>
 </header>
@@ -59,8 +59,12 @@
       <div class="tags"><span class="tag">arcade</span><span class="tag">physics</span><span class="tag">one-button</span><span class="tag">3D</span><span class="tag">distance</span></div>
       <p class="score-hint pad-top">Popularity score <span data-count-to="104">104</span> (plays×3 + visits)</p>
       <div class="card-actions pad-top">
-        <a class="btn btn-lg" href="#play">Play</a>
-        <button type="button" class="btn btn-secondary" data-share-url="https://games.gettoolstacklab.com/games/spud-fling/" data-share-title="Spud Fling">Copy link</button>
+        <button type="button" class="btn btn-lg" id="play-embed"
+          data-game-url="https://tsl-game1.pages.dev/?internal=1"
+          data-game-slug="spud-fling"
+          data-game-title="Spud Fling">Play</button>
+        <button type="button" class="btn btn-ghost" data-share-url="https://games.gettoolstacklab.com/games/spud-fling/" data-share-title="Spud Fling">Copy link</button>
+        <a class="btn-link" href="https://tsl-game1.pages.dev" target="_blank" rel="noopener">Open in new tab</a>
       </div>
     </div>
   </div>
@@ -68,18 +72,22 @@
   <section class="play-panel" id="play" aria-label="Play bay">
     <div class="play-bar">
       <span class="bay-label">Play bay · dock cartridge</span>
-      <button type="button" class="btn" id="play-embed"
-        data-game-url="https://tsl-game1.pages.dev/?internal=1"
-        data-game-slug="spud-fling"
-        data-game-title="Spud Fling">Play in page</button>
-      <a class="btn btn-secondary" href="https://tsl-game1.pages.dev" target="_blank" rel="noopener">Open in new tab</a>
     </div>
     <div class="play-frame-wrap" id="play-frame-wrap">
       <div class="play-placeholder" id="play-placeholder">
-        <div>Cartridge ready — click Play to dock it. Game loads only after you click.</div>
-        <button type="button" class="btn" id="play-embed-alt">Load Spud Fling</button>
+        <svg class="bay-graphic" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+          <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
+          <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
+          <g class="bay-pins">
+            <rect x="70" y="86" width="6" height="10" rx="1"/><rect x="84" y="86" width="6" height="10" rx="1"/><rect x="98" y="86" width="6" height="10" rx="1"/><rect x="112" y="86" width="6" height="10" rx="1"/><rect x="126" y="86" width="6" height="10" rx="1"/><rect x="140" y="86" width="6" height="10" rx="1"/><rect x="154" y="86" width="6" height="10" rx="1"/><rect x="168" y="86" width="6" height="10" rx="1"/>
+          </g>
+          <path class="bay-arrow" d="M120 44 v24 m-9 -9 l9 9 l9 -9"/>
+        </svg>
+        <div class="bay-empty-label">Bay empty</div>
+        <div>Press <strong>Play</strong> above to dock this cartridge. Nothing loads until you ask.</div>
       </div>
-      <div class="play-skeleton" id="play-skeleton" hidden>Docking…</div>
+      <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
+      <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">Spud Fling</span></div>
       <iframe id="game-frame" title="Spud Fling" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
     </div>
   </section>
@@ -107,19 +115,19 @@
     </ul>
     <h2>Screenshots</h2>
     <div class="shots">
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/spud-fling/screenshots/01-title.webp">
     <img src="/assets/games/spud-fling/screenshots/01-title.jpg" alt="Spud Fling screenshot 1" width="1280" height="720" loading="lazy" decoding="async">
   </picture>
 </figure>
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/spud-fling/screenshots/02-charging.webp">
     <img src="/assets/games/spud-fling/screenshots/02-charging.jpg" alt="Spud Fling screenshot 2" width="1280" height="720" loading="lazy" decoding="async">
   </picture>
 </figure>
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/spud-fling/screenshots/03-flight.webp">
     <img src="/assets/games/spud-fling/screenshots/03-flight.jpg" alt="Spud Fling screenshot 3" width="1280" height="720" loading="lazy" decoding="async">
@@ -129,8 +137,13 @@
   </article>
 
   <section class="prose" aria-labelledby="similar-h">
-  <h2 id="similar-h">Similar games</h2>
-  <p>Honest genre neighbours — not claims that other studios’ titles are ours. Links below go only to games on this hub.</p>
+  <h2 id="similar-h">Similar on this shelf</h2>
+  <p>Other cartridges on this workbench, then honest genre neighbours (not claims that other studios’ titles are ours).</p>
+  <div class="similar-carts"><a class="similar-cart" href="/games/pips-bloom-isle/#play">
+  <span class="cart-serial">TSL·02</span>
+  <strong>Pip&#39;s Bloom Isle</strong>
+  <span class="muted">A cozy 3D platformer-collector: tend four island levels with Tansy while Pip cheers.</span>
+</a></div>
   <div class="similar-list">
 <div class="similar-item">
   <h3>One-button arcade physics</h3>
@@ -145,7 +158,6 @@
   <p>Lightweight WebGL toys that load in a tab — no install, no account.</p>
 </div>
   </div>
-  <p class="also">Also on this hub: <a href="/games/pips-bloom-isle/">Pip&#39;s Bloom Isle</a></p>
 </section>
   <section class="prose faq" aria-labelledby="faq-h">
   <h2 id="faq-h">FAQ</h2>
@@ -202,6 +214,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>

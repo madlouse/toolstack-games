@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="Popularity ranking for Toolstack Lab browser games. Score = plays×3 + visits.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/og.png">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Popularity board","url":"https://games.gettoolstacklab.com/popular/","itemListElement":[{"@type":"ListItem","position":1,"url":"https://games.gettoolstacklab.com/games/spud-fling/","name":"Spud Fling"},{"@type":"ListItem","position":2,"url":"https://games.gettoolstacklab.com/games/pips-bloom-isle/","name":"Pip's Bloom Isle"}]}</script>
@@ -37,7 +38,6 @@
       <a href="/#games">Games</a>
       <a href="/popular/" aria-current="page">Popular</a>
       <a href="/about/">About</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
     </nav>
   </div>
 </header>
@@ -45,7 +45,7 @@
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>Popularity board</h1>
-    <p>Score = plays × 3 + visits. Seed counts are documented visits only; plays may be 0 when playtime export was unavailable. Client “recently played” is never a popularity signal.</p>
+    <p>Score = plays × 3 + visits. Current seed is visit-based (plays not exported yet). Client “recently played” is never a popularity signal.</p>
   </section>
   <section class="section" aria-label="Ranking">
     <div class="board">
@@ -57,7 +57,7 @@
   </div>
   <div class="board-score">
     <div>★ <span data-count-to="104">104</span></div>
-    <div>104 visits · 0 plays</div>
+    <div>104 visits</div>
   </div>
 </a>
 <a class="board-row" href="/games/pips-bloom-isle/">
@@ -68,7 +68,7 @@
   </div>
   <div class="board-score">
     <div>★ <span data-count-to="10">10</span></div>
-    <div>10 visits · 0 plays</div>
+    <div>10 visits</div>
   </div>
 </a>
     </div>
@@ -87,6 +87,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>

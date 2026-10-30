@@ -22,7 +22,7 @@ const DIST = resolve(ROOT, "dist");
 const CANONICAL = "https://games.gettoolstacklab.com";
 const SITE_NAME = "Toolstack Lab · AI 3D 游戏合集";
 const TAGLINE =
-  "Tiny browser 3D games from Toolstack Lab. No accounts, no cookies, play in one click.";
+  "Tiny browser 3D games from Toolstack Lab. No accounts, no cookies — dock a cartridge and play.";
 
 function score(stats, slug) {
   const s = stats[slug] || { visits: 0, plays: 0 };
@@ -84,7 +84,6 @@ function layout({
     { href: "/#games", id: "games", label: "Games" },
     { href: "/popular/", id: "popular", label: "Popular" },
     { href: "/about/", id: "about", label: "About" },
-    { href: "/CONTENT-POLICY.html", id: "policy", label: "Policy" },
   ]
     .map((n) => {
       const cur = n.id === navActive ? ' aria-current="page"' : "";
@@ -124,6 +123,7 @@ function layout({
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${esc(og)}">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 ${extraHead}
 ${ldBlocks}
@@ -155,6 +155,7 @@ ${body}
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>
@@ -169,7 +170,7 @@ function allTags(games) {
   return [...set].sort();
 }
 
-function cardHtml(g, stats, { featured = false } = {}) {
+function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
   const sc = score(stats, g.slug);
   const thumb = assetPath(g.thumbnail);
   const thumbWebp = webpOf(thumb);
@@ -188,8 +189,10 @@ function cardHtml(g, stats, { featured = false } = {}) {
       <source type="image/webp" srcset="${esc(previewWebp)}">
       <img src="${esc(preview)}" alt="" width="640" height="360" loading="lazy" decoding="async">
     </picture>
+    <span class="cart-teeth" aria-hidden="true"></span>
   </a>
   <div class="card-body">
+    <div class="cart-plate" aria-hidden="true"><span class="cart-serial">TSL·${String(index + 1).padStart(2, "0")}</span><span class="cart-grip"></span></div>
     <h2 class="card-title"><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a></h2>
     <p class="card-pitch">${esc(g.pitch)}</p>
     <div class="tags">${(g.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
@@ -207,29 +210,31 @@ function homePage(games, stats) {
   const rest = games.slice(1);
 
   const featured = hot
-    ? `<section class="featured" aria-label="Hottest game">
-  <div class="detail-media">
+    ? `<section class="featured card-like" aria-label="Hottest game" data-play-href="/games/${esc(hot.slug)}/#play" tabindex="0">
+  <div class="detail-media cart-face">
     <picture>
       <source type="image/webp" srcset="${esc(webpOf(assetPath(hot.thumbnail)))}">
       <img src="${esc(assetPath(hot.thumbnail))}" alt="${esc(hot.title)}" width="640" height="360" decoding="async" fetchpriority="high">
     </picture>
+    <div class="cart-teeth" aria-hidden="true"></div>
   </div>
   <div>
-    <div class="featured-badge">Hot cartridge · score <span data-count-to="${score(stats, hot.slug)}">${score(stats, hot.slug)}</span></div>
+    <div class="featured-badge"><span class="cart-serial">TSL·01</span> Hot cartridge · score <span data-count-to="${score(stats, hot.slug)}">${score(stats, hot.slug)}</span></div>
     <h2><a href="/games/${esc(hot.slug)}/">${esc(hot.title)}</a></h2>
     <p class="pitch">${esc(hot.pitch)}</p>
     <div class="tags">${(hot.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
     <div class="card-actions pad-top">
       <a class="btn btn-lg" href="/games/${esc(hot.slug)}/#play" data-recent-slug="${esc(hot.slug)}" data-recent-title="${esc(hot.title)}">Play</a>
-      <a class="btn btn-secondary" href="/games/${esc(hot.slug)}/">Details</a>
+      <a class="btn btn-ghost" href="/games/${esc(hot.slug)}/">Details</a>
     </div>
   </div>
 </section>`
     : "";
 
   const cards = (rest.length ? rest : games)
-    .map((g) => cardHtml(g, stats))
+    .map((g, i) => cardHtml(g, stats, { index: rest.length ? i + 1 : i }))
     .join("\n");
+  const cardCount = rest.length ? rest.length : games.length;
 
   const tagBtns = [
     `<button type="button" data-filter-tag="all" aria-pressed="true">All</button>`,
@@ -244,7 +249,7 @@ function homePage(games, stats) {
   <section class="hero wrap">
     <div class="hero-kicker">Lab cartridge workbench</div>
     <h1>${esc(SITE_NAME)}</h1>
-    <p>${esc(TAGLINE)} Press <span class="kbd">/</span> to filter. Hover a cartridge to flip its label.</p>
+    <p>${esc(TAGLINE)} Press <span class="kbd">/</span> to filter. <span class="pointer-fine">Hover</span><span class="pointer-coarse">Press</span> a cartridge to flip its label.</p>
   </section>
   <section class="section wrap" id="games">
     <div class="section-head">
@@ -258,14 +263,15 @@ function homePage(games, stats) {
         <span class="search-icon" aria-hidden="true">/</span>
         <input id="game-search" type="search" placeholder="Search title, tag, pitch…" autocomplete="off" enterkeyhint="search">
       </div>
-      <div class="tag-filters" role="group" aria-label="Filter by tag">
+      ${games.length > 4 ? `<div class="tag-filters" role="group" aria-label="Filter by tag">
         ${tagBtns}
-      </div>
+      </div>` : ""}
     </div>
     <p class="filter-hint">Tip: <span class="kbd">/</span> focuses search · <span class="kbd">Enter</span> plays the focused cartridge</p>
-    <div class="grid" id="games-grid">
+    <div class="grid${cardCount <= 6 ? " stagger" : ""}" id="games-grid">
 ${cards}
     </div>
+    <div class="shelf" aria-hidden="true"></div>
     <p class="empty-filter" id="filter-empty" hidden>No cartridges match that filter.</p>
     <aside class="recent" id="recent-played" hidden>
       <h2>Recently played on this device</h2>
@@ -331,20 +337,26 @@ function similarBlock(g, allGames) {
     )
     .join("\n");
 
-  const also =
+  const hubCarts =
     others.length > 0
-      ? `<p class="also">Also on this hub: ${others
-          .map((o) => `<a href="/games/${esc(o.slug)}/">${esc(o.title)}</a>`)
-          .join(" · ")}</p>`
+      ? `<div class="similar-carts">${others
+          .map(
+            (o, i) => `<a class="similar-cart" href="/games/${esc(o.slug)}/#play">
+  <span class="cart-serial">TSL·${String(i + 2).padStart(2, "0")}</span>
+  <strong>${esc(o.title)}</strong>
+  <span class="muted">${esc(o.pitch)}</span>
+</a>`
+          )
+          .join("")}</div>`
       : "";
 
   return `<section class="prose" aria-labelledby="similar-h">
-  <h2 id="similar-h">Similar games</h2>
-  <p>Honest genre neighbours — not claims that other studios’ titles are ours. Links below go only to games on this hub.</p>
+  <h2 id="similar-h">Similar on this shelf</h2>
+  <p>Other cartridges on this workbench, then honest genre neighbours (not claims that other studios’ titles are ours).</p>
+  ${hubCarts}
   <div class="similar-list">
 ${genres}
   </div>
-  ${also}
 </section>`;
 }
 
@@ -372,7 +384,7 @@ function detailPage(g, stats, allGames) {
     .map((s, i) => {
       const src = assetPath(s);
       const webp = webpOf(src);
-      return `<figure>
+      return `<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="${esc(webp)}">
     <img src="${esc(src)}" alt="${esc(g.title)} screenshot ${i + 1}" width="1280" height="720" loading="lazy" decoding="async">
@@ -464,8 +476,12 @@ function detailPage(g, stats, allGames) {
       <div class="tags">${(g.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
       <p class="score-hint pad-top">Popularity score <span data-count-to="${sc}">${sc}</span> (plays×3 + visits)</p>
       <div class="card-actions pad-top">
-        <a class="btn btn-lg" href="#play">Play</a>
-        <button type="button" class="btn btn-secondary" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}">Copy link</button>
+        <button type="button" class="btn btn-lg" id="play-embed"
+          data-game-url="${esc(embedUrl(g.url))}"
+          data-game-slug="${esc(g.slug)}"
+          data-game-title="${esc(g.title)}">Play</button>
+        <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}">Copy link</button>
+        <a class="btn-link" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a>
       </div>
     </div>
   </div>
@@ -473,18 +489,22 @@ function detailPage(g, stats, allGames) {
   <section class="play-panel" id="play" aria-label="Play bay">
     <div class="play-bar">
       <span class="bay-label">Play bay · dock cartridge</span>
-      <button type="button" class="btn" id="play-embed"
-        data-game-url="${esc(embedUrl(g.url))}"
-        data-game-slug="${esc(g.slug)}"
-        data-game-title="${esc(g.title)}">Play in page</button>
-      <a class="btn btn-secondary" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a>
     </div>
     <div class="play-frame-wrap" id="play-frame-wrap">
       <div class="play-placeholder" id="play-placeholder">
-        <div>Cartridge ready — click Play to dock it. Game loads only after you click.</div>
-        <button type="button" class="btn" id="play-embed-alt">Load ${esc(g.title)}</button>
+        <svg class="bay-graphic" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+          <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
+          <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
+          <g class="bay-pins">
+            <rect x="70" y="86" width="6" height="10" rx="1"/><rect x="84" y="86" width="6" height="10" rx="1"/><rect x="98" y="86" width="6" height="10" rx="1"/><rect x="112" y="86" width="6" height="10" rx="1"/><rect x="126" y="86" width="6" height="10" rx="1"/><rect x="140" y="86" width="6" height="10" rx="1"/><rect x="154" y="86" width="6" height="10" rx="1"/><rect x="168" y="86" width="6" height="10" rx="1"/>
+          </g>
+          <path class="bay-arrow" d="M120 44 v24 m-9 -9 l9 9 l9 -9"/>
+        </svg>
+        <div class="bay-empty-label">Bay empty</div>
+        <div>Press <strong>Play</strong> above to dock this cartridge. Nothing loads until you ask.</div>
       </div>
-      <div class="play-skeleton" id="play-skeleton" hidden>Docking…</div>
+      <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
+      <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">${esc(g.title)}</span></div>
       <iframe id="game-frame" title="${esc(g.title)}" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
     </div>
   </section>
@@ -555,7 +575,7 @@ function popularPage(games, stats) {
   </div>
   <div class="board-score">
     <div>★ <span data-count-to="${sc}">${sc}</span></div>
-    <div>${Number(st.visits) || 0} visits · ${Number(st.plays) || 0} plays</div>
+    <div>${Number(st.visits) || 0} visits${Number(st.plays) > 0 ? ` · ${Number(st.plays)} plays` : ""}</div>
   </div>
 </a>`;
     })
@@ -565,7 +585,7 @@ function popularPage(games, stats) {
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>Popularity board</h1>
-    <p>Score = plays × 3 + visits. Seed counts are documented visits only; plays may be 0 when playtime export was unavailable. Client “recently played” is never a popularity signal.</p>
+    <p>Score = plays × 3 + visits. Current seed is visit-based (plays not exported yet). Client “recently played” is never a popularity signal.</p>
   </section>
   <section class="section" aria-label="Ranking">
     <div class="board">
@@ -602,17 +622,21 @@ function aboutPage() {
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>About this hub</h1>
-    <p>Toolstack Lab’s public shelf for tiny browser 3D games we made ourselves. No accounts, no cookies, no third-party scripts or fonts. Click Play and the game docks into the play bay.</p>
+    <p>This is the lab workbench: every game is a labeled cartridge on the shelf. Press Play to dock it into the glowing play bay. No accounts, no cookies, no third-party scripts or fonts.</p>
   </section>
   <article class="prose policy-page">
+    <div class="about-bay" aria-hidden="true">
+      <div class="about-cart"><span class="cart-serial">TSL</span></div>
+      <div class="about-slot"></div>
+    </div>
     <h2>What you get</h2>
     <ul>
       <li>Self-made games with recorded licence and source in each detail page.</li>
-      <li>On-click iframe play (or open in a new tab) — nothing heavy loads until you ask.</li>
+      <li>Iframe docks only after Play — nothing heavy loads until you ask (or open in a new tab).</li>
       <li>Popularity sorted by a documented formula; “recently played” stays on your device only.</li>
     </ul>
-    <h2>Lab cartridge metaphor</h2>
-    <p>Home cards are labeled cartridges on a workbench. Hover flips the label through a real screenshot. Play docks the cartridge into a glowing bay — a cheap, memorable interaction without video or 3D backgrounds.</p>
+    <h2>Lab cartridge workbench</h2>
+    <p>Cards are cartridges with a spine, notch, label plate, and edge connector. Press/hover flips the label through a real screenshot. Play docks the cartridge into the bay — one memorable beat, no video or 3D backgrounds.</p>
     <h2>Audience &amp; boundaries</h2>
     <p>Pip's Bloom Isle is aimed at casual players 13+. We only list what each build already ships. See the <a href="/CONTENT-POLICY.html">content policy</a> for licence rules.</p>
     <h2>Contact</h2>
@@ -641,9 +665,16 @@ function aboutPage() {
 function notFoundPage() {
   const body = `
 <main id="main" class="wrap error-page">
-  <h1>404</h1>
-  <p>That page is not in this collection.</p>
-  <p><a class="btn" href="/">Back to games</a></p>
+  <div class="bay-empty-404" aria-hidden="true">
+    <svg class="bay-graphic" viewBox="0 0 240 120" focusable="false">
+      <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
+      <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
+      <text x="120" y="70" text-anchor="middle" fill="#9aa8bc" font-size="14" font-family="ui-monospace,monospace">EMPTY SLOT</text>
+    </svg>
+  </div>
+  <h1>Cartridge not found</h1>
+  <p>That page is not on this workbench.</p>
+  <p><a class="btn" href="/">Back to the shelf</a></p>
 </main>`;
   return layout({
     title: `Not found · ${SITE_NAME}`,

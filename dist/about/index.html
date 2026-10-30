@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="About the Toolstack Lab AI 3D game hub: self-made browser games, no trackers, cartridge play bay.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/og.png">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AboutPage","name":"About · Toolstack Lab · AI 3D 游戏合集","url":"https://games.gettoolstacklab.com/about/","isPartOf":{"@type":"WebSite","name":"Toolstack Lab · AI 3D 游戏合集","url":"https://games.gettoolstacklab.com/"}}</script>
@@ -37,7 +38,6 @@
       <a href="/#games">Games</a>
       <a href="/popular/">Popular</a>
       <a href="/about/" aria-current="page">About</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
     </nav>
   </div>
 </header>
@@ -45,17 +45,21 @@
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>About this hub</h1>
-    <p>Toolstack Lab’s public shelf for tiny browser 3D games we made ourselves. No accounts, no cookies, no third-party scripts or fonts. Click Play and the game docks into the play bay.</p>
+    <p>This is the lab workbench: every game is a labeled cartridge on the shelf. Press Play to dock it into the glowing play bay. No accounts, no cookies, no third-party scripts or fonts.</p>
   </section>
   <article class="prose policy-page">
+    <div class="about-bay" aria-hidden="true">
+      <div class="about-cart"><span class="cart-serial">TSL</span></div>
+      <div class="about-slot"></div>
+    </div>
     <h2>What you get</h2>
     <ul>
       <li>Self-made games with recorded licence and source in each detail page.</li>
-      <li>On-click iframe play (or open in a new tab) — nothing heavy loads until you ask.</li>
+      <li>Iframe docks only after Play — nothing heavy loads until you ask (or open in a new tab).</li>
       <li>Popularity sorted by a documented formula; “recently played” stays on your device only.</li>
     </ul>
-    <h2>Lab cartridge metaphor</h2>
-    <p>Home cards are labeled cartridges on a workbench. Hover flips the label through a real screenshot. Play docks the cartridge into a glowing bay — a cheap, memorable interaction without video or 3D backgrounds.</p>
+    <h2>Lab cartridge workbench</h2>
+    <p>Cards are cartridges with a spine, notch, label plate, and edge connector. Press/hover flips the label through a real screenshot. Play docks the cartridge into the bay — one memorable beat, no video or 3D backgrounds.</p>
     <h2>Audience &amp; boundaries</h2>
     <p>Pip's Bloom Isle is aimed at casual players 13+. We only list what each build already ships. See the <a href="/CONTENT-POLICY.html">content policy</a> for licence rules.</p>
     <h2>Contact</h2>
@@ -75,6 +79,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>

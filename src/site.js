@@ -131,6 +131,11 @@
       if (skeleton) skeleton.hidden = false;
       if (placeholder) placeholder.hidden = true;
       frame.hidden = false;
+      /* Dock-in: decorative only, runs in parallel with iframe load */
+      var wrap = document.getElementById("play-frame-wrap");
+      var panel = wrap && wrap.closest ? wrap.closest(".play-panel") : null;
+      if (panel) panel.classList.add("docked");
+      if (wrap && !reduceMotion) wrap.classList.add("docking");
       frame.addEventListener(
         "load",
         function () {
@@ -142,11 +147,22 @@
       pushRecent(slug, title);
       btn.textContent = "Playing…";
       btn.disabled = true;
+      /* Keep hash honest without a second click */
+      if (location.hash !== "#play") {
+        try {
+          history.replaceState(null, "", "#play");
+        } catch (e) {}
+      }
     }
 
     btn.addEventListener("click", load);
-    var alt = document.getElementById("play-embed-alt");
-    if (alt) alt.addEventListener("click", load);
+
+    /* Home card / featured Play → /games/x/#play auto-docks (iframe stays lazy until intent) */
+    function maybeAutoDock() {
+      if (location.hash === "#play") load();
+    }
+    maybeAutoDock();
+    window.addEventListener("hashchange", maybeAutoDock);
   }
 
   function wireCardPlay() {
@@ -279,10 +295,14 @@
       if (e.key === "Enter" && !typing) {
         var active = document.activeElement;
         if (!active) return;
-        var card = active.closest ? active.closest(".card") : null;
-        if (!card) return;
         if (active.tagName === "A" || active.tagName === "BUTTON") return;
-        var play = card.querySelector("a.btn[href]");
+        var card = active.closest
+          ? active.closest(".card, .featured[data-play-href]")
+          : null;
+        if (!card) return;
+        var play = card.querySelector(
+          "a.btn[href*='#play'], a.btn[href], button.btn#play-embed"
+        );
         if (play) {
           e.preventDefault();
           play.click();
@@ -300,6 +320,22 @@
           e.preventDefault();
           play.click();
         }
+      });
+    });
+
+    /* Featured hot cartridge: same Enter-to-play path */
+    document.querySelectorAll(".featured[data-play-href]").forEach(function (feat) {
+      feat.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter") return;
+        if (e.target !== feat) return;
+        var play = feat.querySelector("a.btn[href*='#play']");
+        if (play) {
+          e.preventDefault();
+          play.click();
+          return;
+        }
+        var href = feat.getAttribute("data-play-href");
+        if (href) location.href = href;
       });
     });
   }

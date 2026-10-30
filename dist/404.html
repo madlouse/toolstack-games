@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="Page not found on the Toolstack Lab game hub.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/og.png">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 
 
@@ -37,15 +38,21 @@
       <a href="/#games">Games</a>
       <a href="/popular/">Popular</a>
       <a href="/about/">About</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
     </nav>
   </div>
 </header>
 
 <main id="main" class="wrap error-page">
-  <h1>404</h1>
-  <p>That page is not in this collection.</p>
-  <p><a class="btn" href="/">Back to games</a></p>
+  <div class="bay-empty-404" aria-hidden="true">
+    <svg class="bay-graphic" viewBox="0 0 240 120" focusable="false">
+      <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
+      <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
+      <text x="120" y="70" text-anchor="middle" fill="#9aa8bc" font-size="14" font-family="ui-monospace,monospace">EMPTY SLOT</text>
+    </svg>
+  </div>
+  <h1>Cartridge not found</h1>
+  <p>That page is not on this workbench.</p>
+  <p><a class="btn" href="/">Back to the shelf</a></p>
 </main>
 <footer class="site-footer">
   <div class="wrap inner">
@@ -60,6 +67,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>

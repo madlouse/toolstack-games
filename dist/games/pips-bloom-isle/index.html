@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="A cozy 3D platformer-collector: tend four island levels with Tansy while Pip cheers. Controls, tips, FAQ, and licence. Free browser play, no account.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/assets/games/pips-bloom-isle/thumb.jpg">
 <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Pip's Bloom Isle","description":"A cozy 3D platformer-collector for casual players 13+. Tansy, an original egg-shaped gardener, tends World 1 across four levels in order: Sunny Shelf, Stone Crossing, Islet Climb, and the Sulk Bulb. Pip the sprout follows and cheers when a level is cleared. Gentle, Breezy, and Bold change landing size and timing only. Art and audio are procedural. Progress, chosen tier, mute, and seen hints stay in localStorage on this device — no cookies, no account.","url":"https://games.gettoolstacklab.com/games/pips-bloom-isle/","image":"https://games.gettoolstacklab.com/assets/games/pips-bloom-isle/thumb.jpg","author":{"@type":"Organization","name":"Toolstack Lab"},"publisher":{"@type":"Organization","name":"Toolstack Lab"},"gamePlatform":"Web browser","playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any","inLanguage":"en","genre":["platformer","collector","cozy","3D","casual"],"datePublished":"2026-10-16","license":"self-made","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
@@ -39,7 +40,6 @@
       <a href="/#games" aria-current="page">Games</a>
       <a href="/popular/">Popular</a>
       <a href="/about/">About</a>
-      <a href="/CONTENT-POLICY.html">Policy</a>
     </nav>
   </div>
 </header>
@@ -59,8 +59,12 @@
       <div class="tags"><span class="tag">platformer</span><span class="tag">collector</span><span class="tag">cozy</span><span class="tag">3D</span><span class="tag">casual</span></div>
       <p class="score-hint pad-top">Popularity score <span data-count-to="10">10</span> (plays×3 + visits)</p>
       <div class="card-actions pad-top">
-        <a class="btn btn-lg" href="#play">Play</a>
-        <button type="button" class="btn btn-secondary" data-share-url="https://games.gettoolstacklab.com/games/pips-bloom-isle/" data-share-title="Pip&#39;s Bloom Isle">Copy link</button>
+        <button type="button" class="btn btn-lg" id="play-embed"
+          data-game-url="https://bloom-isle.gettoolstacklab.com/?internal=1"
+          data-game-slug="pips-bloom-isle"
+          data-game-title="Pip&#39;s Bloom Isle">Play</button>
+        <button type="button" class="btn btn-ghost" data-share-url="https://games.gettoolstacklab.com/games/pips-bloom-isle/" data-share-title="Pip&#39;s Bloom Isle">Copy link</button>
+        <a class="btn-link" href="https://bloom-isle.gettoolstacklab.com" target="_blank" rel="noopener">Open in new tab</a>
       </div>
     </div>
   </div>
@@ -68,18 +72,22 @@
   <section class="play-panel" id="play" aria-label="Play bay">
     <div class="play-bar">
       <span class="bay-label">Play bay · dock cartridge</span>
-      <button type="button" class="btn" id="play-embed"
-        data-game-url="https://bloom-isle.gettoolstacklab.com/?internal=1"
-        data-game-slug="pips-bloom-isle"
-        data-game-title="Pip&#39;s Bloom Isle">Play in page</button>
-      <a class="btn btn-secondary" href="https://bloom-isle.gettoolstacklab.com" target="_blank" rel="noopener">Open in new tab</a>
     </div>
     <div class="play-frame-wrap" id="play-frame-wrap">
       <div class="play-placeholder" id="play-placeholder">
-        <div>Cartridge ready — click Play to dock it. Game loads only after you click.</div>
-        <button type="button" class="btn" id="play-embed-alt">Load Pip&#39;s Bloom Isle</button>
+        <svg class="bay-graphic" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+          <rect class="bay-slot" x="40" y="22" width="160" height="76" rx="10"/>
+          <path class="bay-notch" d="M96 22 v8 a4 4 0 0 0 4 4 h40 a4 4 0 0 0 4 -4 v-8"/>
+          <g class="bay-pins">
+            <rect x="70" y="86" width="6" height="10" rx="1"/><rect x="84" y="86" width="6" height="10" rx="1"/><rect x="98" y="86" width="6" height="10" rx="1"/><rect x="112" y="86" width="6" height="10" rx="1"/><rect x="126" y="86" width="6" height="10" rx="1"/><rect x="140" y="86" width="6" height="10" rx="1"/><rect x="154" y="86" width="6" height="10" rx="1"/><rect x="168" y="86" width="6" height="10" rx="1"/>
+          </g>
+          <path class="bay-arrow" d="M120 44 v24 m-9 -9 l9 9 l9 -9"/>
+        </svg>
+        <div class="bay-empty-label">Bay empty</div>
+        <div>Press <strong>Play</strong> above to dock this cartridge. Nothing loads until you ask.</div>
       </div>
-      <div class="play-skeleton" id="play-skeleton" hidden>Docking…</div>
+      <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
+      <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">Pip&#39;s Bloom Isle</span></div>
       <iframe id="game-frame" title="Pip&#39;s Bloom Isle" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
     </div>
   </section>
@@ -107,19 +115,19 @@
     </ul>
     <h2>Screenshots</h2>
     <div class="shots">
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/pips-bloom-isle/screenshots/01-title.webp">
     <img src="/assets/games/pips-bloom-isle/screenshots/01-title.jpg" alt="Pip&#39;s Bloom Isle screenshot 1" width="1280" height="720" loading="lazy" decoding="async">
   </picture>
 </figure>
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/pips-bloom-isle/screenshots/02-world.webp">
     <img src="/assets/games/pips-bloom-isle/screenshots/02-world.jpg" alt="Pip&#39;s Bloom Isle screenshot 2" width="1280" height="720" loading="lazy" decoding="async">
   </picture>
 </figure>
-<figure>
+<figure class="shot-slot">
   <picture>
     <source type="image/webp" srcset="/assets/games/pips-bloom-isle/screenshots/03-play.webp">
     <img src="/assets/games/pips-bloom-isle/screenshots/03-play.jpg" alt="Pip&#39;s Bloom Isle screenshot 3" width="1280" height="720" loading="lazy" decoding="async">
@@ -129,8 +137,13 @@
   </article>
 
   <section class="prose" aria-labelledby="similar-h">
-  <h2 id="similar-h">Similar games</h2>
-  <p>Honest genre neighbours — not claims that other studios’ titles are ours. Links below go only to games on this hub.</p>
+  <h2 id="similar-h">Similar on this shelf</h2>
+  <p>Other cartridges on this workbench, then honest genre neighbours (not claims that other studios’ titles are ours).</p>
+  <div class="similar-carts"><a class="similar-cart" href="/games/spud-fling/#play">
+  <span class="cart-serial">TSL·02</span>
+  <strong>Spud Fling</strong>
+  <span class="muted">Fling a googly-eyed potato, smash crates, unlock boosts, chase a new best.</span>
+</a></div>
   <div class="similar-list">
 <div class="similar-item">
   <h3>Cozy 3D platformers</h3>
@@ -145,7 +158,6 @@
   <p>WebGL experiences aimed at 13+ casual players, playable in a tab.</p>
 </div>
   </div>
-  <p class="also">Also on this hub: <a href="/games/spud-fling/">Spud Fling</a></p>
 </section>
   <section class="prose faq" aria-labelledby="faq-h">
   <h2 id="faq-h">FAQ</h2>
@@ -202,6 +214,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </div>
   </div>
+  <!-- polish-r2 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>
