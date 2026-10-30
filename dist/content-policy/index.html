@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Content &amp; Licence Policy | Toolstack Lab</title>
-<meta name="description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are recorded, and the licence of every game listed today.">
+<meta name="description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are shown, and the licence of every game listed today.">
 <link rel="canonical" href="https://games.gettoolstacklab.com/content-policy/">
 <meta name="theme-color" content="#0e1218" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Toolstack Lab Games">
 <meta property="og:title" content="Content &amp; Licence Policy | Toolstack Lab">
-<meta property="og:description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are recorded, and the licence of every game listed today.">
+<meta property="og:description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are shown, and the licence of every game listed today.">
 <meta property="og:url" content="https://games.gettoolstacklab.com/content-policy/">
 <meta property="og:image" content="https://games.gettoolstacklab.com/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="Toolstack Lab Games – free 3D browser games">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Content &amp; Licence Policy | Toolstack Lab">
-<meta name="twitter:description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are recorded, and the licence of every game listed today.">
+<meta name="twitter:description" content="Which games may appear on Toolstack Lab Games, how each one&#39;s licence and source are shown, and the licence of every game listed today.">
 <meta name="twitter:image" content="https://games.gettoolstacklab.com/og.jpg">
 <meta name="twitter:image:alt" content="Toolstack Lab Games – free 3D browser games">
 <link rel="icon" href="/favicon.png" type="image/png">
@@ -44,45 +44,55 @@
   </div>
 </header>
 
-<main id="main" class="wrap prose policy-page">
+<main id="main" class="wrap">
   <p class="crumb"><a href="/">Games</a> / Content policy</p>
-  <h1>Content policy — Toolstack Lab game hub</h1>
-<p>This hub only lists games that are safe to host, embed, and redistribute commercially.</p>
-<h2>Allowed origins</h2>
-<p>A game may appear here only if <strong>all</strong> of the following are true:</p>
-<ol>
-<li><strong>Ownership / licence fits one of:</strong></li>
-</ol>
-<p>   - <strong>Self-made</strong> by Toolstack Lab (or an author who granted us rights), or</p>
-<p>   - <strong>Public domain</strong> (CC0 or equivalent PD dedication), or</p>
-<p>   - <strong>Open-source</strong> with an explicit licence that permits <strong>commercial use and embedding</strong> (for example MIT, Apache-2.0, BSD-2/3, zlib — check the exact text).</p>
-<ol>
-<li><strong>Provenance is recorded</strong> in <code>data/games.json</code>:</li>
-</ol>
-<p>   - <code>license</code> — short label (e.g. <code>self-made</code>, <code>MIT</code>, <code>CC0</code>)</p>
-<p>   - <code>licenseUrl</code> — proof URL, or the literal string <code>n/a (self-made)</code></p>
-<p>   - <code>source</code> — repo / origin URL, or <code>self-made by Toolstack Lab</code></p>
-<ol>
-<li><strong>No unattributed classics.</strong> Ports or remakes of well-known arcade/console games are not allowed unless we hold clear rights or a permissive licence covering that content. &quot;Inspired by a mechanic&quot; is fine; copying characters, levels, or branding is not.</li>
-<li><strong>Embedding.</strong> If <code>embed: true</code>, the upstream must allow framing / embedding on a third-party origin (or we host a copy we control). Otherwise set <code>embed: false</code> and link out only.</li>
-</ol>
-<h2>Build gate</h2>
-<p><code>validate.mjs</code> <strong>fails the build</strong> when <code>license</code> or <code>source</code> (or <code>licenseUrl</code>) is missing or empty. Do not bypass it.</p>
-<h2>Screenshots and art</h2>
-<p>Hub screenshots and Open Graph images must come from the game itself (captured frames) or from assets we own. Do not scrape third-party store art.</p>
-<h2>Privacy</h2>
-<p>Listed games should not require accounts or collect personal data for basic play. The hub itself uses no cookies, no third-party scripts, and no analytics beacons in this MVP.</p>
-<h2>Changes</h2>
-<p>When adding a game, update <code>data/games.json</code>, capture screenshots, re-run <code>node validate.mjs &amp;&amp; node build.mjs</code>, and keep this policy in the PR description checklist.</p>
-  <h2 id="games-licences">Licences of the games listed now</h2>
-  <section id="spud-fling" class="policy-game">
-  <h3>Spud Fling</h3>
-  <p>Original game by Toolstack Lab. Code and art are our own. All rights reserved. Licence: self-made. Source: self-made by Toolstack Lab. Added 2026-10-16; last checked <time datetime="2026-10-30">2026-10-30</time>.</p>
+  <section class="page-intro page-intro-tight">
+    <h1>Content policy</h1>
+    <p>Which games may appear on Toolstack Lab Games, and what we show you about each one.</p>
+  </section>
+  <div class="page-cols">
+  <article class="prose page-main policy-body">
+    <h2>What we list</h2>
+    <p>Today every game on this site is made by Toolstack Lab: our own code, art and sound. If we ever list a game by someone else, it must meet both of these rules:</p>
+    <ul>
+      <li>Its licence clearly allows other sites to embed it and to use it commercially, or it is in the public domain.</li>
+      <li>Its maker and the original source are named on its game page.</li>
+    </ul>
+    <h2>What we never list</h2>
+    <ul>
+      <li>Copies or ports of well-known games, characters or brands we do not have rights to. Borrowing a mechanic is fine; copying levels, art or names is not.</li>
+      <li>Games that need an account or collect personal data just to play.</li>
+      <li>Store art or screenshots taken from other sites. Every picture here is a frame from the game itself or art we made.</li>
+    </ul>
+    <h2>How we vet games</h2>
+    <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
+    <h2>Your privacy</h2>
+    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. Game progress is saved in your own browser and never leaves your device.</p>
+    <h2>Questions or a problem?</h2>
+    <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
+  </article>
+  <aside class="policy-side" aria-labelledby="games-licences">
+    <h2 id="games-licences">Games listed now</h2>
+    <section id="spud-fling" class="policy-game" aria-labelledby="spud-fling-h">
+  <h3 id="spud-fling-h"><a href="/games/spud-fling/">Spud Fling</a></h3>
+  <dl>
+    <div><dt>Made by</dt><dd>Toolstack Lab</dd></div>
+    <div><dt>Licence</dt><dd>Our own work, all rights reserved</dd></div>
+    <div><dt>Source</dt><dd>Made by Toolstack Lab</dd></div>
+    <div><dt>Checked</dt><dd><time datetime="2026-10-30">2026-10-30</time></dd></div>
+  </dl>
 </section>
-<section id="pips-bloom-isle" class="policy-game">
-  <h3>Pip&#39;s Bloom Isle</h3>
-  <p>Original game by Toolstack Lab. Code and art are our own. All rights reserved. Licence: self-made. Source: self-made by Toolstack Lab. Added 2026-10-16; last checked <time datetime="2026-10-30">2026-10-30</time>.</p>
+<section id="pips-bloom-isle" class="policy-game" aria-labelledby="pips-bloom-isle-h">
+  <h3 id="pips-bloom-isle-h"><a href="/games/pips-bloom-isle/">Pip&#39;s Bloom Isle</a></h3>
+  <dl>
+    <div><dt>Made by</dt><dd>Toolstack Lab</dd></div>
+    <div><dt>Licence</dt><dd>Our own work, all rights reserved</dd></div>
+    <div><dt>Source</dt><dd>Made by Toolstack Lab</dd></div>
+    <div><dt>Checked</dt><dd><time datetime="2026-10-30">2026-10-30</time></dd></div>
+  </dl>
 </section>
+  </aside>
+  </div>
 </main>
 <footer class="site-footer">
   <div class="wrap inner">
@@ -94,7 +104,7 @@
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </nav>
   </div>
-  <!-- polish-r3 -->
+  <!-- polish-r4 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>

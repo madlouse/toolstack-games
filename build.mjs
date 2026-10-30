@@ -176,13 +176,33 @@ ${body}
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
     </nav>
   </div>
-  <!-- polish-r3 -->
+  <!-- polish-r4 -->
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js" defer></script>
 </body>
 </html>
 `;
+}
+
+const PLAY_ICON = '<span class="play-icon" aria-hidden="true"></span>';
+
+/* R4: one "how it works" bay diagram, reused on home (hero side) and About (side column). Pure HTML/CSS. */
+function howItWorks(games, { heading = "How it plays", id = "how-h" } = {}) {
+  return `<aside class="howto" aria-labelledby="${id}">
+  <div class="howto-bar"><span class="bay-led" aria-hidden="true"></span><h2 id="${id}">${esc(heading)}</h2></div>
+  <ol class="howto-steps">
+    <li><span class="howto-n" aria-hidden="true">1</span><span><strong>Pick a cartridge.</strong> Each game is one card: a real in-game frame, a short pitch, three tags.</span></li>
+    <li><span class="howto-n" aria-hidden="true">2</span><span><strong>Press Play.</strong> The game docks into the play bay on its page and starts loading at once.</span></li>
+    <li><span class="howto-n" aria-hidden="true">3</span><span><strong>Play in the page.</strong> Nothing to install. Progress stays in your own browser.</span></li>
+  </ol>
+  <ul class="howto-facts" aria-label="At a glance">
+    <li><strong>${games.length}</strong> games</li>
+    <li><strong>Free</strong> to play</li>
+    <li><strong>No</strong> account</li>
+    <li><strong>No</strong> cookies</li>
+  </ul>
+</aside>`;
 }
 
 function allTags(games) {
@@ -217,7 +237,7 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
     <p class="card-pitch">${esc(g.pitch)}</p>
     ${tagsHtml(g)}
     <div class="card-actions">
-      <a class="btn" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">Play<span class="visually-hidden"> ${esc(g.title)}</span></a>
+      <a class="btn btn-play" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">${PLAY_ICON}Play<span class="visually-hidden"> ${esc(g.title)}</span></a>
       <span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>
     </div>
   </div>
@@ -243,10 +263,13 @@ function homePage(games, stats) {
 
   const body = `
 <main id="main">
-  <section class="hero wrap">
-    <div class="hero-kicker">Toolstack Lab Games</div>
-    <h1>Free 3D browser games – play instantly, no account</h1>
-    <p>${esc(TAGLINE)}</p>
+  <section class="hero hero-split wrap">
+    <div class="hero-text">
+      <div class="hero-kicker">Toolstack Lab Games</div>
+      <h1>Free 3D browser games – play instantly, no account</h1>
+      <p>${esc(TAGLINE)}</p>
+    </div>
+    ${howItWorks(games)}
   </section>
   <section class="section wrap" id="games">
     <div class="section-head">
@@ -494,10 +517,10 @@ function detailPage(g, stats, allGames) {
       <div class="detail-cta">
       <p class="score-hint">${heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
       <div class="card-actions pad-top">
-        <button type="button" class="btn btn-lg" id="play-embed"
+        <button type="button" class="btn btn-play btn-lg" id="play-embed"
           data-game-url="${esc(embedUrl(g.url))}"
           data-game-slug="${esc(g.slug)}"
-          data-game-title="${esc(g.title)}">Play</button>
+          data-game-title="${esc(g.title)}">${PLAY_ICON}Play</button>
         <button type="button" class="btn btn-ghost" data-share-url="${esc(CANONICAL + "/games/" + g.slug + "/")}" data-share-title="${esc(g.title)}">Copy link</button>
         <a class="btn-link" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a>
       </div>
@@ -518,7 +541,7 @@ function detailPage(g, stats, allGames) {
           <source type="image/webp" srcset="${esc(webpOf(thumb))} 640w, ${esc(webpOf(cover))} 1280w" sizes="(min-width: 1200px) 1200px, 100vw">
           <img src="${esc(cover)}" srcset="${esc(thumb)} 640w, ${esc(cover)} 1280w" sizes="(min-width: 1200px) 1200px, 100vw" alt="${esc(g.coverAlt || g.title)}" width="1280" height="720" decoding="async" fetchpriority="high">
         </picture>
-        <button type="button" class="bay-play" id="bay-play" aria-label="Play ${esc(g.title)}"><span class="bay-play-icon" aria-hidden="true"></span><span>Play</span></button>
+        <button type="button" class="btn btn-play bay-play" id="bay-play" aria-label="Play ${esc(g.title)}">${PLAY_ICON}<span>Play</span></button>
       </div>
       <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
       <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">${esc(g.title)}</span></div>
@@ -563,7 +586,7 @@ ${shots}
     <h2 id="license-h">Who made ${esc(g.title)} and its licence</h2>
     <p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved.</p>
     <dl>
-      <div><dt>Licence</dt><dd><a href="/content-policy/#${esc(g.slug)}">Self-made · content policy</a></dd></div>
+      <div><dt>Licence</dt><dd><a class="hit" href="/content-policy/#${esc(g.slug)}">Self-made · content policy</a></dd></div>
       <div><dt>Source</dt><dd>${esc(g.source)}</dd></div>
       <div><dt>Checked</dt><dd><time datetime="${esc(updated)}">${esc(updated)}</time></dd></div>
     </dl>
@@ -639,31 +662,30 @@ ${rows}
   });
 }
 
-function aboutPage() {
+function aboutPage(games) {
   const body = `
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>About Toolstack Lab Games</h1>
     <p>Toolstack Lab Games is where Toolstack Lab publishes the small 3D browser games it makes. Every game is our own; press Play and it loads right in the page. No accounts, no cookies, no third-party scripts or fonts.</p>
   </section>
-  <article class="prose policy-page">
-    <div class="about-bay" aria-hidden="true">
-      <div class="about-cart"><span class="cart-serial">TSL</span></div>
-      <div class="about-slot"></div>
-    </div>
+  <div class="page-cols">
+  <article class="prose page-main">
     <h2>What you get</h2>
     <ul>
-      <li>Self-made games with recorded licence and source in each detail page.</li>
-      <li>Iframe docks only after Play — nothing heavy loads until you ask (or open in a new tab).</li>
-      <li>Popularity sorted by a documented formula; “recently played” stays on your device only.</li>
+      <li>Games we made ourselves. Each game page shows its licence and source.</li>
+      <li>Nothing heavy loads until you press Play. You can also open any game in its own tab.</li>
+      <li>The ranking uses visits from the last 14 days. “Recently played” stays on your device only.</li>
     </ul>
-    <h2>Lab cartridge workbench</h2>
-    <p>Every game gets the same cartridge card with a label plate. On a mouse, hovering a card flips its label to a real screenshot. Play docks the cartridge into the bay — one memorable beat, no video or 3D backgrounds.</p>
-    <h2>Audience &amp; boundaries</h2>
-    <p>Pip's Bloom Isle is aimed at casual players 13+. We only list what each build already ships. See the <a href="/content-policy/">content policy</a> for licence rules.</p>
+    <h2>The lab cartridge idea</h2>
+    <p>Every game gets the same cartridge card with a label plate and a serial number (TSL·01, TSL·02…). On a game page, Play docks the cartridge into the play bay. That is the one bit of motion on the site; there are no video or 3D backgrounds.</p>
+    <h2>Who the games are for</h2>
+    <p>Spud Fling suits anyone who likes quick one-button rounds. Pip's Bloom Isle is aimed at casual players 13+. We only describe what each build already ships. The <a href="/content-policy/">content policy</a> sets out which games may be listed.</p>
     <h2>Contact</h2>
-    <p>Parent site: <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>. Source for this hub: public GitHub <code>madlouse/toolstack-games</code>.</p>
+    <p>Parent site: <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>. The hub's source is public on GitHub as madlouse/toolstack-games.</p>
   </article>
+  ${howItWorks(games, { heading: "How the hub works", id: "about-how-h" })}
+  </div>
 </main>`;
 
   return layout({
@@ -710,118 +732,65 @@ function notFoundPage() {
   });
 }
 
-function policyPage(mdHtml, games) {
+/* R4: the public policy page is written for players and publishers here (no repo/tooling wording).
+   CONTENT-POLICY.md stays in the repo for contributors and is no longer converted or shipped. */
+function policyPage(games) {
   const perGame = games
     .map(
-      (g) => `<section id="${esc(g.slug)}" class="policy-game">
-  <h3>${esc(g.title)}</h3>
-  <p>Original game by ${esc(g.author)}. Code and art are our own. All rights reserved. Licence: ${esc(g.license)}. Source: ${esc(g.source)}. Added ${esc(g.added)}; last checked <time datetime="${esc(g.updated || BUILD_DATE)}">${esc(g.updated || BUILD_DATE)}</time>.</p>
+      (g) => `<section id="${esc(g.slug)}" class="policy-game" aria-labelledby="${esc(g.slug)}-h">
+  <h3 id="${esc(g.slug)}-h"><a href="/games/${esc(g.slug)}/">${esc(g.title)}</a></h3>
+  <dl>
+    <div><dt>Made by</dt><dd>${esc(g.author)}</dd></div>
+    <div><dt>Licence</dt><dd>${g.license === "self-made" ? "Our own work, all rights reserved" : esc(g.license)}</dd></div>
+    <div><dt>Source</dt><dd>${g.source === "self-made by Toolstack Lab" ? "Made by Toolstack Lab" : esc(g.source)}</dd></div>
+    <div><dt>Checked</dt><dd><time datetime="${esc(g.updated || BUILD_DATE)}">${esc(g.updated || BUILD_DATE)}</time></dd></div>
+  </dl>
 </section>`
     )
     .join("\n");
   const body = `
-<main id="main" class="wrap prose policy-page">
+<main id="main" class="wrap">
   <p class="crumb"><a href="/">Games</a> / Content policy</p>
-  ${mdHtml}
-  <h2 id="games-licences">Licences of the games listed now</h2>
-  ${perGame}
+  <section class="page-intro page-intro-tight">
+    <h1>Content policy</h1>
+    <p>Which games may appear on Toolstack Lab Games, and what we show you about each one.</p>
+  </section>
+  <div class="page-cols">
+  <article class="prose page-main policy-body">
+    <h2>What we list</h2>
+    <p>Today every game on this site is made by Toolstack Lab: our own code, art and sound. If we ever list a game by someone else, it must meet both of these rules:</p>
+    <ul>
+      <li>Its licence clearly allows other sites to embed it and to use it commercially, or it is in the public domain.</li>
+      <li>Its maker and the original source are named on its game page.</li>
+    </ul>
+    <h2>What we never list</h2>
+    <ul>
+      <li>Copies or ports of well-known games, characters or brands we do not have rights to. Borrowing a mechanic is fine; copying levels, art or names is not.</li>
+      <li>Games that need an account or collect personal data just to play.</li>
+      <li>Store art or screenshots taken from other sites. Every picture here is a frame from the game itself or art we made.</li>
+    </ul>
+    <h2>How we vet games</h2>
+    <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
+    <h2>Your privacy</h2>
+    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. Game progress is saved in your own browser and never leaves your device.</p>
+    <h2>Questions or a problem?</h2>
+    <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
+  </article>
+  <aside class="policy-side" aria-labelledby="games-licences">
+    <h2 id="games-licences">Games listed now</h2>
+    ${perGame}
+  </aside>
+  </div>
 </main>`;
   return layout({
     title: "Content & Licence Policy | Toolstack Lab",
-    description: "Which games may appear on Toolstack Lab Games, how each one's licence and source are recorded, and the licence of every game listed today.",
+    description: "Which games may appear on Toolstack Lab Games, how each one's licence and source are shown, and the licence of every game listed today.",
     canonicalPath: "/content-policy/",
     ogImage: "/og.jpg",
     body,
     jsonLd: { "@context": "https://schema.org", "@type": "WebPage", name: "Content & Licence Policy", url: CANONICAL + "/content-policy/", inLanguage: "en", dateModified: BUILD_DATE, publisher: ORG },
     navActive: "policy",
   });
-}
-
-function mdToHtml(md) {
-  const lines = md.replace(/\r\n/g, "\n").split("\n");
-  const out = [];
-  let inUl = false;
-  let inOl = false;
-  let inCode = false;
-  let codeBuf = [];
-
-  function closeLists() {
-    if (inUl) {
-      out.push("</ul>");
-      inUl = false;
-    }
-    if (inOl) {
-      out.push("</ol>");
-      inOl = false;
-    }
-  }
-
-  function inline(s) {
-    return esc(s)
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" rel="noopener">$1</a>')
-      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  }
-
-  for (const line of lines) {
-    if (line.startsWith("```")) {
-      if (inCode) {
-        out.push(`<pre><code>${esc(codeBuf.join("\n"))}</code></pre>`);
-        codeBuf = [];
-        inCode = false;
-      } else {
-        closeLists();
-        inCode = true;
-      }
-      continue;
-    }
-    if (inCode) {
-      codeBuf.push(line);
-      continue;
-    }
-    if (/^### /.test(line)) {
-      closeLists();
-      out.push(`<h3>${inline(line.slice(4))}</h3>`);
-      continue;
-    }
-    if (/^## /.test(line)) {
-      closeLists();
-      out.push(`<h2>${inline(line.slice(3))}</h2>`);
-      continue;
-    }
-    if (/^# /.test(line)) {
-      closeLists();
-      out.push(`<h1>${inline(line.slice(2))}</h1>`);
-      continue;
-    }
-    if (/^[-*] /.test(line)) {
-      if (!inUl) {
-        closeLists();
-        out.push("<ul>");
-        inUl = true;
-      }
-      out.push(`<li>${inline(line.slice(2))}</li>`);
-      continue;
-    }
-    if (/^\d+\. /.test(line)) {
-      if (!inOl) {
-        closeLists();
-        out.push("<ol>");
-        inOl = true;
-      }
-      out.push(`<li>${inline(line.replace(/^\d+\. /, ""))}</li>`);
-      continue;
-    }
-    if (line.trim() === "") {
-      closeLists();
-      continue;
-    }
-    closeLists();
-    out.push(`<p>${inline(line)}</p>`);
-  }
-  closeLists();
-  if (inCode) out.push(`<pre><code>${esc(codeBuf.join("\n"))}</code></pre>`);
-  return out.join("\n");
 }
 
 function copyAssets() {
@@ -839,9 +808,6 @@ function copyAssets() {
   }
   cpSync(resolve(ROOT, "src/site.css"), resolve(DIST, "site.css"));
   cpSync(resolve(ROOT, "src/site.js"), resolve(DIST, "site.js"));
-  if (existsSync(resolve(ROOT, "CONTENT-POLICY.md"))) {
-    cpSync(resolve(ROOT, "CONTENT-POLICY.md"), resolve(DIST, "CONTENT-POLICY.md"));
-  }
   if (existsSync(resolve(ROOT, "vercel.json"))) {
     cpSync(resolve(ROOT, "vercel.json"), resolve(DIST, "vercel.json"));
   }
@@ -871,11 +837,10 @@ function main() {
     write(resolve(DIST, "games", g.slug, "index.html"), detailPage(g, stats, games));
   }
   write(resolve(DIST, "popular/index.html"), popularPage(sorted, stats));
-  write(resolve(DIST, "about/index.html"), aboutPage());
+  write(resolve(DIST, "about/index.html"), aboutPage(games));
   write(resolve(DIST, "404.html"), notFoundPage());
 
-  const policyMd = readFileSync(resolve(ROOT, "CONTENT-POLICY.md"), "utf8");
-  write(resolve(DIST, "content-policy/index.html"), policyPage(mdToHtml(policyMd), games));
+  write(resolve(DIST, "content-policy/index.html"), policyPage(games));
 
   const urls = [
     "/",

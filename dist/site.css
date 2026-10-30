@@ -1543,3 +1543,124 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 /* touch: no hover-preview layer at all (nothing to flip, nothing to show black while loading) */
 @media (hover: none), (pointer: coarse) { .card-thumb .preview-layer { display: none; } }
 .skip-link { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* ===== Round 4 (Playbook R3 P1/P2) ===== */
+/* One Play style everywhere: theme primary pill + play glyph + display face (cards, detail header, bay). */
+.btn-play { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.01em; }
+.play-icon {
+  width: 0;
+  height: 0;
+  flex: none;
+  border-style: solid;
+  border-width: 0.42em 0 0.42em 0.7em;
+  border-color: transparent transparent transparent currentColor;
+}
+.bay-play {
+  background: var(--primary);
+  color: var(--primary-ink);
+  font: 700 var(--fs-xl) / 1 var(--font-display);
+  border: 0;
+}
+.bay-play:hover { color: var(--primary-ink); filter: brightness(1.06); }
+.bay-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; box-shadow: 0 0 0 7px #05070b; }
+
+/* Shared "how it works" bay diagram */
+.howto {
+  align-self: start;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: var(--s4) var(--s5) var(--s5);
+}
+.howto-bar { display: flex; align-items: center; gap: var(--s2); margin-bottom: var(--s3); }
+.howto-bar .bay-led { opacity: 1; }
+.howto-bar h2 {
+  margin: 0;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 700;
+}
+.howto-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); }
+.howto-steps li { display: grid; grid-template-columns: 2.25rem 1fr; gap: var(--s3); align-items: start; color: var(--muted); font-size: var(--fs-sm); line-height: 1.5; }
+.howto-steps strong { color: var(--text); }
+.howto-n {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  border: 2px dashed color-mix(in srgb, var(--primary) 55%, var(--border));
+  color: var(--primary);
+  font: 700 var(--fs-sm) / 1 var(--font-display);
+}
+.howto-steps li:last-child .howto-n { border-style: solid; background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+.howto-facts {
+  list-style: none;
+  margin: var(--s4) 0 0;
+  padding: var(--s3) 0 0;
+  border-top: 1px dashed var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s2);
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+.howto-facts strong { display: block; color: var(--text); font: 700 var(--fs-md) / 1.2 var(--font-display); }
+
+/* Home hero: text + how-it-works side panel, no dead right half */
+@media (min-width: 900px) {
+  .hero-split { grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr); column-gap: var(--s7); align-items: center; }
+}
+.hero-text { display: grid; gap: var(--s4); align-content: start; }
+@media (max-width: 899px) {
+  .hero-split .howto { display: none; } /* phones/tablets: the cards are the first thing after the pitch */
+}
+
+/* About + policy: full-width two-column pages aligned to the site's left edge */
+.page-cols { display: grid; gap: var(--s6); padding-bottom: var(--s7); }
+.page-main { max-width: 68ch; }
+.page-main > h2:first-child { margin-top: 0; }
+@media (min-width: 1000px) {
+  .page-cols { grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); column-gap: var(--s7); align-items: start; }
+  .page-main { max-width: none; }
+}
+.page-intro-tight { padding-top: var(--s3); }
+.page-intro p { max-width: 68ch; }
+
+/* Policy page side list of games + licences */
+.policy-side { display: grid; gap: var(--s3); align-content: start; }
+.policy-side > h2 { margin: 0; font-size: var(--fs-lg); line-height: var(--lh-tight); }
+.policy-game { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); background: var(--card); }
+.policy-game h3 { margin: 0 0 var(--s2); font-size: var(--fs-md); }
+.policy-game h3 a { color: var(--text); display: inline-flex; align-items: center; min-height: 44px; }
+.policy-game h3 a:hover { color: var(--accent); }
+.policy-game dl { margin: 0; display: grid; gap: var(--s1); font-size: var(--fs-sm); }
+.policy-game dl > div { display: grid; grid-template-columns: 6.5em 1fr; gap: var(--s2); }
+.policy-game dt { color: var(--muted); }
+.policy-game dd { margin: 0; color: var(--text); }
+
+/* Narrow screens: H1s stay ≤2 lines */
+@media (max-width: 480px) {
+  .page-intro h1 { font-size: var(--fs-xl); }
+  .page-intro { padding: var(--s4) 0 var(--s3); }
+}
+
+/* Touch: ≥44px hit areas for card titles and inline links without moving layout */
+@media (pointer: coarse) {
+  .card-title { display: block; overflow: visible; }
+  .card-title a { display: flex; align-items: center; min-height: 44px; }
+  .license-box dd a.hit { display: inline-flex; align-items: center; min-height: 44px; }
+  .prose p a, .prose li a, .page-intro p a, .safe-note p a, .howto a {
+    padding-block: 12px; /* inline padding grows the hit box, not the line box */
+  }
+}
+.policy-side > h2 { font-family: var(--font-display); font-weight: 600; }
+.policy-game h3 a { text-decoration: none; }
+.policy-game h3 a:hover { text-decoration: underline; }
+.page-cols { padding-top: var(--s3); }
+@media (min-width: 600px) and (max-width: 999px) {
+  .policy-side { grid-template-columns: 1fr 1fr; }
+  .policy-side > h2 { grid-column: 1 / -1; }
+}

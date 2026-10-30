@@ -16,6 +16,11 @@
       "source": "/CONTENT-POLICY/",
       "destination": "/content-policy/",
       "permanent": true
+    },
+    {
+      "source": "/CONTENT-POLICY.md",
+      "destination": "/content-policy/",
+      "permanent": true
     }
   ],
   "headers": [
