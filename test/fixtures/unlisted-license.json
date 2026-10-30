@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "example-classic",
+    "title": "Example Classic",
+    "pitch": "FIXTURE ONLY — a fake MIT-licensed third-party classic used to test validate.mjs and build.mjs.",
+    "description": "Fixture entry. Not a real game and never shipped: test/fixtures is not read by the production build.",
+    "howToPlay": "Fixture entry. Use the arrow keys to slide tiles.",
+    "controls": "Arrow keys or swipe.",
+    "controlsKeyboard": "Arrow keys to slide tiles.",
+    "controlsTouch": "Swipe to slide tiles.",
+    "tips": [
+      "Fixture tip."
+    ],
+    "faq": [
+      {
+        "q": "Is this real?",
+        "a": "No. It is a test fixture."
+      }
+    ],
+    "tags": [
+      "puzzle",
+      "2D",
+      "classic"
+    ],
+    "url": "https://classics-example.pages.dev/",
+    "embed": true,
+    "thumbnail": "assets/games/spud-fling/thumb.jpg",
+    "screenshots": [
+      "assets/games/spud-fling/screenshots/01-title.jpg",
+      "assets/games/spud-fling/screenshots/02-charging.jpg",
+      "assets/games/spud-fling/screenshots/03-flight.jpg"
+    ],
+    "license": "WTFPL",
+    "licenseUrl": "https://github.com/example/example-classic/blob/0123abc/LICENSE",
+    "licenseEvidence": {
+      "url": "https://github.com/example/example-classic/blob/0123abc/LICENSE",
+      "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software",
+      "checked": "2026-10-30"
+    },
+    "copyrightNotice": "Copyright (c) 2014 Jane Example",
+    "source": "https://github.com/example/example-classic",
+    "sourceCommit": "0123abc",
+    "author": "Jane Example",
+    "authorUrl": "https://example.org/jane",
+    "modifications": "Removed the analytics snippet and the outbound app-store links; no gameplay changes.",
+    "shelf": "classics",
+    "added": "2026-10-30",
+    "updated": "2026-10-30",
+    "status": "live",
+    "seoTitle": "Example Classic: Fixture Puzzle | Toolstack Lab",
+    "seoDescription": "Fixture only. Example Classic is a fake MIT-licensed sliding puzzle used to test the hub build; it is never shipped to the live site at all.",
+    "definition": "Example Classic is a fixture entry by Jane Example, MIT licence.",
+    "genreLabel": "Sliding puzzle",
+    "cover": "assets/games/spud-fling/cover.jpg"
+  }
+]

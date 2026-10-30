@@ -19,7 +19,16 @@ A game may appear here only if **all** of the following are true:
 
 ## Build gate
 
-`validate.mjs` **fails the build** when `license` or `source` (or `licenseUrl`) is missing or empty. Do not bypass it.
+`validate.mjs` **fails the build** (`node build.mjs` runs it first) when any of these is true. Do not bypass it.
+
+- A required field is missing or empty (`license`, `licenseUrl`, `source`, `author`, … — see `REQUIRED` in the script).
+- `license` is not on the allowlist: `self-made`, `CC0-1.0`, `MIT`, `BSD-2-Clause`, `BSD-3-Clause`, `Apache-2.0`, `Zlib`, `CC-BY-4.0` (SPDX ids). Copyleft (GPL, AGPL, LGPL, MPL/EPL, CC-BY-SA), NonCommercial (`NC`), NoDerivatives (`ND`) and unknown licences fail with the reason.
+- `licenseUrl` is not a valid `https://` URL. `n/a` is no longer accepted.
+- A third-party game (anything not `self-made`) lacks `licenseEvidence {url, quote, checked}`, `copyrightNotice` (not needed for CC0), `modifications`, or an `https://` `source`; or its `licenseUrl` points at this hub instead of the upstream proof.
+- An `embed: true` game's origin is not in the `frame-src` of the `Content-Security-Policy` in `vercel.json` (`'self'` for a same-origin `/play/…` path), or a third-party game would be served same-origin with the hub (third-party games get their own origin).
+- A forbidden field is present (ratings/reviews, analytics/tracking/ads ids, cookies, personal data), or an unknown field (typo guard).
+
+`node validate.mjs --check-urls` additionally fetches every licence, proof and source URL (HEAD, GET fallback). Each rule has a failing fixture in `test/fixtures/`; `node test/validate-fixtures.mjs` (`npm test`) proves they fire.
 
 ## Screenshots and art
 

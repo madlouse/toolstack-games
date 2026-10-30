@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "validate": "node validate.mjs",
+    "test": "node test/validate-fixtures.mjs",
     "build": "node build.mjs",
     "update-stats": "node scripts/update-stats.mjs",
     "capture": "/workspace/.venv-pw/bin/python scripts/capture-screenshots.py && python3 scripts/optimize-images.py"
