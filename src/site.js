@@ -127,18 +127,15 @@
     if (!url || !frame) return;
 
     var status = document.getElementById("bay-status");
-    /* R5: status crossfade (opacity out → swap → in, 150ms each); instant under reduced motion */
+    /* R5: status crossfade — text swaps synchronously (never waits on a timer, so a busy
+       same-process game iframe cannot stall it), then fades in over 150ms via CSS. */
     function setStatus(text) {
       if (!status) return;
-      if (reduceMotion) {
-        status.textContent = text;
-        return;
-      }
+      status.textContent = text;
+      if (reduceMotion) return;
+      status.classList.remove("is-swapping");
+      void status.offsetWidth;
       status.classList.add("is-swapping");
-      setTimeout(function () {
-        status.textContent = text;
-        status.classList.remove("is-swapping");
-      }, 150);
     }
 
     function load() {

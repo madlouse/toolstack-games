@@ -1722,8 +1722,8 @@ body > .site-header, body > .site-footer { flex: none; }
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: none; }
 }
-.play-bar .bay-status { transition: opacity var(--dur-fast) var(--ease); }
-.play-bar .bay-status.is-swapping { opacity: 0; }
+.play-bar .bay-status.is-swapping { animation: status-in var(--dur-fast) var(--ease) both; }
+@keyframes status-in { from { opacity: 0; } to { opacity: 1; } }
 .bay-progress {
   position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
   overflow: hidden; pointer-events: none; opacity: 0;
@@ -1747,7 +1747,7 @@ body > .site-header, body > .site-footer { flex: none; }
   .card:hover, .card:focus-within, .card:hover .card-thumb > picture:first-child img { transform: none; }
   .play-panel.docking-glow .bay-chip { animation: none; opacity: 1; }
   .play-panel.is-loading .bay-progress::before { animation: none; transform: none; opacity: 0.6; }
-  .play-bar .bay-status.is-swapping { opacity: 1; }
+  .play-bar .bay-status.is-swapping { animation: none; }
 }
 
 /* Page-to-page: 150ms crossfade, motion-OK browsers only */
