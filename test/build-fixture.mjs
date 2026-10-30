@@ -6,7 +6,9 @@
  *    and JSON-LD author.name === games.json author, license === licenseUrl
  *  - About/home stop saying "Every game is our own" and use the decided "mostly 3D, plus a few selected classics"
  *  - the self-made pages keep their self-made credits
- * and that the production build (real data only) still says the self-made statements and never mentions classics.
+ * H-09: the production data now lists a real classic (Merge Tiles), so the prod build must use the mixed wording,
+ * give only third-party iframes a sandbox, and show the Classics shelf; an own-games-only dataset must build exactly
+ * the old way (no Classics shelf, no sandbox, "Every game is our own").
  * Usage: node test/build-fixture.mjs     exit 1 on any failed assertion.
  */
 import { spawnSync } from "node:child_process";
@@ -21,6 +23,10 @@ const classic = JSON.parse(readFileSync(join(ROOT, "test/fixtures/valid-third-pa
 const tmp = mkdtempSync(join(tmpdir(), "hub-fixture-"));
 const data = join(tmp, "games.json");
 writeFileSync(data, JSON.stringify([...real, classic], null, 2));
+const ownData = join(tmp, "games-own.json");
+writeFileSync(ownData, JSON.stringify(real.filter((g) => g.license === "self-made"), null, 2));
+const SANDBOX = 'sandbox="allow-scripts allow-same-origin allow-pointer-lock"';
+const iframeTag = (html) => (html.match(/<iframe\b[^>]*>/) || [""])[0];
 
 function build(args, out) {
   const r = spawnSync(process.execPath, ["build.mjs", ...args, "--out", out], { cwd: ROOT, encoding: "utf8" });
@@ -65,13 +71,33 @@ const spud = read(fx, "games/spud-fling/index.html");
 check("fixture spud page keeps self-made credits", spud.includes("Original game by Toolstack Lab. Code and art are our own. All rights reserved."));
 check("fixture spud JSON-LD author is the Organization", ld(spud).find((j) => [].concat(j["@type"]).includes("VideoGame"))?.author?.["@type"] === "Organization");
 
+check("fixture classic iframe is sandboxed (scripts, same-origin, pointer-lock only)", iframeTag(page).includes(SANDBOX));
+check("fixture classic iframe src empty until Play", !/\ssrc="/.test(iframeTag(page)));
+check("fixture spud iframe has no sandbox", iframeTag(spud) !== "" && !iframeTag(spud).includes("sandbox"));
+check("fixture home: Classics shelf + #classics-grid", home.includes('id="classics-h">Classics</h2>') && home.includes('id="classics-grid"'));
+
 const pr = join(tmp, "out-prod");
 const b2 = build([], pr);
 check("production-data build exits 0", b2.ok);
 const pAbout = read(pr, "about/index.html");
-check('prod About still says "Every game is our own" (true today)', pAbout.includes("Every game is our own"));
-check("prod pages never mention classics", !/selected classics/.test(pAbout + read(pr, "index.html")));
+const pHome = read(pr, "index.html");
+check('prod About: no "Every game is our own" (a classic is listed)', !pAbout.includes("Every game is our own"));
+check("prod About + home use the mixed wording", pAbout.includes("mostly 3D, plus a few selected classics") && pHome.includes("mostly 3D, plus a few selected classics"));
+check("prod home: Classics shelf lists Merge Tiles", pHome.includes('id="classics-grid"') && /id="classics"[\s\S]*href="\/games\/merge-tiles\/"/.test(pHome));
+const pMerge = read(pr, "games/merge-tiles/index.html");
+check("prod merge-tiles iframe sandboxed", iframeTag(pMerge).includes(SANDBOX));
+check('prod merge-tiles credits "Gabriele Cirulli et al." + MIT', pMerge.includes("Gabriele Cirulli et al.") && pMerge.includes(">MIT</a>"));
+check("prod spud + pips iframes have no sandbox", ["spud-fling", "pips-bloom-isle"].every((sl) => !iframeTag(read(pr, `games/${sl}/index.html`)).includes("sandbox")));
 check("prod build has no fixture slug", !existsSync(join(pr, "games", classic.slug)) && !read(pr, "sitemap.xml").includes(classic.slug));
+
+const ow = join(tmp, "out-own");
+const b3 = build(["--data", ownData], ow);
+check("own-games-only build exits 0", b3.ok);
+const oAbout = read(ow, "about/index.html");
+const oHome = read(ow, "index.html");
+check('own-only About still says "Every game is our own"', oAbout.includes("Every game is our own"));
+check("own-only pages never mention classics", !/selected classics/.test(oAbout + oHome) && !oHome.includes('id="classics"'));
+check("own-only: no sandbox on any iframe", !/sandbox=/.test(read(ow, "games/spud-fling/index.html") + read(ow, "games/pips-bloom-isle/index.html")));
 check("dist/ untouched by fixture build", !existsSync(join(ROOT, "dist/games", classic.slug)));
 console.log(`\n${fails ? "FAIL" : "PASS"}: ${fails} failed assertion(s); output in ${tmp}`);
 process.exit(fails ? 1 : 0);

@@ -8,6 +8,7 @@ FONT = "/usr/share/fonts/truetype/sand-box/google/Space Grotesk/SpaceGrotesk-Var
 GAMES = {  # slug: (title, 16:9 crop box on the 1920x1080 clean frame, centre x for square/portrait crops)
     "spud-fling": ("Spud Fling", (300, 40, 1920, 951), 1190),
     "pips-bloom-isle": ("Pip's Bloom Isle", (0, 0, 1920, 1080), 960),
+    "merge-tiles": ("Merge Tiles", (0, 0, 1920, 1080), 960),  # H-09 classic: clean frame = live tsl-classics board slice
 }
 
 def font(px):

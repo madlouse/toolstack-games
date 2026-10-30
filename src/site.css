@@ -883,6 +883,13 @@ a:hover { filter: brightness(1.1); }
   color: var(--muted);
 }
 .filter-hint .kbd { margin-inline: 2px; }
+/* H-09: one-line intro under the Classics shelf heading */
+.shelf-note {
+  margin: calc(-1 * var(--s2)) 0 var(--s4);
+  max-width: 70ch;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
 
 @media (max-width: 360px) {
   .wrap { width: min(100% - var(--s4), var(--max)); }
@@ -1369,7 +1376,9 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 
 /* P0: detail pages — two deliberate columns on wide screens instead of a 62ch strip + dead band */
 .shots figure, .shot-slot { background: var(--bg-elev); }
-.detail-cols { display: grid; gap: 0 var(--s6); }
+.detail-cols { display: grid; gap: 0 var(--s6); grid-template-columns: minmax(0, 1fr); }
+/* H-09: a third-party licence box carries long unbroken tokens (40-char commit hash, URLs) — wrap, never widen the page */
+.license-box dd { overflow-wrap: anywhere; }
 .detail-main .prose, .detail-side .prose { max-width: none; }
 .detail-main .prose > p, .detail-main .prose > ul { max-width: 68ch; }
 @media (min-width: 1024px) {

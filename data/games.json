@@ -188,5 +188,104 @@
     ],
     "updated": "2026-10-30",
     "cover": "assets/games/pips-bloom-isle/cover.jpg"
+  },
+  {
+    "slug": "merge-tiles",
+    "title": "Merge Tiles",
+    "pitch": "Gabriele Cirulli's open-source number puzzle (2048): slide tiles, merge pairs, aim for the 2048 tile.",
+    "description": "Merge Tiles is our hosted copy of the open-source sliding-tile puzzle 2048 by Gabriele Cirulli et al., used under the MIT licence. Slide every tile with the arrow keys or a swipe; two tiles with the same number merge into one. The game logic is unchanged from the original. Best score and the current game stay in localStorage on its own web address; no cookies, no account.",
+    "howToPlay": "The board is a 4×4 grid. Each move slides every tile as far as it can go in that direction, and a new 2 or 4 appears in an empty cell. When two tiles with the same number collide they merge into one tile with their sum. Keep merging to build bigger numbers and try to make the 2048 tile; you can keep going after that. The game ends when the board is full and no move can merge anything. New Game starts over; your best score is kept.",
+    "controls": "Arrow keys to slide the tiles (W A S D and H J K L also work). Touch: swipe up, down, left or right on the board. New Game button restarts.",
+    "controlsKeyboard": "Arrow keys slide all tiles; W A S D or H J K L also work. Click New Game (or Try again) to restart.",
+    "controlsTouch": "Swipe up, down, left or right on the board to slide the tiles. Tap New Game to restart.",
+    "tips": [
+      "Pick a corner and keep your biggest tile in it.",
+      "Favour two directions (for example down and left) and use a third only when you must.",
+      "Avoid the move that pulls your biggest tile out of its corner.",
+      "Merge small tiles early so the board does not fill up."
+    ],
+    "faq": [
+      {
+        "q": "What is Merge Tiles?",
+        "a": "Our hosted copy of 2048, the open-source sliding-tile number puzzle by Gabriele Cirulli et al. It is used under the MIT licence and credited on this page; it is not an official version."
+      },
+      {
+        "q": "Why is it called Merge Tiles here?",
+        "a": "\"2048\" is a registered trademark of another company for game software, so we use a plain descriptive name for our copy and credit the original game and its authors."
+      },
+      {
+        "q": "Did you change the game?",
+        "a": "No game logic was changed. We removed the web font, icons and outbound links, replaced the original's 'official version' note with an unofficial-copy note, and adjusted the page layout to fit the play bay. The full list is in the licence box."
+      },
+      {
+        "q": "Is my best score saved?",
+        "a": "Yes. The best score and the current game are kept in localStorage on the game's own web address, in your browser only. There are no cookies and no account."
+      },
+      {
+        "q": "Does it work on a phone?",
+        "a": "Yes. Swipe on the board to slide the tiles."
+      },
+      {
+        "q": "Who made it and what is the licence?",
+        "a": "Gabriele Cirulli and contributors made the original, released under the MIT licence (Copyright (c) 2014 Gabriele Cirulli). The licence box on this page links the licence text at the exact source commit we use."
+      }
+    ],
+    "similarGenres": [
+      {
+        "genre": "Sliding number puzzles",
+        "blurb": "Short turn-based games about merging matching numbers on a small grid."
+      },
+      {
+        "genre": "Logic puzzles",
+        "blurb": "No timer and no reflexes needed: every move is a decision."
+      }
+    ],
+    "tags": [
+      "puzzle",
+      "numbers",
+      "classic"
+    ],
+    "url": "https://tsl-classics.pages.dev/2048/",
+    "embed": true,
+    "thumbnail": "assets/games/merge-tiles/thumb.jpg",
+    "screenshots": [
+      "assets/games/merge-tiles/screenshots/01-start.jpg",
+      "assets/games/merge-tiles/screenshots/02-play.jpg",
+      "assets/games/merge-tiles/screenshots/03-game-over.jpg"
+    ],
+    "license": "MIT",
+    "licenseUrl": "https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt",
+    "licenseEvidence": {
+      "url": "https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt",
+      "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the Software), to deal in the Software without restriction",
+      "checked": "2026-10-30"
+    },
+    "copyrightNotice": "Copyright (c) 2014 Gabriele Cirulli",
+    "source": "https://github.com/gabrielecirulli/2048",
+    "sourceCommit": "478b6ec346e3787f589e4af751378d06ded4cbbc",
+    "author": "Gabriele Cirulli et al.",
+    "authorUrl": "https://github.com/gabrielecirulli/2048/graphs/contributors",
+    "modifications": "No game logic changed (all js/ files byte-identical to the source commit). Title and heading say Merge Tiles instead of 2048. The original's 'official version' note is replaced by an unofficial-copy note. Credit links to gabrielecirulli.com, 1024 and Threes became plain text (same wording). Clear Sans web font removed for a system font stack. Favicon, Apple touch icons and iOS meta tags removed; viewport meta simplified. Added a small stylesheet that fits the page into the play bay. How-to-play line mentions swiping. Development files not shipped. Full list: PROVENANCE.txt next to the game.",
+    "shelf": "classics",
+    "added": "2026-10-30",
+    "updated": "2026-10-30",
+    "status": "live",
+    "playMode": "SinglePlayer",
+    "inLanguage": "en",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web browser",
+    "gamePlatform": "Web browser",
+    "seoTitle": "Merge Tiles: Free Sliding Number Puzzle | Toolstack Lab",
+    "seoDescription": "Merge Tiles is the open-source 2048 number puzzle by Gabriele Cirulli et al. (MIT), free in your browser: slide and merge tiles. No download, no account.",
+    "subline": "An open-source classic: the sliding number puzzle 2048 by Gabriele Cirulli et al., free in your browser.",
+    "definition": "Merge Tiles is Toolstack Lab's hosted copy of 2048, the open-source sliding-tile number puzzle by Gabriele Cirulli et al., used under the MIT licence.",
+    "genreLabel": "Sliding number puzzle (2D classic)",
+    "coverAlt": "Merge Tiles: a 4×4 board of orange and yellow number tiles, including 128",
+    "screenshotAlts": [
+      "New game: title, score, best score and the first tiles on the board",
+      "Mid-game: rows of 8, 4 and 2 tiles ready to merge",
+      "Game over: no moves left, with the Try again button"
+    ],
+    "cover": "assets/games/merge-tiles/cover.jpg"
   }
 ]

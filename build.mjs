@@ -50,6 +50,12 @@ const SEARCH_MIN_GAMES = 6;
 const isSelfMade = (g) => g.license === "self-made";
 const MIX_PHRASE = "mostly 3D, plus a few selected classics";
 const allOwn = (games) => games.every(isSelfMade);
+/* H-09: home shelves. A third-party game sits on the Classics shelf unless its data says otherwise;
+   with no classic listed the home page renders exactly one "All games" shelf, as before. */
+const isClassic = (g) => (g.shelf || (isSelfMade(g) ? "3d" : "classics")) === "classics";
+/* H-09: a game we do not make runs in a sandboxed frame (scripts + its own origin's storage + pointer lock;
+   no top navigation, popups, forms or downloads). Own games keep their unsandboxed frame. */
+const SANDBOX_THIRD_PARTY = "allow-scripts allow-same-origin allow-pointer-lock";
 const tagline = (games) =>
   allOwn(games)
     ? "Small games made by Toolstack Lab. Click Play and you are in — no download, no account, no cookies."
@@ -57,8 +63,9 @@ const tagline = (games) =>
 const homeDesc = (games) =>
   allOwn(games)
     ? "Free 3D browser games by Toolstack Lab: a one-button potato slingshot and a cozy island platformer. Play instantly on desktop or phone. No download, no account."
-    : `Free browser games from Toolstack Lab, ${MIX_PHRASE} with open-source licences. Play instantly on desktop or phone. No download, no account.`;
+    : `Free browser games from Toolstack Lab, ${MIX_PHRASE}. Play instantly on desktop or phone, with no download, no account and no cookies.`;
 /* JSON-LD author: the Organization for our own games; the credited upstream author for a classic. */
+const listNames = (a) => (a.length < 2 ? a.join("") : `${a.slice(0, -1).join(", ")} and ${a[a.length - 1]}`);
 const authorLd = (g) =>
   isSelfMade(g) ? ORG : { "@type": "Person", name: g.author, ...(g.authorUrl ? { url: g.authorUrl } : {}) };
 
@@ -312,8 +319,12 @@ function homePage(games, stats) {
   const rest = games.slice(1);
 
   // R3: one card design for every game (no separate featured slot) — same text sizes, same actions
-  const cards = games.map((g, i) => cardHtml(g, stats, { featured: i === 0, index: i })).join("\n");
-  const cardCount = games.length;
+  // H-09: classics get their own shelf; serials (TSL·NN) keep the site-wide order
+  const classics = games.filter(isClassic);
+  const mainShelf = classics.length ? games.filter((g) => !isClassic(g)) : games;
+  const cardOf = (g) => cardHtml(g, stats, { featured: g === games[0], index: games.indexOf(g) });
+  const cards = mainShelf.map(cardOf).join("\n");
+  const cardCount = mainShelf.length;
 
   const tagBtns = [
     `<button type="button" data-filter-tag="all" aria-pressed="true">All</button>`,
@@ -339,7 +350,7 @@ function homePage(games, stats) {
   </section>
   <section class="section wrap" id="games">
     <div class="section-head">
-      <h2>All games</h2>
+      <h2>${classics.length ? "3D games" : "All games"}</h2>
       <a class="section-link" href="/popular/">See the list</a>
     </div>
     ${games.length >= SEARCH_MIN_GAMES ? `<div class="toolbar">
@@ -361,7 +372,16 @@ ${cards}
       <h2>Recently played on this device</h2>
       <ul></ul>
     </aside>
-  </section>
+  </section>${classics.length ? `
+  <section class="section wrap" id="classics" aria-labelledby="classics-h">
+    <div class="section-head">
+      <h2 id="classics-h">Classics</h2>
+    </div>
+    <p class="shelf-note">A few selected open-source games by other authors, credited on each game page. They run on a separate web address in a sandboxed frame.</p>
+    <div class="grid${classics.length <= 6 ? " stagger" : ""}" id="classics-grid">
+${classics.map(cardOf).join("\n")}
+    </div>
+  </section>` : ""}
   <section class="section wrap safe-note" aria-labelledby="safe-h">
     <h2 id="safe-h">Why these games are safe to play</h2>
     <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : "Most games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors."} There is no sign-up, no cookies and no ad or tracking scripts; progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
@@ -614,7 +634,7 @@ function detailPage(g, stats, allGames) {
       </div>
       <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
       <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">${esc(g.title)}</span></div>
-      <iframe id="game-frame" title="${esc(g.title)}" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+      <iframe id="game-frame" title="${esc(g.title)}"${isSelfMade(g) ? "" : ` sandbox="${SANDBOX_THIRD_PARTY}"`} allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
     </div>
   </section>
 
@@ -705,8 +725,9 @@ ${rows}
 
   return layout({
     title: "All Games | Toolstack Lab",
-    description:
-      "All free 3D browser games on Toolstack Lab, most visited first: Spud Fling and Pip's Bloom Isle. Play instantly on desktop or phone, no download or account.",
+    description: allOwn(games)
+      ? "All free 3D browser games on Toolstack Lab, most visited first: Spud Fling and Pip's Bloom Isle. Play instantly on desktop or phone, no download or account."
+      : `All free browser games on Toolstack Lab, most visited first: ${listNames(games.map((g) => g.title))}. Play instantly on desktop or phone, no account.`,
     canonicalPath: "/popular/",
     ogImage: "/og.jpg",
     body,
@@ -746,7 +767,10 @@ function aboutPage(games) {
     <h2>The lab cartridge idea</h2>
     <p>Every game gets the same cartridge card with a label plate and a serial number (TSL·01, TSL·02…). On a game page, Play docks the cartridge into the play bay. That is the one bit of motion on the site; there are no video or 3D backgrounds.</p>
     <h2>Who the games are for</h2>
-    <p>Spud Fling suits anyone who likes quick one-button rounds. Pip's Bloom Isle is aimed at casual players 13+. We only describe what each build already ships. The <a href="/content-policy/">content policy</a> sets out which games may be listed.</p>
+    <p>Spud Fling suits anyone who likes quick one-button rounds. Pip's Bloom Isle is aimed at casual players 13+.${games
+      .filter((g) => !isSelfMade(g))
+      .map((g) => ` <a href="/games/${esc(g.slug)}/">${esc(g.title)}</a> is an open-source classic by ${esc(g.author)}; its page explains how it plays and who made it.`)
+      .join("")} We only describe what each build already ships. The <a href="/content-policy/">content policy</a> sets out which games may be listed.</p>
     <h2>Contact</h2>
     <p>Parent site: <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>. The hub's source is public on GitHub as madlouse/toolstack-games.</p>
   </article>
@@ -843,7 +867,7 @@ function policyPage(games) {
     <h2>How we vet games</h2>
     <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
     <h2>Your privacy</h2>
-    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. Game progress is saved in your own browser and never leaves your device.</p>
+    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
     <h2>Questions or a problem?</h2>
     <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
   </article>

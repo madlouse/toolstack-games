@@ -14,7 +14,7 @@ const FX = "test/fixtures/";
 const VF = FX + "vercel.fixture.json";
 const CASES = [
   // [games file, vercel file, expected exit, regex the output must contain]
-  ["data/games.json", "vercel.json", 0, /OK: 2 game\(s\) validated/],
+  ["data/games.json", "vercel.json", 0, /OK: 3 game\(s\) validated/],
   [FX + "valid-third-party.json", VF, 0, /OK: 1 game\(s\) validated/],
   [FX + "gpl.json", VF, 1, /licen[cs]e "GPL-3\.0-only" is copyleft/],
   [FX + "agpl.json", VF, 1, /licen[cs]e "AGPL-3\.0" is copyleft/],
@@ -35,6 +35,7 @@ const CASES = [
   [FX + "forbidden-field.json", VF, 1, /forbidden field "aggregateRating"/],
   [FX + "unknown-field.json", VF, 1, /unknown field "licence"/],
   ["data/games.json", FX + "vercel.missing-bloom.json", 1, /origin https:\/\/bloom-isle\.gettoolstacklab\.com is not in vercel\.json frame-src/],
+  ["data/games.json", FX + "vercel.missing-classics.json", 1, /merge-tiles: embed origin https:\/\/tsl-classics\.pages\.dev is not in vercel\.json frame-src/],
 ];
 
 let bad = 0;

@@ -70,3 +70,8 @@ const v = JSON.parse(readFileSync("vercel.json", "utf8"));
 for (const h of v.headers) for (const x of h.headers) if (x.key === "Content-Security-Policy")
   x.value = x.value.replace("frame-src ", "frame-src https://classics-example.pages.dev ");
 writeFileSync(D + "vercel.fixture.json", JSON.stringify(v, null, 2) + "\n");
+// H-09: the real vercel.json minus the classics origin — the real data must then fail validation.
+const m = JSON.parse(readFileSync("vercel.json", "utf8"));
+for (const h of m.headers) for (const x of h.headers) if (x.key === "Content-Security-Policy")
+  x.value = x.value.replace(" https://tsl-classics.pages.dev", "");
+writeFileSync(D + "vercel.missing-classics.json", JSON.stringify(m, null, 2) + "\n");
