@@ -41,7 +41,7 @@ Hub screenshots and Open Graph images must come from the game itself (captured f
 
 ## Privacy
 
-Listed games should not require accounts or collect personal data for basic play. The hub itself uses no cookies, no third-party scripts, and no analytics beacons in this MVP.
+Listed games should not require accounts or collect personal data for basic play. The hub itself uses no cookies, no third-party scripts, and no analytics beacons in this MVP. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); that beacon runs only inside our own games, on their own origins, never on hub pages.
 
 ## Changes
 

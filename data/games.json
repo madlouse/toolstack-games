@@ -22,7 +22,7 @@
       },
       {
         "q": "Do I need an account?",
-        "a": "No. Spud Fling is free to play in the browser with no account and no cookies. Progress is stored only in this browser’s localStorage."
+        "a": "No. Spud Fling is free to play in the browser with no account and no cookies. Progress is stored only in this browser’s localStorage. Visits are counted with Cloudflare’s cookie-free Web Analytics (no cookies, no personal profiles)."
       },
       {
         "q": "What are the unlocks?",
@@ -184,7 +184,7 @@
       },
       {
         "q": "Do I need an account or cookies?",
-        "a": "No. Progress, chosen tier, mute, and seen hints stay in localStorage on this device only."
+        "a": "No. Progress, chosen tier, mute, and seen hints stay in localStorage on this device only. Visits are counted with Cloudflare’s cookie-free Web Analytics (no cookies, no personal profiles)."
       },
       {
         "q": "Does touch work?",

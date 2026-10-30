@@ -49,6 +49,8 @@ const SEARCH_MIN_GAMES = 6;
    ("mostly 3D, plus a few selected classics") and each classic is credited on its own page. */
 const isSelfMade = (g) => g.license === "self-made";
 const MIX_PHRASE = "mostly 3D, plus a few selected classics";
+/* Home <title>/og/twitter/CollectionPage name when a classic is listed (seo.home-mix). */
+const HOME_NAME_MIX = "Free 3D Browser Games + Classics";
 const allOwn = (games) => games.every(isSelfMade);
 /* H-09: home shelves. A third-party game sits on the Classics shelf unless its data says otherwise;
    with no classic listed the home page renders exactly one "All games" shelf, as before. */
@@ -380,7 +382,7 @@ function homePage(games, stats) {
   <section class="hero hero-split wrap">
     <div class="hero-text">
       <div class="hero-kicker">Toolstack Lab Games</div>
-      <h1>Free 3D browser games – play instantly, no account</h1>
+      <h1>${classics.length ? "Free 3D browser games and classics – play instantly" : "Free 3D browser games – play instantly, no account"}</h1>
       <p>${esc(tagline(games))}</p>
       <div class="hero-actions">
         <a class="btn btn-play btn-lg" href="/games/${esc(hot.slug)}/#play" data-recent-slug="${esc(hot.slug)}" data-recent-title="${esc(hot.title)}">${PLAY_ICON}Play ${esc(hot.title)}</a>
@@ -451,7 +453,7 @@ ${classics.map(cardOf).join("\n")}
   const collection = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: SITE_NAME,
+    name: classics.length ? HOME_NAME_MIX : SITE_NAME,
     description: homeDesc(games),
     url: CANONICAL + "/",
     inLanguage: "en",
@@ -471,7 +473,7 @@ ${classics.map(cardOf).join("\n")}
   const org = { "@context": "https://schema.org", ...ORG, "@id": "https://gettoolstacklab.com/#org" };
 
   return layout({
-    title: "Free 3D Browser Games: No Download, No Login | Toolstack Lab",
+    title: classics.length ? `${HOME_NAME_MIX} | ${SITE_NAME}` : "Free 3D Browser Games: No Download, No Login | Toolstack Lab",
     description: homeDesc(games),
     canonicalPath: "/",
     ogImage: "/og.jpg",
@@ -923,7 +925,7 @@ function policyPage(games) {
     <h2>How we vet games</h2>
     <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
     <h2>Your privacy</h2>
-    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
+    <p>This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
     <h2>Questions or a problem?</h2>
     <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
   </article>
