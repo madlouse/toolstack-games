@@ -38,9 +38,18 @@ def titled(im, title):
     ImageDraw.Draw(im).text((x, y), title, font=f, fill=(255, 255, 255, 255))
     return im.convert("RGB")
 
+# Per-game softening of the clean frame before encoding. moon-rover's regolith is grain-level noise that JPEG cannot
+# compress (portrait cover 183 KB -> mobile LCP 3.15 s in Lighthouse); a 2 px blur keeps the scene and more than halves the bytes.
+SOFTEN = {"moon-rover": 2.0}
+CROP_Q = {"moon-rover": 76}  # portrait/square crop JPEG quality (default 84); the 800x1200 crop is the mobile LCP image
+
+def clean_frame(d, slug):
+    im = Image.open(d / "src/clean-frame-1920.jpg").convert("RGB")
+    return im.filter(ImageFilter.GaussianBlur(SOFTEN[slug])) if slug in SOFTEN else im
+
 for slug, (title, box, cx) in GAMES.items():
     d = ROOT / slug
-    frame = Image.open(d / "src/clean-frame-1920.jpg").convert("RGB").crop(box).resize((1920, 1080), Image.Resampling.LANCZOS)
+    frame = clean_frame(d, slug).crop(box).resize((1920, 1080), Image.Resampling.LANCZOS)
     cover = titled(frame, title)
     cover.save(d / "cover-1920x1080.jpg", quality=86, optimize=True)
     for size, stem, q in (((1280, 720), "cover", 80), ((640, 360), "thumb", 82)):
@@ -48,9 +57,9 @@ for slug, (title, box, cx) in GAMES.items():
         im.save(d / f"{stem}.jpg", quality=q + 4, optimize=True, progressive=True); im.save(d / f"{stem}.webp", quality=q, method=6)
     for (cw, ch) in ((800, 800), (800, 1200)):  # CrazyGames-style square / portrait, centre crop, re-titled
         sw = int(1080 * cw / ch); x0 = max(0, min(1920 - sw, cx - sw // 2))
-        raw = Image.open(d / "src/clean-frame-1920.jpg").convert("RGB")
+        raw = clean_frame(d, slug)
         im = raw.crop((x0, 0, x0 + sw, 1080)).resize((cw, ch), Image.Resampling.LANCZOS)
-        titled(im, title).save(d / f"cover-{cw}x{ch}.jpg", quality=84, optimize=True)
+        titled(im, title).save(d / f"cover-{cw}x{ch}.jpg", quality=CROP_Q.get(slug, 84), optimize=True)
     # OG 1200x630: same frame, centre crop to 1.905, title re-laid (no bars)
     fw = 1920; fh = int(fw / (1200 / 630)); y0 = (1080 - fh) // 2
     og = titled(frame.crop((0, y0, fw, y0 + fh)).resize((1200, 630), Image.Resampling.LANCZOS), title)

@@ -1817,3 +1817,27 @@ body > .site-header, body > .site-footer { flex: none; }
   letter-spacing: 0.04em;
   color: var(--text);
 }
+
+/* R12 (4 games listed): an odd item count in a two-track grid leaves a hole in the last row.
+   Facts: the last row spans both tracks. More-games carts (2 tracks at 640–1023): the odd last cart spans the row
+   and lays out like the lone-cart case (thumb left, text right). */
+@media (min-width: 640px) {
+  .facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .similar-carts:has(> .similar-cart:last-child:nth-child(odd):not(:only-child)) { grid-template-columns: repeat(2, 1fr); }
+  .similar-carts > .similar-cart:last-child:nth-child(odd):not(:only-child) {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(160px, 240px) 1fr;
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--s4);
+    align-items: start;
+  }
+  .similar-carts > .similar-cart:last-child:nth-child(odd):not(:only-child) .similar-thumb { grid-row: 1 / span 3; }
+}
+/* R12: at phone widths the score column squeezed the title to ~80px ("Moon Rover: Anaxagoras" wrapped to 3 lines);
+   below 480px the score sits under the title instead of beside it. */
+@media (max-width: 479px) {
+  .board-row { grid-template-columns: 40px 1fr; row-gap: var(--s1); }
+  .board-score { grid-column: 2; text-align: left; display: flex; gap: var(--s2); align-items: baseline; flex-wrap: wrap; }
+}
