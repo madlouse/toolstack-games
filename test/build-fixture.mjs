@@ -115,6 +115,9 @@ for (const g of real) {
 
 // H-06: Unlocks and goals (games with goals) and How we made it (games with howWeMade), measured values only
 const section = (html, h) => { const i = html.indexOf(`>${h}</h2>`); return i < 0 ? "" : html.slice(i, html.indexOf("</section>", i)); };
+// AI disclosure: each own game's "How we made it" section says it was built with AI assistance
+for (const g of real.filter((x) => x.license === "self-made"))
+  check(`${g.slug} "How we made it" discloses AI assistance`, section(read(pr, `games/${g.slug}/index.html`), "How we made it").includes("built it with AI assistance"));
 for (const g of real) {
   const html = read(pr, `games/${g.slug}/index.html`);
   if (g.goals) {
