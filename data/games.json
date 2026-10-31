@@ -398,7 +398,7 @@
       },
       {
         "q": "Why is it called Moon Rover: Anaxagoras?",
-        "a": "We renamed our copy so that we do not use the original game's name as our own; the MIT licence allows changes like this. The title, title screen and other text in the game now say Moon Rover: Anaxagoras, and the main menu and this page say it is based on REGOLITH (MIT) by winch. Nothing else about the game changed."
+        "a": "We renamed our copy so that we do not use the original game's name as our own; the MIT licence allows changes like this. The title, title screen and other text in the game now say Moon Rover: Anaxagoras, and the main menu and this page say it is based on REGOLITH (MIT) by winch. No game logic changed; one layout fix lets the menu scroll on phones."
       },
       {
         "q": "Does it work on a phone?",
@@ -458,7 +458,7 @@
     "sourceCommit": "f5f25ba6bf7477c612b408b265c9275a4fd1200d",
     "author": "winch",
     "authorUrl": "https://github.com/winchxyz",
-    "modifications": "No game logic changed. Renamed: the page title, the title screen and the other text players see now say Moon Rover: Anaxagoras instead of the original name, because we do not use the original name as our own (the MIT licence permits changes); the main menu credits it as based on REGOLITH (MIT) by winch, and the licence file is unchanged. The same change renamed the saved-picture file name, one sample label (now Mare Soil Core) and two loading and radar messages. The save keys (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set) are kept, so saved progress carries over. Removed the inline import map and rewrote the bare three.js imports to relative paths (import lines only), because our content security policy blocks inline scripts. Removed the data: favicon. Added the three.js r160 licence (MIT) and a PROVENANCE.txt. README, docs, server and package files not shipped. Full list: PROVENANCE.txt next to the game.",
+    "modifications": "No game logic changed. Renamed: the page title, the title screen and the other text players see now say Moon Rover: Anaxagoras instead of the original name, because we do not use the original name as our own (the MIT licence permits changes); the main menu credits it as based on REGOLITH (MIT) by winch, and the licence file is unchanged. The same change renamed the saved-picture file name, one sample label (now Mare Soil Core) and two loading and radar messages. The save keys (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set) are kept, so saved progress carries over. Removed the inline import map and rewrote the bare three.js imports to relative paths (import lines only), because our content security policy blocks inline scripts. Removed the data: favicon. Added the three.js r160 licence (MIT) and a PROVENANCE.txt. README, docs, server and package files not shipped. One layout fix lets the menu scroll on phones. The menu credit line is higher contrast, and the WebGL2 line no longer says the game is GPU accelerated. Full list: PROVENANCE.txt next to the game.",
     "lineage": "REGOLITH (MIT) by winch. The upstream README names no earlier game it is based on; it uses the three.js engine (r160, MIT).",
     "shelf": "classics",
     "platform": "desktop-first",

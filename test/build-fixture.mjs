@@ -246,5 +246,31 @@ check('own-only About still says "Every game is our own"', oAbout.includes("Ever
 check("own-only pages never mention classics", !/selected classics/.test(oAbout + oHome) && !oHome.includes('id="classics"'));
 check("own-only: no sandbox on any iframe", !/sandbox=/.test(read(ow, "games/spud-fling/index.html") + read(ow, "games/pips-bloom-isle/index.html")));
 check("dist/ untouched by fixture build", !existsSync(join(ROOT, "dist/games", classic.slug)));
+
+// R14: classics are loaded with internal=1 and are not counted. Say so; do not invent a number.
+{
+  const scope = "Visit counts cover Toolstack Lab's own games only.";
+  const uncounted = real.filter((g) => g.license !== "self-made");
+  const r14Policy = read(pr, "content-policy/index.html");
+  check("R14 policy: hub pages set no cookies (not 'This site sets no cookies and loads no')",
+    r14Policy.includes("These hub pages set no cookies and load no ad, analytics or other third-party scripts")
+    && !r14Policy.includes("This site sets no cookies and loads no"));
+  if (uncounted.length) {
+    check("R14 home / popular / about name the visit scope", [pHome, read(pr, "popular/index.html"), pAbout].every((h) => h.includes(scope)));
+    for (const g of uncounted)
+      check(`R14 ${g.slug} names the visit scope`, read(pr, `games/${g.slug}/index.html`).includes(scope));
+    for (const g of real.filter((x) => x.license === "self-made")) {
+      const head = (read(pr, `games/${g.slug}/index.html`).split('<div class="detail-head">')[1] || "").split('<div class="detail-cta">')[0];
+      check(`R14 ${g.slug} detail head does not use the classics visit-scope line`, !head.includes(scope));
+    }
+  }
+  const moon = read(pr, "games/moon-rover/index.html");
+  check("R14 moon FAQ: menu scroll, not 'Nothing else about the game changed'",
+    moon.includes("No game logic changed; one layout fix lets the menu scroll on phones") && !moon.includes("Nothing else about the game changed"));
+  check("R14 moon score hint: Updated on its own line, non-breaking date",
+    /<span class="score-updated">Updated <time datetime="[^"]+">[^<]*&#8209;[^<]*<\/time><\/span>/.test(moon));
+  const oPop = read(ow, "popular/index.html");
+  check("R14 own-only build does not claim a classics visit scope", !oHome.includes(scope) && !oAbout.includes(scope) && !oPop.includes(scope));
+}
 console.log(`\n${fails ? "FAIL" : "PASS"}: ${fails} failed assertion(s); output in ${tmp}`);
 process.exit(fails ? 1 : 0);

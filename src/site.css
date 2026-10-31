@@ -1687,8 +1687,11 @@ body > .site-header, body > .site-footer { flex: none; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
 .hero-actions .btn-link { padding-left: var(--s2); }
 
-/* Detail: visits/Updated line belongs to the title column (left-aligned with H1) */
+/* Detail: visits/Updated line belongs to the title column (left-aligned with H1).
+   Updated sits on its own line and does not break inside the date (R6 P2). */
 .detail-head .score-hint { margin: var(--s2) 0 0; }
+.detail-head .score-hint .score-updated { display: block; white-space: nowrap; }
+.detail-head .score-scope { margin: var(--s1) 0 0; font-size: var(--fs-xs); color: var(--muted); max-width: 42ch; }
 .detail-cta .detail-actions { margin: 0; flex-wrap: nowrap; align-items: center; }
 @media (max-width: 480px) {
   .detail-cta .detail-actions { gap: var(--s2); }

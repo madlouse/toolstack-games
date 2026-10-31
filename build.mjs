@@ -68,6 +68,10 @@ const isClassic = (g) => (g.shelf || (isSelfMade(g) ? "3d" : "classics")) === "c
 /* H-09: a game we do not make runs in a sandboxed frame (scripts + its own origin's storage + pointer lock;
    no top navigation, popups, forms or downloads). Own games keep their unsandboxed frame. */
 const SANDBOX_THIRD_PARTY = "allow-scripts allow-same-origin allow-pointer-lock";
+/* Classics load with ?internal=1 and send no beacon, so they never get a visit count.
+   Say so wherever a ranking or a classic's own page would otherwise imply every game is counted. */
+const VISIT_SCOPE = "Visit counts cover Toolstack Lab's own games only.";
+const hasUncounted = (games) => games.some((g) => !isSelfMade(g));
 const tagline = (games) =>
   allOwn(games)
     ? "Small games made by Toolstack Lab. Click Play and you are in — no download, no account, no cookies."
@@ -188,6 +192,12 @@ function esc(s) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+/* Visible date: U+2011 non-breaking hyphens so "2026-10-30" cannot wrap as "2026-10-" / "30".
+   The datetime attribute stays ASCII (callers pass esc(iso) there, not nbDate). */
+function nbDate(iso) {
+  return esc(iso).replaceAll("-", "&#8209;");
 }
 
 // Hub iframe URL = the game's url + its games.json `embedQuery` (validate.mjs allows only "src=hub" or "internal=1").
@@ -452,7 +462,7 @@ ${cards}
     <div class="section-head">
       <h2 id="classics-h">Classics</h2>
     </div>
-    <p class="shelf-note">A few selected open-source games by other authors, credited on each game page. They run on a separate web address in a sandboxed frame.</p>
+    <p class="shelf-note">A few selected open-source games by other authors, credited on each game page. They run on a separate web address in a sandboxed frame.${hasUncounted(games) ? ` ${VISIT_SCOPE}` : ""}</p>
     <div class="grid${classics.length <= 6 ? " stagger" : ""}" id="classics-grid">
 ${classics.map(cardOf).join("\n")}
     </div>
@@ -667,7 +677,7 @@ function detailPage(g, stats, allGames) {
     ["Controls", g.controlsShort || g.controls],
     ["Licence", { html: `<a href="${esc(g.licenseUrl)}"${isSelfMade(g) ? "" : ' rel="noopener"'}>${isSelfMade(g) ? "Our own work · all rights reserved" : esc(g.license)}</a>` }],
   ]
-    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${typeof v === "object" ? v.html : k === "Updated" || k === "Released" ? `<time datetime="${esc(v)}">${esc(v)}</time>` : esc(v)}</dd></div>`)
+    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${typeof v === "object" ? v.html : k === "Updated" || k === "Released" ? `<time datetime="${esc(v)}">${nbDate(v)}</time>` : esc(v)}</dd></div>`)
     .join("");
 
   const body = `
@@ -680,7 +690,8 @@ function detailPage(g, stats, allGames) {
       <p class="pitch">${esc(g.subline || g.pitch)}</p>
       ${platformNoteHtml(g)}
       ${tagsHtml(g)}
-      <p class="score-hint">${isNew(stats, g) ? `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${esc(g.added)}</time>; no visit data yet` : heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`} · Updated <time datetime="${esc(updated)}">${esc(updated)}</time></p>
+      <p class="score-hint">${isNew(stats, g) ? `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${nbDate(g.added)}</time>; no visit data yet` : heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`}<span class="score-updated">Updated <time datetime="${esc(updated)}">${nbDate(updated)}</time></span></p>
+      ${isSelfMade(g) ? "" : `<p class="score-scope">${VISIT_SCOPE}</p>`}
       </div>
       <div class="detail-cta">
       <div class="card-actions detail-actions">
@@ -798,7 +809,7 @@ function popularPage(games, stats) {
 <main id="main" class="wrap">
   <section class="page-intro">
     <h1>All games</h1>
-    <p>Every game on Toolstack Lab Games, most visited first (external visits over the last 14 days). Play counts will appear here once we can measure them.</p>
+    <p>Every game on Toolstack Lab Games, most visited first (external visits over the last 14 days).${hasUncounted(games) ? ` ${VISIT_SCOPE}` : ""} Play counts will appear here once we can measure them.</p>
   </section>
   <section class="section" aria-label="Ranking">
     <div class="board">
@@ -846,7 +857,7 @@ function aboutPage(games) {
     <ul>
       <li>${allOwn(games) ? "Games we made ourselves." : "Games we made ourselves, plus a few selected open-source classics."} Each game page shows its licence and source.</li>
       <li>Nothing heavy loads until you press Play. You can also open any game in its own tab.</li>
-      <li>The ranking uses visits from the last 14 days. “Recently played” stays on your device only.</li>
+      <li>The ranking uses visits from the last 14 days.${hasUncounted(games) ? ` ${VISIT_SCOPE}` : ""} “Recently played” stays on your device only.</li>
     </ul>
     <h2>Games we make</h2>
     <ul class="game-list">
@@ -958,7 +969,7 @@ function policyPage(games) {
     <h2>How we vet games</h2>
     <p>A game is only published once its licence and source are on record. Both are shown on every game page and in the list on this page. A game without them cannot be published.</p>
     <h2>Your privacy</h2>
-    <p>No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. This site sets no cookies and loads no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Pressing Play on one of our games here loads that game, which counts it as one visit. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
+    <p>No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. These hub pages set no cookies and load no ad, analytics or other third-party scripts or fonts. We count visits with Cloudflare's cookie-free Web Analytics (no cookies, no personal profiles); its script runs only inside our own games, on their own web addresses, never on these hub pages. Pressing Play on one of our games here loads that game, which counts it as one visit. Game progress is saved in your own browser and never leaves your device.${allOwn(games) ? "" : " Classics run on their own web address, which also sets no cookies; the game keeps only its own progress, such as a best score, in that address's browser storage."}</p>
     <h2>Questions or a problem?</h2>
     <p>If you think a game here breaks this policy, tell us through <a href="https://gettoolstacklab.com">gettoolstacklab.com</a> and we will review it.</p>
   </article>

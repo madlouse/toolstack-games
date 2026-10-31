@@ -65,6 +65,9 @@ cookie-free Web Analytics.
   | spud-fling | own tag (site 458b…, token ca5fd27c…) | `?src=hub` → own tag | site 458b…, all hosts |
   | pips-bloom-isle | own tag (site 3e2e…, token cece3f04…); the zone beacon script also loads but sends nothing | `?internal=1` → own tag skipped; the Cloudflare zone beacon (site 263d…, token d6efacb3…) is the only one | site 3e2e… + site 263d… rows with requestHost bloom-isle.gettoolstacklab.com |
   | merge-tiles (third-party) | not counted | `?internal=1`, no beacon | — |
+  | moon-rover (third-party) | not counted | `?internal=1`, no beacon | — |
+
+Classics stay uncounted on purpose. The home Classics shelf, the All games page, About, and each classic's page say "Visit counts cover Toolstack Lab's own games only." Do not invent a count for them.
 
 - **Hub vs direct:** the beacon drops the query string from the page URL and Web Analytics has no query dimension, so
   `?src=hub` itself never reaches the data (it only selects the behaviour). The split is the **referrer host**: our own
