@@ -310,6 +310,7 @@ a:hover { filter: brightness(1.1); }
   gap: var(--s4);
   margin-bottom: var(--s4);
   flex-wrap: wrap;
+  min-width: 0;
 }
 .section-head h2 {
   margin: 0;
@@ -1417,6 +1418,10 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
   border-radius: 999px;
 }
 .section-link:hover { background: var(--accent-soft); }
+/* R7: at 360 the wrap gutter is 8px and this link's -12px margin ended at 364. Drop the pull below 380px. */
+@media (max-width: 379px) {
+  .section-link { padding-inline: var(--s2); margin-right: 0; }
+}
 .safe-note { padding-top: 0; }
 .safe-note h2 { font-size: var(--fs-lg); margin: 0 0 var(--s2); }
 .safe-note p { margin: 0; max-width: 68ch; color: var(--muted); }
@@ -1511,7 +1516,7 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; color: var(--text); }
 .license-box dl { margin: var(--s3) 0 0; }
-.license-box dl > div { display: grid; grid-template-columns: 6em 1fr; gap: var(--s2); }
+.license-box dl > div { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: var(--s2); min-width: 0; }
 .license-box dd a { color: var(--accent); }
 .license-box h2 { font-size: var(--fs-lg); }
 
@@ -1630,12 +1635,14 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
   .hero-split .howto { display: none; } /* phones/tablets: the cards are the first thing after the pitch */
 }
 
-/* About + policy: full-width two-column pages aligned to the site's left edge */
-.page-cols { display: grid; gap: var(--s6); padding-bottom: var(--s7); }
+/* About + policy: full-width two-column pages aligned to the site's left edge.
+   minmax(0, …) so a long token (a source URL) cannot widen the track past the viewport. */
+.page-cols { display: grid; gap: var(--s6); padding-bottom: var(--s7); grid-template-columns: minmax(0, 1fr); }
+.page-cols > * { min-width: 0; }
 .page-main { max-width: 68ch; }
 .page-main > h2:first-child { margin-top: 0; }
 @media (min-width: 1000px) {
-  .page-cols { grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); column-gap: var(--s7); align-items: start; }
+  .page-cols { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); column-gap: var(--s7); align-items: start; }
   .page-main { max-width: none; }
 }
 .page-intro-tight { padding-top: var(--s3); }
@@ -1644,14 +1651,14 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 /* Policy page side list of games + licences */
 .policy-side { display: grid; gap: var(--s3); align-content: start; }
 .policy-side > h2 { margin: 0; font-size: var(--fs-lg); line-height: var(--lh-tight); }
-.policy-game { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); background: var(--card); }
+.policy-game { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); background: var(--card); min-width: 0; }
 .policy-game h3 { margin: 0 0 var(--s2); font-size: var(--fs-md); }
 .policy-game h3 a { color: var(--text); display: inline-flex; align-items: center; min-height: 44px; }
 .policy-game h3 a:hover { color: var(--accent); }
 .policy-game dl { margin: 0; display: grid; gap: var(--s1); font-size: var(--fs-sm); }
-.policy-game dl > div { display: grid; grid-template-columns: 6.5em 1fr; gap: var(--s2); }
+.policy-game dl > div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: var(--s2); min-width: 0; }
 .policy-game dt { color: var(--muted); }
-.policy-game dd { margin: 0; color: var(--text); }
+.policy-game dd { margin: 0; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
 
 /* Narrow screens: H1s stay ≤2 lines */
 @media (max-width: 480px) {
@@ -1673,7 +1680,8 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 .policy-game h3 a:hover { text-decoration: underline; }
 .page-cols { padding-top: var(--s3); }
 @media (min-width: 600px) and (max-width: 999px) {
-  .policy-side { grid-template-columns: 1fr 1fr; }
+  .policy-side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .policy-side > * { min-width: 0; }
   .policy-side > h2 { grid-column: 1 / -1; }
 }
 

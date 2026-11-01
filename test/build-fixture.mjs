@@ -269,6 +269,18 @@ check("dist/ untouched by fixture build", !existsSync(join(ROOT, "dist/games", c
     moon.includes("No game logic changed; one layout fix lets the menu scroll on phones") && !moon.includes("Nothing else about the game changed"));
   check("R14 moon score hint: Updated on its own line, non-breaking date",
     /<span class="score-updated">Updated <time datetime="[^"]+">[^<]*&#8209;[^<]*<\/time><\/span>/.test(moon));
+  // R7: classics are never counted. The meta line must not say the data is coming.
+  for (const g of uncounted) {
+    const hint = (read(pr, `games/${g.slug}/index.html`).split('class="score-hint">')[1] || "").split("</p>")[0];
+    const card = (pHome.split(`<a class="card-thumb" href="/games/${g.slug}/"`)[1] || "").split("</article>")[0];
+    check(`R7 ${g.slug} score hint says classic, not counted`, hint.includes("classic, not counted") && !hint.includes("no visit data yet"));
+    check(`R7 ${g.slug} card does not promise visit data`, card.includes("classic, not counted") && !card.includes("no visit data yet"));
+  }
+  for (const g of real.filter((x) => x.license === "self-made")) {
+    const hint = (read(pr, `games/${g.slug}/index.html`).split('class="score-hint">')[1] || "").split("</p>")[0];
+    const card = (pHome.split(`<a class="card-thumb" href="/games/${g.slug}/"`)[1] || "").split("</article>")[0];
+    check(`R7 ${g.slug} does not use the classic not-counted line`, !hint.includes("classic, not counted") && !card.includes("classic, not counted"));
+  }
   const oPop = read(ow, "popular/index.html");
   check("R14 own-only build does not claim a classics visit scope", !oHome.includes(scope) && !oAbout.includes(scope) && !oPop.includes(scope));
 }

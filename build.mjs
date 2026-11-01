@@ -176,13 +176,35 @@ function heat(stats, slug) {
 }
 
 /* "New" instead of "0 visits": no visit or play data yet AND listed under NEW_DAYS days before the build date.
-   Data-driven: as soon as stats.json has visits for the game, or it is older, the real count shows. */
+   Data-driven: as soon as stats.json has visits for the game, or it is older, the real count shows.
+   Classics never get a count (the iframe uses internal=1), so they say "classic, not counted"
+   instead of "no visit data yet" — "yet" would promise a number that will not come. */
 const NEW_DAYS = 14;
 function isNew(stats, g) {
   const s = stats[g.slug] || {};
   if ((Number(s.visits) || 0) > 0 || (Number(s.plays) || 0) > 0) return false;
   const days = (Date.parse(BUILD_DATE) - Date.parse(g.added || "")) / 864e5;
   return days >= 0 && days < NEW_DAYS;
+}
+function newCardTitle(g) {
+  return isSelfMade(g) ? `Added ${g.added}; no visit data yet` : `Added ${g.added} · classic, not counted`;
+}
+/* Detail meta line. Own games keep the visit/play count (or "no visit data yet" while New).
+   A classic never shows a number. */
+function scoreHintInner(stats, g, updated) {
+  const updatedHtml = `<span class="score-updated">Updated <time datetime="${esc(updated)}">${nbDate(updated)}</time></span>`;
+  if (!isSelfMade(g)) {
+    const pill = isNew(stats, g) ? `<span class="new-pill">New</span> ` : "";
+    return `${pill}Added <time datetime="${esc(g.added)}">${nbDate(g.added)}</time> · classic, not counted${updatedHtml}`;
+  }
+  if (isNew(stats, g)) {
+    return `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${nbDate(g.added)}</time>; no visit data yet${updatedHtml}`;
+  }
+  const h = heat(stats, g.slug);
+  const count = h.unit === "visits"
+    ? `<span data-count-to="${h.n}">${h.n}</span> visits in the last 14 days`
+    : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`;
+  return count + updatedHtml;
 }
 
 function esc(s) {
@@ -392,7 +414,7 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
     ${tagsHtml(g)}
     <div class="card-actions">
       <a class="btn btn-play" href="/games/${esc(g.slug)}/#play" data-recent-slug="${esc(g.slug)}" data-recent-title="${esc(g.title)}">${PLAY_ICON}Play<span class="visually-hidden"> ${esc(g.title)}</span></a>
-      ${isNew(stats, g) ? `<span class="card-score card-new" title="Added ${esc(g.added)}; no visit data yet">New</span>` : `<span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>`}
+      ${isNew(stats, g) ? `<span class="card-score card-new" title="${esc(newCardTitle(g))}">New</span>` : isSelfMade(g) ? `<span class="card-score"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits · 14 days" : "plays"}</span>` : `<span class="card-score" title="This classic is not in the visit count">not counted</span>`}
     </div>
   </div>
 </article>`;
@@ -690,7 +712,7 @@ function detailPage(g, stats, allGames) {
       <p class="pitch">${esc(g.subline || g.pitch)}</p>
       ${platformNoteHtml(g)}
       ${tagsHtml(g)}
-      <p class="score-hint">${isNew(stats, g) ? `<span class="new-pill">New</span> Added <time datetime="${esc(g.added)}">${nbDate(g.added)}</time>; no visit data yet` : heat(stats, g.slug).unit === "visits" ? `<span data-count-to="${heat(stats, g.slug).n}">${heat(stats, g.slug).n}</span> visits in the last 14 days` : `<span data-count-to="${Number((stats[g.slug] || {}).plays) || 0}">${Number((stats[g.slug] || {}).plays) || 0}</span> plays in the last 14 days`}<span class="score-updated">Updated <time datetime="${esc(updated)}">${nbDate(updated)}</time></span></p>
+      <p class="score-hint">${scoreHintInner(stats, g, updated)}</p>
       ${isSelfMade(g) ? "" : `<p class="score-scope">${VISIT_SCOPE}</p>`}
       </div>
       <div class="detail-cta">
@@ -798,7 +820,8 @@ function popularPage(games, stats) {
   </div>
   <div class="board-score">
     ${isNew(stats, g) ? `<div class="board-n">New</div>
-    <div>added ${esc(g.added)}</div>` : `<div class="board-n"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits" : "plays"}</div>
+    <div>added ${esc(g.added)}</div>` : !isSelfMade(g) ? `<div class="board-n">Not counted</div>
+    <div>classic</div>` : `<div class="board-n"><span data-count-to="${ht.n}">${ht.n}</span> ${ht.unit === "visits" ? "visits" : "plays"}</div>
     <div>${Number(st.plays) > 0 ? `${Number(st.visits) || 0} visits · ${Number(st.plays)} plays` : "last 14 days"}</div>`}
   </div>
 </a>`;
