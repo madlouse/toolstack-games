@@ -300,6 +300,7 @@ function layout({
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
+<meta name="google-site-verification" content="FRyBGgAVvyzaEynRO8zocelXPbj2iXizWsoRAP2tkPA" />
 <link rel="canonical" href="${esc(canon)}">
 <meta name="theme-color" content="#0e1218" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
