@@ -310,6 +310,7 @@ a:hover { filter: brightness(1.1); }
   gap: var(--s4);
   margin-bottom: var(--s4);
   flex-wrap: wrap;
+  min-width: 0;
 }
 .section-head h2 {
   margin: 0;
@@ -883,6 +884,13 @@ a:hover { filter: brightness(1.1); }
   color: var(--muted);
 }
 .filter-hint .kbd { margin-inline: 2px; }
+/* H-09: one-line intro under the Classics shelf heading */
+.shelf-note {
+  margin: calc(-1 * var(--s2)) 0 var(--s4);
+  max-width: 70ch;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
 
 @media (max-width: 360px) {
   .wrap { width: min(100% - var(--s4), var(--max)); }
@@ -1369,7 +1377,9 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 
 /* P0: detail pages — two deliberate columns on wide screens instead of a 62ch strip + dead band */
 .shots figure, .shot-slot { background: var(--bg-elev); }
-.detail-cols { display: grid; gap: 0 var(--s6); }
+.detail-cols { display: grid; gap: 0 var(--s6); grid-template-columns: minmax(0, 1fr); }
+/* H-09: a third-party licence box carries long unbroken tokens (40-char commit hash, URLs) — wrap, never widen the page */
+.license-box dd { overflow-wrap: anywhere; }
 .detail-main .prose, .detail-side .prose { max-width: none; }
 .detail-main .prose > p, .detail-main .prose > ul { max-width: 68ch; }
 @media (min-width: 1024px) {
@@ -1408,6 +1418,10 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
   border-radius: 999px;
 }
 .section-link:hover { background: var(--accent-soft); }
+/* R7: at 360 the wrap gutter is 8px and this link's -12px margin ended at 364. Drop the pull below 380px. */
+@media (max-width: 379px) {
+  .section-link { padding-inline: var(--s2); margin-right: 0; }
+}
 .safe-note { padding-top: 0; }
 .safe-note h2 { font-size: var(--fs-lg); margin: 0 0 var(--s2); }
 .safe-note p { margin: 0; max-width: 68ch; color: var(--muted); }
@@ -1502,7 +1516,7 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; color: var(--text); }
 .license-box dl { margin: var(--s3) 0 0; }
-.license-box dl > div { display: grid; grid-template-columns: 6em 1fr; gap: var(--s2); }
+.license-box dl > div { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: var(--s2); min-width: 0; }
 .license-box dd a { color: var(--accent); }
 .license-box h2 { font-size: var(--fs-lg); }
 
@@ -1621,12 +1635,14 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
   .hero-split .howto { display: none; } /* phones/tablets: the cards are the first thing after the pitch */
 }
 
-/* About + policy: full-width two-column pages aligned to the site's left edge */
-.page-cols { display: grid; gap: var(--s6); padding-bottom: var(--s7); }
+/* About + policy: full-width two-column pages aligned to the site's left edge.
+   minmax(0, …) so a long token (a source URL) cannot widen the track past the viewport. */
+.page-cols { display: grid; gap: var(--s6); padding-bottom: var(--s7); grid-template-columns: minmax(0, 1fr); }
+.page-cols > * { min-width: 0; }
 .page-main { max-width: 68ch; }
 .page-main > h2:first-child { margin-top: 0; }
 @media (min-width: 1000px) {
-  .page-cols { grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); column-gap: var(--s7); align-items: start; }
+  .page-cols { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); column-gap: var(--s7); align-items: start; }
   .page-main { max-width: none; }
 }
 .page-intro-tight { padding-top: var(--s3); }
@@ -1635,14 +1651,14 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 /* Policy page side list of games + licences */
 .policy-side { display: grid; gap: var(--s3); align-content: start; }
 .policy-side > h2 { margin: 0; font-size: var(--fs-lg); line-height: var(--lh-tight); }
-.policy-game { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); background: var(--card); }
+.policy-game { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); background: var(--card); min-width: 0; }
 .policy-game h3 { margin: 0 0 var(--s2); font-size: var(--fs-md); }
 .policy-game h3 a { color: var(--text); display: inline-flex; align-items: center; min-height: 44px; }
 .policy-game h3 a:hover { color: var(--accent); }
 .policy-game dl { margin: 0; display: grid; gap: var(--s1); font-size: var(--fs-sm); }
-.policy-game dl > div { display: grid; grid-template-columns: 6.5em 1fr; gap: var(--s2); }
+.policy-game dl > div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: var(--s2); min-width: 0; }
 .policy-game dt { color: var(--muted); }
-.policy-game dd { margin: 0; color: var(--text); }
+.policy-game dd { margin: 0; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
 
 /* Narrow screens: H1s stay ≤2 lines */
 @media (max-width: 480px) {
@@ -1664,7 +1680,8 @@ code { padding: 0 0.3em; border: 1px solid var(--border); border-radius: 4px; ba
 .policy-game h3 a:hover { text-decoration: underline; }
 .page-cols { padding-top: var(--s3); }
 @media (min-width: 600px) and (max-width: 999px) {
-  .policy-side { grid-template-columns: 1fr 1fr; }
+  .policy-side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .policy-side > * { min-width: 0; }
   .policy-side > h2 { grid-column: 1 / -1; }
 }
 
@@ -1678,8 +1695,11 @@ body > .site-header, body > .site-footer { flex: none; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
 .hero-actions .btn-link { padding-left: var(--s2); }
 
-/* Detail: visits/Updated line belongs to the title column (left-aligned with H1) */
+/* Detail: visits/Updated line belongs to the title column (left-aligned with H1).
+   Updated sits on its own line and does not break inside the date (R6 P2). */
 .detail-head .score-hint { margin: var(--s2) 0 0; }
+.detail-head .score-hint .score-updated { display: block; white-space: nowrap; }
+.detail-head .score-scope { margin: var(--s1) 0 0; font-size: var(--fs-xs); color: var(--muted); max-width: 42ch; }
 .detail-cta .detail-actions { margin: 0; flex-wrap: nowrap; align-items: center; }
 @media (max-width: 480px) {
   .detail-cta .detail-actions { gap: var(--s2); }
@@ -1757,3 +1777,178 @@ body > .site-header, body > .site-footer { flex: none; }
 }
 /* inline-flex trims edge spaces of each text run — space the parts explicitly */
 .btn-newtab { gap: 0.3em; }
+
+/* H-06: Unlocks and goals table + How we made it notes */
+.table-wrap { overflow-x: auto; max-width: 68ch; margin: 0 0 var(--s5); }
+.goals-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.goals-table th, .goals-table td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--border); vertical-align: top; }
+.goals-table thead th { color: var(--muted); font-weight: 600; }
+.goals-table td:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.made-notes { grid-template-columns: 1fr; }
+.made-notes > div { grid-template-columns: 13em 1fr; }
+.made-notes dd.nodata { color: var(--muted); font-style: italic; }
+.made-foot { font-size: var(--fs-sm); color: var(--muted); }
+@media (max-width: 480px) { .made-notes > div { grid-template-columns: 1fr; gap: 0; } }
+
+/* "New" in place of "0 visits" for a just-listed game with no data yet (build.mjs isNew) */
+.card-score.card-new,
+.new-pill {
+  display: inline-block;
+  padding: 0 var(--s2);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.new-pill { margin-right: var(--s1); }
+
+/* Round 12: desktop-first label (data: platform + platformNote, requires) — detail head + home card */
+.platform-note {
+  max-width: 68ch;
+  margin: var(--s2) 0 var(--s3);
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--accent);
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.platform-note strong { font-weight: 700; }
+.card-platform {
+  display: inline-block;
+  margin-left: var(--s2);
+  padding: 0 var(--s2);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+/* R12 (4 games listed): an odd item count in a two-track grid leaves a hole in the last row.
+   Facts: the last row spans both tracks. More-games carts (2 tracks at 640–1023): the odd last cart spans the row
+   and lays out like the lone-cart case (thumb left, text right). */
+@media (min-width: 640px) {
+  .facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .similar-carts:has(> .similar-cart:last-child:nth-child(odd):not(:only-child)) { grid-template-columns: repeat(2, 1fr); }
+  .similar-carts > .similar-cart:last-child:nth-child(odd):not(:only-child) {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(160px, 240px) 1fr;
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--s4);
+    align-items: start;
+  }
+  .similar-carts > .similar-cart:last-child:nth-child(odd):not(:only-child) .similar-thumb { grid-row: 1 / span 3; }
+}
+/* R12: at phone widths the score column squeezed the title to ~80px ("Moon Rover: Anaxagoras" wrapped to 3 lines);
+   below 480px the score sits under the title instead of beside it. */
+@media (max-width: 479px) {
+  .board-row { grid-template-columns: 40px 1fr; row-gap: var(--s1); }
+  .board-score { grid-column: 2; text-align: left; display: flex; gap: var(--s2); align-items: baseline; flex-wrap: wrap; }
+}
+
+.ng-page { padding-bottom: var(--s7); }
+.ng-page h1 { font-family: var(--font-display); font-size: var(--fs-xl); line-height: var(--lh-tight); margin: 0 0 var(--s3); }
+.ng-stats { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); margin: 0 0 var(--s4); }
+.ng-stats div { display: flex; gap: var(--s2); align-items: baseline; min-height: 44px; }
+.ng-stats dt { color: var(--muted); font-size: var(--fs-sm); }
+.ng-stats dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 700; }
+.ng-table {
+  --cell: 36px;
+  --clue-w: 4.5rem;
+  display: grid;
+  grid-template-columns: var(--clue-w) max-content;
+  grid-template-rows: auto auto;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 var(--s3);
+}
+.ng-s5 { --n: 5; --cell: 36px; --clue-w: 4.5rem; }
+.ng-s10 { --n: 10; --cell: 26px; --clue-w: 5.2rem; }
+.ng-s15 { --n: 15; --cell: 16px; --clue-w: 5.5rem; }
+.ng-corner { width: var(--clue-w); }
+.ng-colclues, .ng-grid { display: grid; grid-template-columns: repeat(var(--n), var(--cell)); }
+.ng-rowclues { display: grid; grid-template-rows: repeat(var(--n), var(--cell)); align-content: start; }
+.ng-cc, .ng-rc {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  line-height: 1.05;
+}
+.ng-cc {
+  width: var(--cell);
+  min-height: calc(var(--cell) * 2.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.ng-s15 .ng-cc { min-height: 5.6rem; font-size: 0.62rem; }
+.ng-s15 .ng-rc { font-size: 0.62rem; }
+.ng-rc {
+  width: var(--clue-w);
+  height: var(--cell);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.2rem;
+  padding-right: 0.3rem;
+  white-space: nowrap;
+}
+.ng-cell {
+  width: var(--cell);
+  height: var(--cell);
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--bg-elev);
+  color: inherit;
+  font: inherit;
+  touch-action: manipulation;
+  user-select: none;
+  cursor: pointer;
+}
+.ng-cell.is-on { background: var(--text); }
+.ng-table[data-state="won"] .ng-cell.is-on { background: var(--primary); }
+.ng-cell:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.ng-edge-r { border-right-width: 2px; border-right-color: var(--muted); }
+.ng-edge-b { border-bottom-width: 2px; border-bottom-color: var(--muted); }
+.ng-win {
+  margin: 0 0 var(--s4);
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+.ng-actions { margin: 0 0 var(--s5); }
+.ng-howto { max-width: 68ch; }
+.ng-related { margin-top: var(--s5); }
+.ng-prevnext { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.ng-prevnext a, .ng-related > p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.ng-level-list { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0 0 var(--s4); padding: 0; list-style: none; }
+.ng-level-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  text-decoration: none;
+}
+@media (min-width: 700px) {
+  .ng-s5 { --cell: 44px; }
+  .ng-s10 { --cell: 32px; }
+  .ng-s15 { --cell: 22px; --clue-w: 6rem; }
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moon Rover: Anaxagoras, 3D Lunar Rover Game | Toolstack Lab</title>
+<meta name="description" content="Moon Rover: Anaxagoras is a free open-source 3D lunar rover game by winch (MIT) in your browser. Best on desktop with a keyboard; needs WebGL2.">
+<link rel="canonical" href="https://games.gettoolstacklab.com/games/moon-rover/">
+<meta name="theme-color" content="#0e1218" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolstack Lab Games">
+<meta property="og:title" content="Moon Rover: Anaxagoras, 3D Lunar Rover Game | Toolstack Lab">
+<meta property="og:description" content="Moon Rover: Anaxagoras is a free open-source 3D lunar rover game by winch (MIT) in your browser. Best on desktop with a keyboard; needs WebGL2.">
+<meta property="og:url" content="https://games.gettoolstacklab.com/games/moon-rover/">
+<meta property="og:image" content="https://games.gettoolstacklab.com/assets/games/moon-rover/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Moon Rover: Anaxagoras: a six-wheeled rover on grey lunar ground under a black sky">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Moon Rover: Anaxagoras, 3D Lunar Rover Game | Toolstack Lab">
+<meta name="twitter:description" content="Moon Rover: Anaxagoras is a free open-source 3D lunar rover game by winch (MIT) in your browser. Best on desktop with a keyboard; needs WebGL2.">
+<meta name="twitter:image" content="https://games.gettoolstacklab.com/assets/games/moon-rover/og.jpg">
+<meta name="twitter:image:alt" content="Moon Rover: Anaxagoras: a six-wheeled rover on grey lunar ground under a black sky">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css?v=351854e67b">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["VideoGame","WebApplication"],"@id":"https://games.gettoolstacklab.com/games/moon-rover/#game","name":"Moon Rover: Anaxagoras","description":"Each mission card lists a few objectives in the top-left. Mission 1 (Cold Start): press T to deploy the solar array, drive 120 m from the sled, then press G for a radar sweep. Later missions have you park on radar echoes, deploy the arm (R), aim it with W A S D and click to drill, carry samples back to the sled, lay relay beacons (B) to keep contact, and hold E at the old station to recover its logs. Watch power and hull: shadowed ground does not charge the array, and the sled recharges you and takes your samples. There is no score and no game over: if the hull gives out, the rover is winched back to the sled. Tab opens the field codex; Esc pauses.","url":"https://games.gettoolstacklab.com/games/moon-rover/","image":["https://games.gettoolstacklab.com/assets/games/moon-rover/cover-1920x1080.jpg","https://games.gettoolstacklab.com/assets/games/moon-rover/cover-800x800.jpg","https://games.gettoolstacklab.com/assets/games/moon-rover/og.jpg"],"screenshot":["https://games.gettoolstacklab.com/assets/games/moon-rover/screenshots/01-title.jpg","https://games.gettoolstacklab.com/assets/games/moon-rover/screenshots/02-driving.jpg","https://games.gettoolstacklab.com/assets/games/moon-rover/screenshots/03-radar.jpg"],"applicationCategory":"GameApplication","operatingSystem":"Web browser","gamePlatform":"Web browser","playMode":"SinglePlayer","genre":["simulation","exploration","3D","space"],"inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"winch","url":"https://github.com/winchxyz"},"publisher":{"@type":"Organization","name":"Toolstack Lab","url":"https://gettoolstacklab.com"},"softwareRequirements":"WebGL2","license":"https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE","datePublished":"2026-10-30","dateModified":"2026-10-30"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Games","item":"https://games.gettoolstacklab.com/"},{"@type":"ListItem","position":2,"name":"Moon Rover: Anaxagoras","item":"https://games.gettoolstacklab.com/games/moon-rover/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Moon Rover: Anaxagoras?","acceptedAnswer":{"@type":"Answer","text":"Our hosted, renamed copy of an open-source 3D lunar rover survey game by winch: it is based on REGOLITH (MIT) by winch. It is used under the MIT licence and credited on this page; it is not an official version and is not endorsed by the author."}},{"@type":"Question","name":"Why is it called Moon Rover: Anaxagoras?","acceptedAnswer":{"@type":"Answer","text":"We renamed our copy so that we do not use the original game's name as our own; the MIT licence allows changes like this. The title, title screen and other text in the game now say Moon Rover: Anaxagoras, and the main menu and this page say it is based on REGOLITH (MIT) by winch. No game logic changed; one layout fix lets the menu scroll on phones."}},{"@type":"Question","name":"Does it work on a phone?","acceptedAnswer":{"@type":"Answer","text":"It has twin-stick touch controls, but it is a heavy 3D game and we have not tested it on real phones, so we cannot say how well it runs there. It is best on a desktop or laptop with a keyboard."}},{"@type":"Question","name":"What do I need to run it?","acceptedAnswer":{"@type":"Answer","text":"A browser with WebGL2. The game has no fallback: without WebGL2 it may not start at all."}},{"@type":"Question","name":"Is my progress saved?","acceptedAnswer":{"@type":"Answer","text":"Yes. Progress and settings are kept in localStorage on the game's own web address (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set), in your browser only. There are no cookies and no account."}},{"@type":"Question","name":"Can I lose?","acceptedAnswer":{"@type":"Answer","text":"No. There is no score and no game over. If the hull gives out, the rover is winched back to the sled and you carry on. Five missions lead to an ending."}},{"@type":"Question","name":"Who made it and what is the licence?","acceptedAnswer":{"@type":"Answer","text":"winch made the original, released under the MIT licence (Copyright (c) 2026 winch). It runs on three.js r160, also MIT. The licence box on this page links the licence text at the exact source commit we use."}}]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap inner">
+    <a class="brand" href="/">
+      <span class="brand-name">Toolstack Lab</span>
+      <span class="brand-sub">Games</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/#games" aria-current="page">Games</a>
+      <a href="/popular/">Popular</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="crumb"><a href="/">Games</a> / Moon Rover: Anaxagoras</p>
+  <div class="detail-hero detail-hero-text">
+    <div class="detail-meta">
+      <div class="detail-head">
+      <h1>Moon Rover: Anaxagoras</h1>
+      <p class="pitch">An open-source 3D game by winch: a lunar rover survey you drive in your browser.</p>
+      <p class="platform-note" role="note"><strong>Desktop first.</strong> Best on a desktop or laptop with a keyboard; touch controls exist but this is a heavy 3D game and we have not tested it on real phones. <span class="platform-req">Needs WebGL2. There is no fallback: without it the game may not start.</span></p>
+      <div class="tags"><span class="tag">simulation</span><span class="tag">exploration</span><span class="tag">3D</span></div>
+      <p class="score-hint"><span class="new-pill">New</span> Added <time datetime="2026-10-30">2026&#8209;10&#8209;30</time> · classic, not counted<span class="score-updated">Updated <time datetime="2026-10-30">2026&#8209;10&#8209;30</time></span></p>
+      <p class="score-scope">Visit counts cover Toolstack Lab's own games only.</p>
+      </div>
+      <div class="detail-cta">
+      <div class="card-actions detail-actions">
+        <button type="button" class="btn btn-play btn-lg" id="play-embed"
+          data-game-url="https://tsl-classics.pages.dev/moon-rover/?internal=1"
+          data-game-slug="moon-rover"
+          data-game-title="Moon Rover: Anaxagoras"><span class="play-icon" aria-hidden="true"></span>Play</button>
+        <button type="button" class="btn btn-ghost" data-share-url="https://games.gettoolstacklab.com/games/moon-rover/" data-share-title="Moon Rover: Anaxagoras"><span class="lbl-idle">Copy link</span><span class="lbl-done" aria-hidden="true">Copied ✓</span></button>
+        <a class="btn-link btn-newtab" href="https://tsl-classics.pages.dev/moon-rover/" target="_blank" rel="noopener"><span class="nt-long">Open in </span>new tab <span aria-hidden="true">↗</span></a>
+        <span class="visually-hidden" data-copy-live aria-live="polite"></span>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="play-panel" id="play" aria-label="Play bay">
+    <div class="play-bar">
+      <span class="bay-led" aria-hidden="true"></span>
+      <span class="bay-label">Play bay</span>
+      <span class="bay-chip cart-serial" aria-hidden="true">TSL·04</span>
+      <span class="bay-status" id="bay-status" aria-live="polite">Ready · nothing loads until you press Play</span>
+      <span class="bay-progress" aria-hidden="true"></span>
+    </div>
+    <div class="play-frame-wrap" id="play-frame-wrap">
+      <div class="play-placeholder" id="play-placeholder">
+        <picture class="bay-cover">
+          <source media="(max-width: 480px)" srcset="/assets/games/moon-rover/cover-800x1200.jpg">
+          <source type="image/webp" srcset="/assets/games/moon-rover/thumb.webp 640w, /assets/games/moon-rover/cover.webp 1280w" sizes="(min-width: 1200px) 1200px, 100vw">
+          <img src="/assets/games/moon-rover/cover.jpg" srcset="/assets/games/moon-rover/thumb.jpg 640w, /assets/games/moon-rover/cover.jpg 1280w" sizes="(min-width: 1200px) 1200px, 100vw" alt="Moon Rover: Anaxagoras: a six-wheeled rover on grey lunar ground under a black sky" width="1280" height="720" decoding="async" fetchpriority="high">
+        </picture>
+        <button type="button" class="btn btn-play bay-play" id="bay-play" aria-label="Play Moon Rover: Anaxagoras"><span class="play-icon" aria-hidden="true"></span><span>Play</span></button>
+      </div>
+      <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
+      <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">Moon Rover: Anaxagoras</span></div>
+      <iframe id="game-frame" title="Moon Rover: Anaxagoras" sandbox="allow-scripts allow-same-origin allow-pointer-lock" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+    </div>
+  </section>
+
+  <div class="detail-cols">
+  <div class="detail-main">
+  <article class="prose">
+    <p class="definition">Moon Rover: Anaxagoras is Toolstack Lab&#39;s hosted, renamed copy of an open-source 3D lunar rover game by winch, used under the MIT licence.</p>
+    <dl class="facts"><div><dt>Genre</dt><dd>3D lunar rover survey (exploration)</dd></div><div><dt>Platforms</dt><dd>Web browser – best on a desktop or laptop with a keyboard</dd></div><div><dt>Needs</dt><dd>WebGL2</dd></div><div><dt>Price</dt><dd>Free</dd></div><div><dt>Account needed</dt><dd>No</dd></div><div><dt>Save data</dt><dd>Stays in your browser (localStorage)</dd></div><div><dt>Made by</dt><dd>winch (original) · hosted by Toolstack Lab</dd></div><div><dt>Released</dt><dd><time datetime="2026-10-30">2026&#8209;10&#8209;30</time></dd></div><div><dt>Updated</dt><dd><time datetime="2026-10-30">2026&#8209;10&#8209;30</time></dd></div><div><dt>Controls</dt><dd>W A S D or arrows drive, mouse looks; T array, G radar, R arm + click drill; Esc pauses</dd></div><div><dt>Licence</dt><dd><a href="https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE" rel="noopener">MIT</a></dd></div></dl>
+    <h2>How to play Moon Rover: Anaxagoras</h2>
+    <p>Each mission card lists a few objectives in the top-left. Mission 1 (Cold Start): press T to deploy the solar array, drive 120 m from the sled, then press G for a radar sweep. Later missions have you park on radar echoes, deploy the arm (R), aim it with W A S D and click to drill, carry samples back to the sled, lay relay beacons (B) to keep contact, and hold E at the old station to recover its logs. Watch power and hull: shadowed ground does not charge the array, and the sled recharges you and takes your samples. There is no score and no game over: if the hull gives out, the rover is winched back to the sled. Tab opens the field codex; Esc pauses.</p>
+    <h2>Controls</h2>
+    <div class="controls-grid">
+      <div class="controls-card">
+        <h3>Keyboard</h3>
+        <p>W/S or ↑/↓ throttle and reverse · A/D or ←/→ steer · Space brake · mouse look (click the game to lock the pointer), wheel zoom · T solar array · G radar sweep · R arm (then W A S D aims, click drills) · B relay beacon · E hold to interact · F lamps · C camera · P photo mode (Q/Z up/down, Shift fast) · H hide HUD · Tab codex · Esc pause and release the pointer · X right the chassis after a rollover. K (save the frame as a PNG) does nothing inside our frame, because the frame blocks downloads.</p>
+      </div>
+      <div class="controls-card">
+        <h3>Touch</h3>
+        <p>Twin sticks: DRIVE (left) and LOOK (right). Buttons: CAM, LAMP, ARRAY, HUD, SHOT, BRAKE on the left; SCAN, ARM, DRILL, RELAY on the right. SHOT (save a screenshot) does nothing inside our frame. We have not tested the touch controls on a real phone.</p>
+      </div>
+    </div>
+    <h2>Tips for Moon Rover: Anaxagoras</h2>
+    <ul>
+<li>Deploy the solar array (T) first: it is the first objective and keeps your power up.</li>
+<li>Park before drilling: deploying the arm (R) holds the chassis still while you aim.</li>
+<li>Head back to the sled to recharge and unload samples. The Sample Bay holds 6.</li>
+<li>Turn the lamps on (F) in shadowed craters, and check the field codex (Tab) after each discovery.</li>
+<li>If it stutters, lower RENDER QUALITY under SYSTEMS on the main menu. It starts at a level guessed for your device.</li>
+    </ul>
+    
+    <h2>Screenshots</h2>
+    <div class="shots">
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/moon-rover/screenshots/01-title-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/moon-rover/screenshots/01-title.webp">
+    <img src="/assets/games/moon-rover/screenshots/01-title.jpg" alt="The Moon Rover: Anaxagoras title screen and main menu" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>The Moon Rover: Anaxagoras title screen and main menu</figcaption>
+</figure>
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/moon-rover/screenshots/02-driving-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/moon-rover/screenshots/02-driving.webp">
+    <img src="/assets/games/moon-rover/screenshots/02-driving.jpg" alt="Mission 1: driving out from the sled with the objectives in the top-left" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>Mission 1: driving out from the sled with the objectives in the top-left</figcaption>
+</figure>
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/moon-rover/screenshots/03-radar-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/moon-rover/screenshots/03-radar.webp">
+    <img src="/assets/games/moon-rover/screenshots/03-radar.jpg" alt="A ground-penetrating radar sweep with the full instrument HUD" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>A ground-penetrating radar sweep with the full instrument HUD</figcaption>
+</figure>
+    </div>
+    <section class="made" aria-labelledby="made-h">
+    <h2 id="made-h">What we measured</h2>
+    <p>We did not make this game. These are the checks we ran on the copy we host, and the gaps we have not measured yet.</p>
+    <dl class="facts made-notes"><div><dt>Game files on first load</dt><dd>404,266 bytes transferred (27 files, 1.68 MB unpacked)</dd></div><div><dt>Requests to other web addresses</dt><dd>None</dd></div><div><dt>Cookies</dt><dd>None</dd></div><div><dt>Saved in your browser</dt><dd>localStorage keys regolith.anaxagoras.v1 (progress) and regolith.anaxagoras.v1.set (settings), nothing else</dd></div><div><dt>Mouse pointer lock in our frame</dt><dd>Works: clicking the game locks the pointer, Esc pauses and releases it</dd></div><div><dt>Tested in</dt><dd>Headless Chromium with software WebGL (SwiftShader) only; its frame rate says nothing about real devices</dd></div><div><dt>Frame rate on a real graphics card</dt><dd class="nodata">No data yet</dd></div><div><dt>Load time on a real phone</dt><dd class="nodata">No data yet</dd></div><div><dt>Touch controls on a real phone</dt><dd class="nodata">No data yet</dd></div><div><dt>Behaviour without WebGL2</dt><dd class="nodata">No data yet</dd></div><div><dt>Gamepad</dt><dd class="nodata">No data yet</dd></div><div><dt>Sound</dt><dd class="nodata">No data yet</dd></div><div><dt>Time to finish all five missions</dt><dd class="nodata">No data yet</dd></div></dl>
+    <p class="made-foot">We only list numbers we have measured ourselves; the empty rows get filled in once we have real ones.</p>
+    </section>
+  </article>
+
+  <section class="prose faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">FAQ</h2>
+  <details>
+  <summary>What is Moon Rover: Anaxagoras?</summary>
+  <p>Our hosted, renamed copy of an open-source 3D lunar rover survey game by winch: it is based on REGOLITH (MIT) by winch. It is used under the MIT licence and credited on this page; it is not an official version and is not endorsed by the author.</p>
+</details>
+<details>
+  <summary>Why is it called Moon Rover: Anaxagoras?</summary>
+  <p>We renamed our copy so that we do not use the original game&#39;s name as our own; the MIT licence allows changes like this. The title, title screen and other text in the game now say Moon Rover: Anaxagoras, and the main menu and this page say it is based on REGOLITH (MIT) by winch. No game logic changed; one layout fix lets the menu scroll on phones.</p>
+</details>
+<details>
+  <summary>Does it work on a phone?</summary>
+  <p>It has twin-stick touch controls, but it is a heavy 3D game and we have not tested it on real phones, so we cannot say how well it runs there. It is best on a desktop or laptop with a keyboard.</p>
+</details>
+<details>
+  <summary>What do I need to run it?</summary>
+  <p>A browser with WebGL2. The game has no fallback: without WebGL2 it may not start at all.</p>
+</details>
+<details>
+  <summary>Is my progress saved?</summary>
+  <p>Yes. Progress and settings are kept in localStorage on the game&#39;s own web address (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set), in your browser only. There are no cookies and no account.</p>
+</details>
+<details>
+  <summary>Can I lose?</summary>
+  <p>No. There is no score and no game over. If the hull gives out, the rover is winched back to the sled and you carry on. Five missions lead to an ending.</p>
+</details>
+<details>
+  <summary>Who made it and what is the licence?</summary>
+  <p>winch made the original, released under the MIT licence (Copyright (c) 2026 winch). It runs on three.js r160, also MIT. The licence box on this page links the licence text at the exact source commit we use.</p>
+</details>
+</section>
+  </div>
+  <aside class="detail-side" aria-label="More on this cartridge">
+  <section class="prose similar" aria-labelledby="similar-h">
+  <h2 id="similar-h">More games on Toolstack Lab</h2>
+  <div class="similar-carts"><a class="similar-cart" href="/games/spud-fling/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/spud-fling/thumb.webp"><img src="/assets/games/spud-fling/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·01</span>
+  <strong>Spud Fling</strong>
+  <span class="muted">Fling a googly-eyed potato, smash crates, unlock boosts, chase a new best.</span>
+</a><a class="similar-cart" href="/games/pips-bloom-isle/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/pips-bloom-isle/thumb.webp"><img src="/assets/games/pips-bloom-isle/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·02</span>
+  <strong>Pip&#39;s Bloom Isle</strong>
+  <span class="muted">A cozy 3D platformer-collector: tend four island levels with Tansy while Pip cheers.</span>
+</a><a class="similar-cart" href="/games/merge-tiles/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/merge-tiles/thumb.webp"><img src="/assets/games/merge-tiles/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·03</span>
+  <strong>Merge Tiles</strong>
+  <span class="muted">Gabriele Cirulli&#39;s open-source number puzzle (2048): slide tiles, merge pairs, aim for the 2048 tile.</span>
+</a></div>
+  <p class="similar-prose">If you like Moon Rover: Anaxagoras, the closest genres are <strong>exploration games</strong> and <strong>vehicle simulations</strong>. These are genre pointers, not other studios’ games.</p>
+</section>
+
+  <section class="license-box prose" id="license" aria-labelledby="license-h">
+    <h2 id="license-h">Who made Moon Rover: Anaxagoras and its licence</h2>
+    <p>Original game by <a href="https://github.com/winchxyz" rel="noopener">winch</a>, used under the MIT licence. Toolstack Lab hosts a copy on its own web address; it is not an official release and is not endorsed by the author.</p>
+    <dl>
+      <div><dt>Licence</dt><dd><a class="hit" href="https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE" rel="noopener">MIT</a></dd></div>
+      <div><dt>Copyright</dt><dd>Copyright (c) 2026 winch</dd></div>
+      <div><dt>Source</dt><dd><a href="https://github.com/winchxyz/moon-rover" rel="noopener">github.com/winchxyz/moon-rover</a> at <code>f5f25ba6bf7477c612b408b265c9275a4fd1200d</code></dd></div>
+      <div><dt>Based on</dt><dd>REGOLITH (MIT) by winch. The upstream README names no earlier game it is based on; it uses the three.js engine (r160, MIT).</dd></div>
+      <div><dt>Our changes</dt><dd>No game logic changed. Renamed: the page title, the title screen and the other text players see now say Moon Rover: Anaxagoras instead of the original name, because we do not use the original name as our own (the MIT licence permits changes); the main menu credits it as based on REGOLITH (MIT) by winch, and the licence file is unchanged. The same change renamed the saved-picture file name, one sample label (now Mare Soil Core) and two loading and radar messages. The save keys (regolith.anaxagoras.v1 and regolith.anaxagoras.v1.set) are kept, so saved progress carries over. Removed the inline import map and rewrote the bare three.js imports to relative paths (import lines only), because our content security policy blocks inline scripts. Removed the data: favicon. Added the three.js r160 licence (MIT) and a PROVENANCE.txt. README, docs, server and package files not shipped. One layout fix lets the menu scroll on phones. The menu credit line is higher contrast, and the WebGL2 line no longer says the game is GPU accelerated. Full list: PROVENANCE.txt next to the game.</dd></div>
+      <div><dt>Licence proof</dt><dd><a href="https://github.com/winchxyz/moon-rover/blob/f5f25ba6bf7477c612b408b265c9275a4fd1200d/LICENSE" rel="noopener">licence text</a>: “Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction”</dd></div>
+      <div><dt>Checked</dt><dd><time datetime="2026-10-30">2026-10-30</time></dd></div>
+    </dl>
+  </section>
+  </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="copy">© Toolstack Lab · browser games, self-hosted · no ads, no cookies · cookie-free visit counting only</div>
+    <nav class="links" aria-label="Footer">
+      <a href="/about/">About</a>
+      <a href="/nonogram/">Nonograms</a>
+      <a href="/popular/">All games</a>
+      <a href="/content-policy/">Content policy</a>
+      <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
+    </nav>
+  </div>
+  <!-- polish-r5 -->
+</footer>
+<div id="toast-host" class="toast-host" aria-live="polite"></div>
+<script src="/site.js?v=351854e67b" defer></script>
+
+</body>
+</html>

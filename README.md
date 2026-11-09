@@ -115,6 +115,28 @@ Possible later layers, all optional and behind explicit product decisions:
 - **Subscriptions** (Supabase + Stripe) for early access packs — never required for the free self-made catalogue.
 - **CMS** still optional; JSON + PR remains the source of truth for licence compliance.
 
+## Nonogram levels
+
+Picture-logic nonogram levels live under `/nonogram/`. `scripts/nonogram/generate.mjs` builds `data/nonograms.json` from a fixed seed. `scripts/nonogram/solver.mjs` is a separate line solver plus backtracking counter (it stops at two solutions). `node build.mjs` writes one static page per level, plus size and difficulty indexes, into `dist/`.
+
+```bash
+node scripts/nonogram/generate.mjs
+node scripts/nonogram/verify.mjs
+node build.mjs
+```
+
+Running the generator twice rewrites the same bytes.
+
+### Daily snapshot
+
+`node scripts/zpc-snapshot.mjs` appends one row to `data/zpc-snapshots.csv`:
+
+```
+date,page_count,organic_visits
+```
+
+`date` is the Asia/Shanghai calendar day. `page_count` is the number of `<loc>` entries in `dist/sitemap.xml`, so build before you snapshot. `organic_visits` stays blank when `ZPC_ANALYTICS_TOKEN` is unset. The script does not read secret files and does not call an analytics API. The Cloudflare token still lacks Account Analytics Read permission, and Search Console and Bing verification are pending Jack, so a visit count is not available yet. The script exits 0 with no token.
+
 ## Licence
 
 Site code and hub assets we created: **MIT** — see [LICENSE](./LICENSE). Individual games keep their own licence entries in `data/games.json`.

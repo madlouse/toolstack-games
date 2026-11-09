@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merge Tiles: Free Sliding Number Puzzle | Toolstack Lab</title>
+<meta name="description" content="Merge Tiles is the open-source 2048 number puzzle by Gabriele Cirulli et al. (MIT), free in your browser: slide and merge tiles. No download, no account.">
+<link rel="canonical" href="https://games.gettoolstacklab.com/games/merge-tiles/">
+<meta name="theme-color" content="#0e1218" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolstack Lab Games">
+<meta property="og:title" content="Merge Tiles: Free Sliding Number Puzzle | Toolstack Lab">
+<meta property="og:description" content="Merge Tiles is the open-source 2048 number puzzle by Gabriele Cirulli et al. (MIT), free in your browser: slide and merge tiles. No download, no account.">
+<meta property="og:url" content="https://games.gettoolstacklab.com/games/merge-tiles/">
+<meta property="og:image" content="https://games.gettoolstacklab.com/assets/games/merge-tiles/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Merge Tiles: a 4×4 board of orange and yellow number tiles, including 128">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Merge Tiles: Free Sliding Number Puzzle | Toolstack Lab">
+<meta name="twitter:description" content="Merge Tiles is the open-source 2048 number puzzle by Gabriele Cirulli et al. (MIT), free in your browser: slide and merge tiles. No download, no account.">
+<meta name="twitter:image" content="https://games.gettoolstacklab.com/assets/games/merge-tiles/og.jpg">
+<meta name="twitter:image:alt" content="Merge Tiles: a 4×4 board of orange and yellow number tiles, including 128">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" href="/assets/fonts/space-grotesk-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css?v=351854e67b">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["VideoGame","WebApplication"],"@id":"https://games.gettoolstacklab.com/games/merge-tiles/#game","name":"Merge Tiles","description":"The board is a 4×4 grid. Each move slides every tile as far as it can go in that direction, and a new 2 or 4 appears in an empty cell. When two tiles with the same number collide they merge into one tile with their sum. Keep merging to build bigger numbers and try to make the 2048 tile; you can keep going after that. The game ends when the board is full and no move can merge anything. New Game starts over; your best score is kept.","url":"https://games.gettoolstacklab.com/games/merge-tiles/","image":["https://games.gettoolstacklab.com/assets/games/merge-tiles/cover-1920x1080.jpg","https://games.gettoolstacklab.com/assets/games/merge-tiles/cover-800x800.jpg","https://games.gettoolstacklab.com/assets/games/merge-tiles/og.jpg"],"screenshot":["https://games.gettoolstacklab.com/assets/games/merge-tiles/screenshots/01-start.jpg","https://games.gettoolstacklab.com/assets/games/merge-tiles/screenshots/02-play.jpg","https://games.gettoolstacklab.com/assets/games/merge-tiles/screenshots/03-game-over.jpg"],"applicationCategory":"GameApplication","operatingSystem":"Web browser","gamePlatform":"Web browser","playMode":"SinglePlayer","genre":["puzzle","numbers","classic"],"inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Gabriele Cirulli et al.","url":"https://github.com/gabrielecirulli/2048/graphs/contributors"},"publisher":{"@type":"Organization","name":"Toolstack Lab","url":"https://gettoolstacklab.com"},"license":"https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt","datePublished":"2026-10-30","dateModified":"2026-10-30"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Games","item":"https://games.gettoolstacklab.com/"},{"@type":"ListItem","position":2,"name":"Merge Tiles","item":"https://games.gettoolstacklab.com/games/merge-tiles/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Merge Tiles?","acceptedAnswer":{"@type":"Answer","text":"Our hosted copy of 2048, the open-source sliding-tile number puzzle by Gabriele Cirulli et al. It is used under the MIT licence and credited on this page; it is not an official version."}},{"@type":"Question","name":"Why is it called Merge Tiles here?","acceptedAnswer":{"@type":"Answer","text":"\"2048\" is a registered trademark of another company for game software, so we use a plain descriptive name for our copy and credit the original game and its authors."}},{"@type":"Question","name":"Did you change the game?","acceptedAnswer":{"@type":"Answer","text":"No game logic was changed. We removed the web font, icons and outbound links, replaced the original's 'official version' note with an unofficial-copy note, and adjusted the page layout to fit the play bay. The full list is in the licence box."}},{"@type":"Question","name":"Is my best score saved?","acceptedAnswer":{"@type":"Answer","text":"Yes. The best score and the current game are kept in localStorage on the game's own web address, in your browser only. There are no cookies and no account."}},{"@type":"Question","name":"Does it work on a phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. Swipe on the board to slide the tiles."}},{"@type":"Question","name":"Who made it and what is the licence?","acceptedAnswer":{"@type":"Answer","text":"Gabriele Cirulli and contributors made the original, released under the MIT licence (Copyright (c) 2014 Gabriele Cirulli). The licence box on this page links the licence text at the exact source commit we use."}}]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap inner">
+    <a class="brand" href="/">
+      <span class="brand-name">Toolstack Lab</span>
+      <span class="brand-sub">Games</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/#games" aria-current="page">Games</a>
+      <a href="/popular/">Popular</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="crumb"><a href="/">Games</a> / Merge Tiles</p>
+  <div class="detail-hero detail-hero-text">
+    <div class="detail-meta">
+      <div class="detail-head">
+      <h1>Merge Tiles</h1>
+      <p class="pitch">An open-source classic: the sliding number puzzle 2048 by Gabriele Cirulli et al., free in your browser.</p>
+      
+      <div class="tags"><span class="tag">puzzle</span><span class="tag">numbers</span><span class="tag">classic</span></div>
+      <p class="score-hint"><span class="new-pill">New</span> Added <time datetime="2026-10-30">2026&#8209;10&#8209;30</time> · classic, not counted<span class="score-updated">Updated <time datetime="2026-10-30">2026&#8209;10&#8209;30</time></span></p>
+      <p class="score-scope">Visit counts cover Toolstack Lab's own games only.</p>
+      </div>
+      <div class="detail-cta">
+      <div class="card-actions detail-actions">
+        <button type="button" class="btn btn-play btn-lg" id="play-embed"
+          data-game-url="https://tsl-classics.pages.dev/2048/?internal=1"
+          data-game-slug="merge-tiles"
+          data-game-title="Merge Tiles"><span class="play-icon" aria-hidden="true"></span>Play</button>
+        <button type="button" class="btn btn-ghost" data-share-url="https://games.gettoolstacklab.com/games/merge-tiles/" data-share-title="Merge Tiles"><span class="lbl-idle">Copy link</span><span class="lbl-done" aria-hidden="true">Copied ✓</span></button>
+        <a class="btn-link btn-newtab" href="https://tsl-classics.pages.dev/2048/" target="_blank" rel="noopener"><span class="nt-long">Open in </span>new tab <span aria-hidden="true">↗</span></a>
+        <span class="visually-hidden" data-copy-live aria-live="polite"></span>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="play-panel" id="play" aria-label="Play bay">
+    <div class="play-bar">
+      <span class="bay-led" aria-hidden="true"></span>
+      <span class="bay-label">Play bay</span>
+      <span class="bay-chip cart-serial" aria-hidden="true">TSL·03</span>
+      <span class="bay-status" id="bay-status" aria-live="polite">Ready · nothing loads until you press Play</span>
+      <span class="bay-progress" aria-hidden="true"></span>
+    </div>
+    <div class="play-frame-wrap" id="play-frame-wrap">
+      <div class="play-placeholder" id="play-placeholder">
+        <picture class="bay-cover">
+          <source media="(max-width: 480px)" srcset="/assets/games/merge-tiles/cover-800x1200.jpg">
+          <source type="image/webp" srcset="/assets/games/merge-tiles/thumb.webp 640w, /assets/games/merge-tiles/cover.webp 1280w" sizes="(min-width: 1200px) 1200px, 100vw">
+          <img src="/assets/games/merge-tiles/cover.jpg" srcset="/assets/games/merge-tiles/thumb.jpg 640w, /assets/games/merge-tiles/cover.jpg 1280w" sizes="(min-width: 1200px) 1200px, 100vw" alt="Merge Tiles: a 4×4 board of orange and yellow number tiles, including 128" width="1280" height="720" decoding="async" fetchpriority="high">
+        </picture>
+        <button type="button" class="btn btn-play bay-play" id="bay-play" aria-label="Play Merge Tiles"><span class="play-icon" aria-hidden="true"></span><span>Play</span></button>
+      </div>
+      <div class="play-skeleton" id="play-skeleton" hidden><span>Docking…</span></div>
+      <div class="dock-cart" id="dock-cart" aria-hidden="true"><span class="cart-serial">Merge Tiles</span></div>
+      <iframe id="game-frame" title="Merge Tiles" sandbox="allow-scripts allow-same-origin allow-pointer-lock" allow="fullscreen; gamepad; autoplay" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+    </div>
+  </section>
+
+  <div class="detail-cols">
+  <div class="detail-main">
+  <article class="prose">
+    <p class="definition">Merge Tiles is Toolstack Lab&#39;s hosted copy of 2048, the open-source sliding-tile number puzzle by Gabriele Cirulli et al., used under the MIT licence.</p>
+    <dl class="facts"><div><dt>Genre</dt><dd>Sliding number puzzle (2D classic)</dd></div><div><dt>Platforms</dt><dd>Web browser – desktop and mobile</dd></div><div><dt>Price</dt><dd>Free</dd></div><div><dt>Account needed</dt><dd>No</dd></div><div><dt>Save data</dt><dd>Stays in your browser (localStorage)</dd></div><div><dt>Made by</dt><dd>Gabriele Cirulli et al. (original) · hosted by Toolstack Lab</dd></div><div><dt>Released</dt><dd><time datetime="2026-10-30">2026&#8209;10&#8209;30</time></dd></div><div><dt>Updated</dt><dd><time datetime="2026-10-30">2026&#8209;10&#8209;30</time></dd></div><div><dt>Controls</dt><dd>Arrow keys (or W A S D) or swipe to slide the tiles</dd></div><div><dt>Licence</dt><dd><a href="https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt" rel="noopener">MIT</a></dd></div></dl>
+    <h2>How to play Merge Tiles</h2>
+    <p>The board is a 4×4 grid. Each move slides every tile as far as it can go in that direction, and a new 2 or 4 appears in an empty cell. When two tiles with the same number collide they merge into one tile with their sum. Keep merging to build bigger numbers and try to make the 2048 tile; you can keep going after that. The game ends when the board is full and no move can merge anything. New Game starts over; your best score is kept.</p>
+    <h2>Controls</h2>
+    <div class="controls-grid">
+      <div class="controls-card">
+        <h3>Keyboard</h3>
+        <p>Arrow keys slide all tiles; W A S D or H J K L also work. Click New Game (or Try again) to restart.</p>
+      </div>
+      <div class="controls-card">
+        <h3>Touch</h3>
+        <p>Swipe up, down, left or right on the board to slide the tiles. Tap New Game to restart.</p>
+      </div>
+    </div>
+    <h2>Tips for Merge Tiles</h2>
+    <ul>
+<li>Pick a corner and keep your biggest tile in it.</li>
+<li>Favour two directions (for example down and left) and use a third only when you must.</li>
+<li>Avoid the move that pulls your biggest tile out of its corner.</li>
+<li>Merge small tiles early so the board does not fill up.</li>
+    </ul>
+    
+    <h2>Screenshots</h2>
+    <div class="shots">
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/merge-tiles/screenshots/01-start-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/merge-tiles/screenshots/01-start.webp">
+    <img src="/assets/games/merge-tiles/screenshots/01-start.jpg" alt="New game: title, score, best score and the first tiles on the board" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>New game: title, score, best score and the first tiles on the board</figcaption>
+</figure>
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/merge-tiles/screenshots/02-play-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/merge-tiles/screenshots/02-play.webp">
+    <img src="/assets/games/merge-tiles/screenshots/02-play.jpg" alt="Mid-game: rows of 8, 4 and 2 tiles ready to merge" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>Mid-game: rows of 8, 4 and 2 tiles ready to merge</figcaption>
+</figure>
+<figure class="shot-slot">
+  <img class="lqip" src="/assets/games/merge-tiles/screenshots/03-game-over-lqip.jpg" alt="" width="32" height="18" aria-hidden="true">
+  <picture>
+    <source type="image/webp" srcset="/assets/games/merge-tiles/screenshots/03-game-over.webp">
+    <img src="/assets/games/merge-tiles/screenshots/03-game-over.jpg" alt="Game over: no moves left, with the Try again button" width="1280" height="720" loading="lazy" decoding="async">
+  </picture>
+  <figcaption>Game over: no moves left, with the Try again button</figcaption>
+</figure>
+    </div>
+    
+  </article>
+
+  <section class="prose faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">FAQ</h2>
+  <details>
+  <summary>What is Merge Tiles?</summary>
+  <p>Our hosted copy of 2048, the open-source sliding-tile number puzzle by Gabriele Cirulli et al. It is used under the MIT licence and credited on this page; it is not an official version.</p>
+</details>
+<details>
+  <summary>Why is it called Merge Tiles here?</summary>
+  <p>&quot;2048&quot; is a registered trademark of another company for game software, so we use a plain descriptive name for our copy and credit the original game and its authors.</p>
+</details>
+<details>
+  <summary>Did you change the game?</summary>
+  <p>No game logic was changed. We removed the web font, icons and outbound links, replaced the original&#39;s &#39;official version&#39; note with an unofficial-copy note, and adjusted the page layout to fit the play bay. The full list is in the licence box.</p>
+</details>
+<details>
+  <summary>Is my best score saved?</summary>
+  <p>Yes. The best score and the current game are kept in localStorage on the game&#39;s own web address, in your browser only. There are no cookies and no account.</p>
+</details>
+<details>
+  <summary>Does it work on a phone?</summary>
+  <p>Yes. Swipe on the board to slide the tiles.</p>
+</details>
+<details>
+  <summary>Who made it and what is the licence?</summary>
+  <p>Gabriele Cirulli and contributors made the original, released under the MIT licence (Copyright (c) 2014 Gabriele Cirulli). The licence box on this page links the licence text at the exact source commit we use.</p>
+</details>
+</section>
+  </div>
+  <aside class="detail-side" aria-label="More on this cartridge">
+  <section class="prose similar" aria-labelledby="similar-h">
+  <h2 id="similar-h">More games on Toolstack Lab</h2>
+  <div class="similar-carts"><a class="similar-cart" href="/games/spud-fling/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/spud-fling/thumb.webp"><img src="/assets/games/spud-fling/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·01</span>
+  <strong>Spud Fling</strong>
+  <span class="muted">Fling a googly-eyed potato, smash crates, unlock boosts, chase a new best.</span>
+</a><a class="similar-cart" href="/games/pips-bloom-isle/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/pips-bloom-isle/thumb.webp"><img src="/assets/games/pips-bloom-isle/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·02</span>
+  <strong>Pip&#39;s Bloom Isle</strong>
+  <span class="muted">A cozy 3D platformer-collector: tend four island levels with Tansy while Pip cheers.</span>
+</a><a class="similar-cart" href="/games/moon-rover/">
+  <span class="similar-thumb"><picture><source type="image/webp" srcset="/assets/games/moon-rover/thumb.webp"><img src="/assets/games/moon-rover/thumb.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></picture></span>
+  <span class="cart-serial">TSL·04</span>
+  <strong>Moon Rover: Anaxagoras</strong>
+  <span class="muted">Drive a solar rover across a lunar crater: radar sweeps, drill samples and an outpost that went silent.</span>
+</a></div>
+  <p class="similar-prose">If you like Merge Tiles, the closest genres are <strong>sliding number puzzles</strong> and <strong>logic puzzles</strong>. These are genre pointers, not other studios’ games.</p>
+</section>
+
+  <section class="license-box prose" id="license" aria-labelledby="license-h">
+    <h2 id="license-h">Who made Merge Tiles and its licence</h2>
+    <p>Original game by <a href="https://github.com/gabrielecirulli/2048/graphs/contributors" rel="noopener">Gabriele Cirulli et al.</a>, used under the MIT licence. Toolstack Lab hosts a copy on its own web address; it is not an official release and is not endorsed by the author.</p>
+    <dl>
+      <div><dt>Licence</dt><dd><a class="hit" href="https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt" rel="noopener">MIT</a></dd></div>
+      <div><dt>Copyright</dt><dd>Copyright (c) 2014 Gabriele Cirulli</dd></div>
+      <div><dt>Source</dt><dd><a href="https://github.com/gabrielecirulli/2048" rel="noopener">github.com/gabrielecirulli/2048</a> at <code>478b6ec346e3787f589e4af751378d06ded4cbbc</code></dd></div>
+      <div><dt>Based on</dt><dd>Gabriele Cirulli made 2048 as a small clone of 1024 by Veewo Studio, based on Saming&#39;s 2048 (also a clone); 2048 was indirectly inspired by Threes by Asher Vollmer. These credits are from the original README and game page.</dd></div>
+      <div><dt>Our changes</dt><dd>No game logic changed (all js/ files byte-identical to the source commit). Title and heading say Merge Tiles instead of 2048. The original&#39;s &#39;official version&#39; note is replaced by an unofficial-copy note. Credit links to gabrielecirulli.com, 1024 and Threes became plain text (same wording). Clear Sans web font removed for a system font stack. Favicon, Apple touch icons and iOS meta tags removed; viewport meta simplified. Added a small stylesheet that fits the page into the play bay. How-to-play line mentions swiping. Development files not shipped. Full list: PROVENANCE.txt next to the game.</dd></div>
+      <div><dt>Licence proof</dt><dd><a href="https://github.com/gabrielecirulli/2048/blob/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt" rel="noopener">licence text</a>: “Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the Software), to deal in the Software without restriction”</dd></div>
+      <div><dt>Checked</dt><dd><time datetime="2026-10-30">2026-10-30</time></dd></div>
+    </dl>
+  </section>
+  </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="copy">© Toolstack Lab · browser games, self-hosted · no ads, no cookies · cookie-free visit counting only</div>
+    <nav class="links" aria-label="Footer">
+      <a href="/about/">About</a>
+      <a href="/nonogram/">Nonograms</a>
+      <a href="/popular/">All games</a>
+      <a href="/content-policy/">Content policy</a>
+      <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
+    </nav>
+  </div>
+  <!-- polish-r5 -->
+</footer>
+<div id="toast-host" class="toast-host" aria-live="polite"></div>
+<script src="/site.js?v=351854e67b" defer></script>
+
+</body>
+</html>
