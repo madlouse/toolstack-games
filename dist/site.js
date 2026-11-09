@@ -163,6 +163,13 @@
           if (skeleton) skeleton.hidden = true;
           if (panel) panel.classList.remove("is-loading");
           setStatus("Docked · " + (title || "cartridge"));
+          /* H-09: a sandboxed classic (keyboard-only, no click-to-start) gets keyboard focus once loaded,
+             so the arrow keys move its tiles instead of scrolling this page */
+          if (frame.hasAttribute("sandbox")) {
+            try {
+              frame.focus();
+            } catch (e) {}
+          }
         },
         { once: true }
       );

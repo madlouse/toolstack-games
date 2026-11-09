@@ -16,6 +16,7 @@ import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { writeNonogramPages } from "./scripts/nonogram/render.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
@@ -265,6 +266,7 @@ function layout({
   ogAlt = "Toolstack Lab Games – free 3D browser games",
   ogW = 1200,
   ogH = 630,
+  scripts = [],
 }) {
   const canon = `${CANONICAL}${canonicalPath}`;
   const og = ogImage.startsWith("http")
@@ -340,6 +342,7 @@ ${body}
     <div class="copy">© Toolstack Lab · browser games, self-hosted · no ads, no cookies · cookie-free visit counting only</div>
     <nav class="links" aria-label="Footer">
       <a href="/about/">About</a>
+      <a href="/nonogram/">Nonograms</a>
       <a href="/popular/">All games</a>
       <a href="/content-policy/">Content policy</a>
       <a href="https://gettoolstacklab.com">gettoolstacklab.com</a>
@@ -349,6 +352,7 @@ ${body}
 </footer>
 <div id="toast-host" class="toast-host" aria-live="polite"></div>
 <script src="/site.js?v=${ASSET_V}" defer></script>
+${scripts.map((src) => `<script src="${esc(src)}" defer></script>`).join("\n")}
 </body>
 </html>
 `;
@@ -360,6 +364,11 @@ const ASSET_V = createHash("sha256")
   .update(readFileSync(resolve(ROOT, "src/site.js")))
   .digest("hex")
   .slice(0, 10);
+const NONO_V = createHash("sha256")
+  .update(readFileSync(resolve(ROOT, "src/nonogram.js")))
+  .digest("hex")
+  .slice(0, 10);
+const NONOGRAM_DATE = "2026-11-09";
 
 const PLAY_ICON = '<span class="play-icon" aria-hidden="true"></span>';
 
@@ -420,7 +429,7 @@ function cardHtml(g, stats, { featured = false, index = 0 } = {}) {
 </article>`;
 }
 
-function homePage(games, stats) {
+function homePage(games, stats, nonogramCount) {
   const tags = allTags(games);
   const hot = games[0];
   const rest = games.slice(1);
@@ -489,6 +498,13 @@ ${cards}
 ${classics.map(cardOf).join("\n")}
     </div>
   </section>` : ""}
+  <section class="section wrap" id="nonograms" aria-labelledby="nonograms-h">
+    <div class="section-head">
+      <h2 id="nonograms-h">Picture logic puzzles</h2>
+      <a class="section-link" href="/nonogram/">Browse levels</a>
+    </div>
+    <p>${nonogramCount} nonogram levels, each with one solution. Sizes are 5×5, 10×10 and 15×15, split into easy, medium and hard. Open a level and play it in the browser. No download and no account.</p>
+  </section>
   <section class="section wrap safe-note" aria-labelledby="safe-h">
     <h2 id="safe-h">Why these games are safe to play</h2>
     <p>${allOwn(games) ? "Every game here is made by Toolstack Lab." : `${ownShare(games)} games here are made by Toolstack Lab; the few selected classics are open-source games credited to their authors.`} There is no sign-up. No ads, no cookies, no scripts that track individuals; we only use cookie-free visit counting. Progress stays in your own browser. Each game page lists its licence, and the <a href="/content-policy/">content policy</a> explains what may be listed.</p>
@@ -1028,6 +1044,7 @@ function copyAssets() {
   }
   cpSync(resolve(ROOT, "src/site.css"), resolve(DIST, "site.css"));
   cpSync(resolve(ROOT, "src/site.js"), resolve(DIST, "site.js"));
+  cpSync(resolve(ROOT, "src/nonogram.js"), resolve(DIST, "nonogram.js"));
   if (existsSync(resolve(ROOT, "vercel.json"))) {
     cpSync(resolve(ROOT, "vercel.json"), resolve(DIST, "vercel.json"));
   }
@@ -1047,12 +1064,17 @@ function main() {
 
   const games = JSON.parse(readFileSync(DATA, "utf8"));
   const stats = JSON.parse(readFileSync(STATS, "utf8"));
+  const nonogramDoc = JSON.parse(readFileSync(resolve(ROOT, "data/nonograms.json"), "utf8"));
+  if (!Array.isArray(nonogramDoc.levels) || nonogramDoc.levels.length < 300) {
+    console.error(`build aborted: data/nonograms.json has ${nonogramDoc.levels ? nonogramDoc.levels.length : 0} levels`);
+    process.exit(1);
+  }
   const sorted = [...games].sort((a, b) => score(stats, b.slug) - score(stats, a.slug));
 
   if (existsSync(DIST)) rmSync(DIST, { recursive: true, force: true });
   ensureDir(DIST);
 
-  write(resolve(DIST, "index.html"), homePage(sorted, stats));
+  write(resolve(DIST, "index.html"), homePage(sorted, stats, nonogramDoc.levels.length));
   for (const g of games) {
     write(resolve(DIST, "games", g.slug, "index.html"), detailPage(g, stats, sorted));
   }
@@ -1062,14 +1084,23 @@ function main() {
 
   write(resolve(DIST, "content-policy/index.html"), policyPage(games));
 
+  const nonogramUrls = writeNonogramPages(nonogramDoc, {
+    dist: DIST,
+    layout,
+    write,
+    esc,
+    scriptSrc: `/nonogram.js?v=${NONO_V}`,
+  });
   const urls = [
     "/",
     "/popular/",
     "/about/",
     "/content-policy/",
     ...games.map((g) => `/games/${g.slug}/`),
+    ...nonogramUrls,
   ];
   const lastmod = (u) => {
+    if (u.startsWith("/nonogram/")) return NONOGRAM_DATE;
     const g = games.find((x) => u === `/games/${x.slug}/`);
     return g ? g.updated || BUILD_DATE : BUILD_DATE;
   };
@@ -1097,7 +1128,7 @@ ${urls
   const css = statSync(resolve(DIST, "site.css")).size;
   const js = statSync(resolve(DIST, "site.js")).size;
   console.log(
-    `OK: built ${games.length} games → ${DIST} (home html+css+js = ${homeHtml + css + js} B excl images)`
+    `OK: built ${games.length} games + ${nonogramDoc.levels.length} nonogram levels → ${DIST} (home html+css+js = ${homeHtml + css + js} B excl images)`
   );
 }
 
