@@ -20,6 +20,7 @@ node validate.mjs          # fails if license/source/licenseUrl missing
 node build.mjs             # validate + write dist/
 node scripts/update-stats.mjs path/to/export.json
 npm run capture            # Playwright screenshots from live game URLs (optional refresh)
+npm run indexnow           # re-submit sitemap URLs to IndexNow (Bing) after a content deploy
 ```
 
 Serve `dist/` with any static host. Locally:
@@ -135,7 +136,21 @@ Running the generator twice rewrites the same bytes.
 date,page_count,organic_visits
 ```
 
-`date` is the Asia/Shanghai calendar day. `page_count` is the number of `<loc>` entries in `dist/sitemap.xml`, so build before you snapshot. `organic_visits` stays blank when `ZPC_ANALYTICS_TOKEN` is unset. The script does not read secret files and does not call an analytics API. The Cloudflare token still lacks Account Analytics Read permission, and Search Console and Bing verification are pending Jack, so a visit count is not available yet. The script exits 0 with no token.
+`date` is the Asia/Shanghai calendar day. `page_count` is the number of `<loc>` entries in `dist/sitemap.xml`, so build before you snapshot. `organic_visits` stays blank when `ZPC_ANALYTICS_TOKEN` is unset. The script does not read secret files and does not call an analytics API. The Cloudflare token still lacks Account Analytics Read permission, so a visit count is not available yet. The script exits 0 with no token.
+
+## IndexNow (Bing)
+
+Bing (and other IndexNow engines) learn about new/changed pages without a Bing Webmaster login.
+
+- Key file: `data/indexnow.key` (32 hex chars, public by design). `build.mjs` writes it to `dist/<key>.txt`.
+- After each content deploy that changes URLs, run:
+
+```bash
+npm run indexnow
+# or: node scripts/indexnow.mjs --sitemap dist/sitemap.xml
+```
+
+The script POSTs every `<loc>` from the live sitemap (max 10,000) to `https://api.indexnow.org/indexnow`. HTTP 200/202 means accepted.
 
 ## Licence
 

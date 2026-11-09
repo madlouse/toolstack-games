@@ -1123,6 +1123,14 @@ ${urls
     `User-agent: *\nAllow: /\nSitemap: ${CANONICAL}/sitemap.xml\n`
   );
 
+  // IndexNow key file (public by design). Source of truth: data/indexnow.key so rebuilds keep the same key.
+  const indexNowKey = readFileSync(resolve(ROOT, "data/indexnow.key"), "utf8").trim();
+  if (!/^[a-f0-9]{32}$/.test(indexNowKey)) {
+    console.error("data/indexnow.key must be exactly 32 lowercase hex chars");
+    process.exit(1);
+  }
+  write(resolve(DIST, `${indexNowKey}.txt`), indexNowKey);
+
   copyAssets();
 
   const homeHtml = statSync(resolve(DIST, "index.html")).size;
